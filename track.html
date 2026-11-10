@@ -1,0 +1,39 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif:wght@600;700&family=Noto+Sans+Bengali:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="app.css"><title>Track your donation | KindleSociety</title></head><body>
+<div class="top"><div class="wrap"><div class="bar"><a class="brand" href="index.html"><img src="logo.png" alt="KindleSociety logo"><span>KINDLE<em>SOCIETY</em></span></a><a class="back" href="index.html">&larr; Back to website</a></div><div class="hd"><h1>Track your donation</h1><p>See whether your donation was verified and how it was spent.</p></div></div></div>
+<main class="wrap">
+<div id="setup" class="msg warn" hidden>This page is not connected yet. Fill in config.js (see SETUP.txt).</div>
+<section class="card"><h2>Find your donation</h2><form id="f" autocomplete="off">
+<div class="row2"><div><label for="did">Donor ID</label><input id="did" required maxlength="12" placeholder="KS-XXXXXX"></div>
+<div><label for="t4">Last 4 characters of your transaction ID</label><input id="t4" required minlength="4" maxlength="4"></div></div>
+<button class="btn" type="submit">Track</button><div id="err" class="msg err" hidden></div></form></section>
+<div id="out"></div></main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.0/dist/umd/supabase.min.js"></script><script src="config.js"></script>
+<script>
+const K=window.KS,ready=!K.SUPABASE_URL.includes('YOUR-'),$=id=>document.getElementById(id);
+const db=ready?supabase.createClient(K.SUPABASE_URL,K.SUPABASE_ANON_KEY):null;if(!ready)$('setup').hidden=false;
+const el=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e};
+const money=n=>'\u09F3'+Number(n).toLocaleString('en-US',{maximumFractionDigits:2});
+const fd=d=>new Date(d).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+function step(title,sub,wait){const li=el('li',wait?'wait':'');li.append(el('b','',title));sub.forEach(s=>{if(s)li.append(el('small','',s))});return li}
+function render(r){const out=$('out');out.replaceChildren();const c=el('section','card');
+const spent=r.allocations.reduce((s,a)=>s+Number(a.amount),0),left=Number(r.amount)-spent;
+c.append(el('h2','','Donation '+r.donor_id));c.append(el('span','badge b-'+r.status,r.status));
+if(r.status==='verified'){const s=el('div','sum');[['Donated',r.amount],['Spent',spent],['Not spent yet',left]].forEach(([k,v])=>{const d=el('div');d.append(el('b','',money(v)),el('span','',k));s.append(d)});c.append(s)}
+const tl=el('ul','tl');
+tl.append(step('Received',[fd(r.created_at)+' \u00B7 '+money(r.amount)+' via '+r.method,r.donor_name?'Thank you, '+r.donor_name+'.':'Thank you.']));
+if(r.status==='verified')tl.append(step('Verified by KindleSociety',[r.verified_at?fd(r.verified_at):'']));
+else if(r.status==='rejected')tl.append(step('Could not be verified',[r.admin_note||'Please contact us.']));
+else tl.append(step('Waiting for verification',['We check each donation against our payment records.'],true));
+r.allocations.forEach(a=>{const li=step(money(a.amount)+' spent: '+a.purpose,[fd(a.spent_on)+(a.event?' \u00B7 '+a.event:''),a.details]);
+ if(a.proof_url&&/^https:\/\//.test(a.proof_url)){const l=el('a','','View proof');l.href=a.proof_url;l.target='_blank';l.rel='noopener';li.append(l)}tl.append(li)});
+if(r.status==='verified'&&left>0)tl.append(step(money(left)+' not spent yet',['New updates will appear here.'],true));
+c.append(tl);out.append(c)}
+$('f').addEventListener('submit',async ev=>{ev.preventDefault();const e=$('err');e.hidden=true;$('out').replaceChildren();if(!ready){e.textContent='Not connected yet.';e.hidden=false;return}
+const {data,error}=await db.rpc('track_donation',{p_donor_id:$('did').value,p_tx4:$('t4').value});
+if(error){e.textContent='Something went wrong. Please try again.';e.hidden=false;return}
+if(!data){e.textContent='No donation found. Check your Donor ID and the last 4 characters of your transaction ID.';e.hidden=false;return}
+render(data)});
+</script></body></html>
