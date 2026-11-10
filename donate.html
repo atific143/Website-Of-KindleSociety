@@ -34,6 +34,6 @@ if(!(row.amount>0)||row.tx_id.length<6){btn.disabled=false;return fail('Please e
 for(let i=0;i<5;i++){row.donor_id=newId();const {error}=await db.from('donations').insert(row);
  if(!error){$('did').textContent=row.donor_id;$('formcard').hidden=true;$('payinfo').hidden=true;$('done').hidden=false;window.scrollTo(0,0);return}
  if(error.code==='23505'&&!/donor_id/.test(error.message)){btn.disabled=false;return fail('This transaction ID was already submitted. If this is a mistake, please contact us.')}
- if(error.code!=='23505'){btn.disabled=false;return fail('Something went wrong. Please try again.')}}
+ if(error.code!=='23505'){btn.disabled=false;return fail('Could not save your donation ('+(error.code||'error')+': '+error.message+'). Please send a screenshot of this message to the website admin.')}}
 btn.disabled=false;fail('Could not create an ID. Please try again.')});
 </script></body></html>
