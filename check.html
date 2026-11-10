@@ -1,0 +1,39 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex">
+<title>Connection check</title>
+<style>body{font-family:system-ui,Arial,sans-serif;max-width:760px;margin:30px auto;padding:0 16px;line-height:1.6;color:#0b2a22}
+h1{font-size:1.4rem}li{margin:12px 0;list-style:none;padding:12px 14px;border-radius:10px;background:#f3f6f4}ul{padding:0}
+.ok{border-left:6px solid #2e9e4f}.bad{border-left:6px solid #c0392b;background:#fdecea}.warn{border-left:6px solid #d49a00;background:#fff6dd}
+code{display:block;margin-top:6px;font-size:.85rem;word-break:break-all;color:#555}button{padding:12px 24px;font-size:1rem;border-radius:999px;border:0;background:#4caf5f;font-weight:700;cursor:pointer}</style></head><body>
+<h1>KindleSociety connection check</h1>
+<p>Press the button, wait a few seconds, then send a screenshot of the whole result to Claude.</p>
+<button id="run">Run check</button><ul id="out"></ul>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.0/dist/umd/supabase.min.js"></script><script src="config.js"></script>
+<script>
+function add(kind,text,detail){var li=document.createElement('li');li.className=kind;li.textContent=(kind==='ok'?'OK: ':kind==='bad'?'PROBLEM: ':'NOTE: ')+text;
+ if(detail){var c=document.createElement('code');c.textContent=detail;li.append(c)}document.getElementById('out').append(li)}
+document.getElementById('run').onclick=async function(){
+ document.getElementById('out').replaceChildren();
+ var K=window.KS;
+ if(!K){add('bad','config.js did not load. Is it uploaded next to this file?');return}
+ var u=K.SUPABASE_URL||'',k=K.SUPABASE_ANON_KEY||'';
+ if(u.indexOf('YOUR-')>=0||k.indexOf('YOUR-')>=0){add('bad','config.js still has the placeholder text (YOUR-...). Put your real Project URL and key in config.js on GitHub.');return}
+ if(!/^https:\/\/[a-z0-9]+\.supabase\.co\/?$/.test(u))add('bad','Project URL looks wrong. It should look like https://abcdxyz.supabase.co (no extra words, no /rest/v1).','URL in config.js: '+u);
+ else add('ok','Project URL format looks right.');
+ add('warn','Key starts with: '+k.slice(0,12)+'... (length '+k.length+'). It must be the anon / publishable key, never service_role or secret.');
+ if(/service_role|sb_secret/.test(k))add('bad','This looks like a SECRET key. Remove it from config.js immediately and use the anon/publishable key.');
+ var db;try{db=supabase.createClient(u.replace(/\/$/,''),k)}catch(e){add('bad','Could not start the Supabase library.',String(e));return}
+ var r=await db.from('donations').select('id').limit(1);
+ if(!r.error)add('warn','Table donations is readable by the public (it should not be). Run schema.sql policies again.');
+ else if(r.error.code==='42P01'||/does not exist|schema cache/i.test(r.error.message))add('bad','Table "donations" does not exist. Run schema.sql in the Supabase SQL Editor.',r.error.code+': '+r.error.message);
+ else if(/invalid api key|JWT/i.test(r.error.message))add('bad','The key is wrong or from a different project.',r.error.code+': '+r.error.message);
+ else add('ok','Connected to Supabase and the donations table exists (public read is blocked, which is correct).',r.error.code+': '+r.error.message);
+ var id='KS-TEST'+Math.floor(Math.random()*9)+'A',tx='SELFTEST'+Date.now();
+ id='KS-'+'ABCDEF'.split('').sort(function(){return Math.random()-.5}).join('');
+ var w=await db.from('donations').insert({donor_id:id,donor_name:'SELF TEST',amount:1,method:'Other',tx_id:tx,note:'SELF TEST - ignore'});
+ if(!w.error)add('ok','Saving a donation works. A test donation (SELF TEST, 1 BDT) was created. Reject it in the Finance panel.');
+ else add('bad','Saving a donation FAILED. This is why no Donor ID appears.',w.error.code+': '+w.error.message+(w.error.hint?' | hint: '+w.error.hint:''));
+ var t=await db.rpc('track_donation',{p_donor_id:'KS-AAAAAA',p_tx4:'0000'});
+ if(!t.error)add('ok','The tracking function exists.');
+ else add('bad','The tracking function is missing or blocked. Run schema.sql / fix_permissions.sql.',t.error.code+': '+t.error.message);
+};
+</script></body></html>
