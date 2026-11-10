@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KindleSociety | Building Leaders. Inspiring Change.</title>
+<meta name="description" content="KindleSociety is a registered non-profit youth organization. Building Leaders. Inspiring Change.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--deep:#062f25;--forest:#0a5c45;--mint:#4caf5f;--mist:#eaf4ec;--ink:#0b2a22;--soft:#3f5a50;--ember:#f26a1b;
+--serif:"Noto Serif",Georgia,"Times New Roman",serif;--sans:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);color:var(--ink);background:#fff;line-height:1.7;font-size:17px}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--mint);outline-offset:3px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+.cap{font-weight:700;text-transform:uppercase;letter-spacing:.22em;font-size:.78rem}
+
+/* dark zones */
+.dark{background:radial-gradient(ellipse at 70% 30%,#0c6b52 0%,var(--forest) 28%,var(--deep) 85%);color:#fff;position:relative;overflow:hidden}
+.arc{position:absolute;border:1.5px solid rgba(76,175,95,.2);border-radius:50%;pointer-events:none}
+.dark>.wrap{position:relative}
+
+/* header */
+.bar{display:flex;align-items:center;justify-content:space-between;padding:22px 0;gap:16px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:16px;text-decoration:none}
+.brand img{width:56px;height:56px;border-radius:50%;display:block}
+.brand span{font-weight:700;letter-spacing:.28em;font-size:1.05rem}
+.brand em{font-style:normal;color:var(--mint)}
+nav ul{display:flex;gap:26px;list-style:none;font-size:.92rem;font-weight:500}
+nav a{text-decoration:none;color:#cfe5d6;padding:4px 0;border-bottom:2px solid transparent}
+nav a:hover,nav a.on{color:#fff;border-color:var(--mint)}
+
+/* hero */
+.hero{padding:96px 0 120px}
+.term{display:inline-flex;align-items:center;gap:10px;border:2px solid var(--mint);border-radius:999px;padding:9px 24px;background:rgba(76,175,95,.16);color:#fff}
+.term::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--ember);box-shadow:0 0 10px var(--ember)}
+.hero h1{font-family:var(--serif);font-weight:700;font-size:clamp(2.6rem,7.2vw,5.6rem);line-height:1.04;letter-spacing:-.01em;margin:30px 0 28px;max-width:13ch}
+.hero h1 b{color:var(--mint);font-weight:700;display:block}
+.hero p{max-width:54ch;font-size:1.18rem;color:#cfe5d6}
+.cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:40px}
+.btn{display:inline-block;text-decoration:none;font-weight:700;font-size:.95rem;padding:14px 28px;border-radius:999px;background:var(--mint);color:var(--deep);border:2px solid var(--mint)}
+.btn:hover{background:#5cc06e}
+.btn.ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.55)}
+.btn.ghost:hover{border-color:#fff;background:rgba(255,255,255,.08)}
+.contact{text-align:center}
+.contact h2{margin-bottom:14px}
+.contact p{color:var(--soft);max-width:52ch;margin:0 auto}
+
+/* light sections */
+section{padding:88px 0}
+h2{font-family:var(--serif);font-weight:700;font-size:clamp(1.8rem,4vw,2.6rem);line-height:1.2;letter-spacing:-.01em}
+.who{background:var(--mist)}
+.two{display:grid;grid-template-columns:1.25fr 1fr;gap:64px;align-items:start}
+.who h2{margin-bottom:22px}
+.who p{color:var(--soft);max-width:58ch}
+.who p+p{margin-top:16px}
+.facts{background:#fff;border-radius:12px;border-left:8px solid var(--mint);padding:28px 30px;box-shadow:0 1px 0 rgba(6,47,37,.08)}
+.facts div+div{margin-top:18px}
+.facts dt{font-weight:700;font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;color:var(--forest)}
+.facts dd{margin-top:2px}
+
+/* work */
+.work h2{margin-bottom:12px}
+.work>.wrap>p{color:var(--soft);max-width:56ch}
+.acts{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:44px;border-top:2px solid var(--ink)}
+.acts div{padding:22px 22px 8px 0}
+.acts div+div{padding-left:22px;border-left:1px solid #cfdcd3}
+.acts h3{font-family:var(--serif);font-size:1.15rem;line-height:1.3;margin-bottom:6px}
+.acts p{font-size:.92rem;color:var(--soft)}
+
+/* board */
+.board{padding:96px 0}
+.board .top{text-align:center}
+.board h2{font-size:clamp(2rem,5vw,3.4rem);margin:22px 0 14px}
+.board h2 b{color:var(--mint)}
+.board .top>p{max-width:52ch;margin:0 auto 30px;color:#cfe5d6}
+.rows{margin:52px auto 0;max-width:860px;display:grid;gap:16px}
+.row{display:grid;grid-template-columns:1fr auto;gap:4px 24px;align-items:center;background:rgba(255,255,255,.07);border:2px solid rgba(76,175,95,.55);border-left:12px solid var(--mint);border-radius:16px;padding:20px 28px}
+.row h3{font-family:var(--serif);font-size:clamp(1.15rem,3vw,1.7rem);letter-spacing:.05em;text-transform:uppercase;line-height:1.25}
+.row .role{color:var(--mint);font-weight:700;letter-spacing:.2em;text-transform:uppercase;font-size:.78rem;grid-column:1}
+.row .dept{grid-column:2;grid-row:1/3;text-align:right;color:#b9d6c3;font-size:.9rem;max-width:16ch;line-height:1.35}
+.appr{display:flex;align-items:center;justify-content:center;gap:18px;margin:44px auto 0;max-width:860px;color:#d6ebdc}
+.appr::before,.appr::after{content:"";flex:1;height:3px;background:var(--mint);border-radius:2px;max-width:70px}
+.adv{text-align:center;margin-top:20px;color:#b9d6c3;font-size:.95rem}
+
+/* how */
+.how h2{margin-bottom:12px}
+.how .lead{color:var(--soft);max-width:58ch}
+.flow{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin:40px 0 52px}
+.flow div{background:var(--mist);border-radius:12px;padding:26px;border-top:5px solid var(--mint)}
+.flow h3{font-family:var(--serif);font-size:1.15rem;margin-bottom:6px}
+.flow p{font-size:.93rem;color:var(--soft)}
+.depts{display:grid;grid-template-columns:1fr 1fr;gap:0 48px;list-style:none}
+.depts li{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid #cfdcd3;font-size:.95rem}
+.depts span{color:var(--soft);text-align:right}
+.depts b{font-weight:600}
+
+/* restart */
+.restart{background:var(--mist);text-align:center}
+.restart h2{max-width:20ch;margin:0 auto 14px}
+.restart p{color:var(--soft);max-width:50ch;margin:0 auto}
+
+/* footer */
+footer .main{padding:56px 0 44px;display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap}
+footer .brand img{width:48px;height:48px}
+footer p{color:#b9d6c3;font-size:.9rem;margin-top:14px;max-width:34ch}
+footer h4{color:var(--mint);margin-bottom:10px}
+footer li{list-style:none;font-size:.92rem;margin-bottom:6px}
+footer a{text-decoration:none}footer a:hover{color:var(--mint)}
+.strip{background:#fff;border-top:5px solid var(--mint);text-align:center;padding:26px 16px;color:var(--deep);font-size:clamp(.7rem,2vw,1.05rem);letter-spacing:.3em}
+
+@media(max-width:860px){.two,.flow,.depts{grid-template-columns:1fr}.acts{grid-template-columns:1fr 1fr}.acts div:nth-child(3){border-left:0;padding-left:0}.acts div:nth-child(n+3){border-top:1px solid #cfdcd3;margin-top:14px}nav{display:none}.hero{padding:64px 0 80px}}
+@media(max-width:560px){.acts{grid-template-columns:1fr}.acts div+div{border-left:0;padding-left:0;border-top:1px solid #cfdcd3}.row{grid-template-columns:1fr}.row .dept{grid-column:1;grid-row:auto;text-align:left;max-width:none}}
+@media print{*{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+
+<div class="dark" id="top">
+  <div class="arc" style="width:760px;height:760px;right:-240px;top:-180px"></div>
+  <div class="arc" style="width:520px;height:520px;right:-110px;top:-60px"></div>
+  <div class="arc" style="width:980px;height:980px;left:-520px;bottom:-640px"></div>
+  <div class="wrap">
+    <header class="bar">
+      <a class="brand" href="#top"><img src="logo.png" alt="KindleSociety logo"><span>KINDLE<em>SOCIETY</em></span></a>
+      <nav aria-label="Main"><ul>
+        <li><a href="#top">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#work">Our work</a></li>
+        <li><a href="#board">Board</a></li>
+        <li><a href="#how">How we run</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul></nav>
+    </header>
+    <div class="hero">
+      <span class="term cap">Registered non-profit youth organization</span>
+      <h1>Building Leaders. <b>Inspiring Change.</b></h1>
+      <p>KindleSociety brings young people together to grow as leaders and to serve their communities through youth leadership, social development and humanitarian work.</p>
+      <div class="cta"><a class="btn" href="#board">Meet the Board</a><a class="btn ghost" href="#work">See our work</a></div>
+    </div>
+  </div>
+</div>
+
+<main>
+<section class="who" id="about">
+  <div class="wrap two">
+    <div>
+      <h2>A group of friends who decided to act</h2>
+      <p>KindleSociety started in 2023, when a group of friends chose to turn good intentions into steady work for their community.</p>
+      <p>Today we are a registered non-profit youth organization, formally registered with support from Jaago Foundation. Our belief is simple: give young people real responsibility and they will lead.</p>
+    </div>
+    <dl class="facts">
+      <div><dt>Started</dt><dd>2023, by a group of friends</dd></div>
+      <div><dt>Status</dt><dd>Registered non-profit youth organization</dd></div>
+      <div><dt>Registered with support from</dt><dd>Jaago Foundation</dd></div>
+      <div><dt>We work on</dt><dd>Youth leadership, social development, humanitarian work</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="work" id="work">
+  <div class="wrap">
+    <h2>What we have done</h2>
+    <p>Our activities since 2023 have been simple and direct, and they have always been for people close to home.</p>
+    <div class="acts">
+      <div><h3>Helping people in need</h3><p>Direct help for people and families who needed it most.</p></div>
+      <div><h3>Iftar distribution</h3><p>Iftar meals shared with people during Ramadan.</p></div>
+      <div><h3>Tree plantation</h3><p>Trees planted to make our neighborhoods greener.</p></div>
+      <div><h3>Winter warmth drive</h3><p>Warm clothes and essentials for the cold season.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="dark board" id="board">
+  <div class="arc" style="width:640px;height:640px;left:-260px;top:-120px"></div>
+  <div class="arc" style="width:860px;height:860px;right:-460px;bottom:-420px"></div>
+  <div class="wrap">
+    <div class="top">
+      <span class="cap" style="color:var(--mint)">Proudly announcing</span>
+      <h2>The Board of <b>Founders</b></h2>
+      <p>The leaders guiding KindleSociety toward youth leadership, social development and humanitarian impact.</p>
+      <span class="term cap">Board term: 2026 – 2028</span>
+    </div>
+    <!-- Add a photo to a row by placing <img> inside it, or ask Claude for a photo version -->
+    <div class="rows">
+      <article class="row"><h3>Shahir Nuren</h3><p class="role">Co-Founder &amp; Board Chairman</p><p class="dept">Operations &amp; Fieldwork</p></article>
+      <article class="row"><h3>Atifur Rahman Ayman</h3><p class="role">Founder &amp; Board Vice Chairman</p><p class="dept">Executive &amp; Strategy</p></article>
+      <article class="row"><h3>Abdullah Raihan</h3><p class="role">Co-Founder &amp; Board Treasurer</p><p class="dept">Finance &amp; Legal</p></article>
+      <article class="row"><h3>Akifur Rahman Shitab</h3><p class="role">Board Secretary</p><p class="dept">Community Outreach &amp; HR</p></article>
+    </div>
+    <p class="appr cap">Approved by the Ministry of Social Welfare</p>
+    <p class="adv">An Advisory Board will be announced soon.</p>
+  </div>
+</div>
+
+<section class="how" id="how">
+  <div class="wrap">
+    <h2>How KindleSociety runs</h2>
+    <p class="lead">The board makes every decision. Departments and teams carry the work out, and most department heads sit on the board, so plans move quickly.</p>
+    <div class="flow">
+      <div><h3>The board decides</h3><p>Direction and major programs are set by the Board of Founders.</p></div>
+      <div><h3>Departments plan</h3><p>Each department turns decisions into plans for its area.</p></div>
+      <div><h3>Teams deliver</h3><p>Teams under each department do the work on the ground.</p></div>
+    </div>
+    <ul class="depts">
+      <li><b>Executive &amp; Strategy</b><span>Atifur Rahman Ayman</span></li>
+      <li><b>Operations &amp; Fieldwork</b><span>Shahir Nuren</span></li>
+      <li><b>Finance &amp; Legal</b><span>Abdullah Raihan</span></li>
+      <li><b>Community Outreach &amp; HR</b><span>Akifur Rahman Shitab</span></li>
+      <li><b>Public Affairs &amp; Spokesperson Office</b><span>Amirul Millat Sami</span></li>
+      <li><b>Communications &amp; Branding</b><span>Zidan Faizul</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="restart">
+  <div class="wrap">
+    <h2>Activities restart in August 2027</h2>
+    <p>KindleSociety is being rebuilt with a new board and clearer departments. Follow our pages for announcements.</p>
+  </div>
+</section>
+<section class="contact" id="contact">
+  <div class="wrap">
+    <h2>Stay connected</h2>
+    <p>Follow KindleSociety for announcements, including our Advisory Board and the restart of activities. Contact details will be published here soon.</p>
+    <!-- When ready, add links here, for example: <p><a href="mailto:you@example.com">you@example.com</a></p> -->
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="dark">
+    <div class="wrap main">
+      <div><a class="brand" href="#top"><img src="logo.png" alt=""><span>KINDLE<em>SOCIETY</em></span></a><p>A registered non-profit youth organization.</p></div>
+      <div><h4 class="cap">Explore</h4><ul><li><a href="#about">About</a></li><li><a href="#work">Our work</a></li><li><a href="#board">Board of Founders</a></li><li><a href="#how">How we run</a></li></ul></div>
+      <div><h4 class="cap">Contact</h4><ul><li>Details coming soon</li><li>&copy; 2026 KindleSociety</li></ul></div>
+    </div>
+  </div>
+  <div class="strip cap">Building Leaders. Inspiring Change.</div>
+</footer>
+</body>
+</html>
