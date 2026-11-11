@@ -257,6 +257,19 @@ section{padding:60px 0}
 .media.live.reel iframe{height:480px}
 .strip{letter-spacing:.14em}
 }
+  /* ===== full-width desktop ===== */
+.wrap{max-width:none;padding:0 clamp(20px,5vw,120px)}
+@media(min-width:1200px){
+  .rows,.appr{max-width:none}
+  .paths{max-width:1200px}
+  .art{max-width:680px}
+  .two{gap:140px}
+}
+@media(min-width:1700px){
+  body{font-size:20px}
+  .hero h1{font-size:clamp(5rem,6vw,8rem)}
+  .art{max-width:780px}
+}
 </style>
 </head>
 <body>
