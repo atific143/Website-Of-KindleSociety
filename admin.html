@@ -13,7 +13,7 @@
 <section class="card" id="login" style="max-width:460px"><h2>Sign in</h2><form id="lf"><label for="em">Email</label><input id="em" type="email" required autocomplete="username"><label for="pw">Password</label><input id="pw" type="password" required autocomplete="current-password"><button class="btn" type="submit">Sign in</button><div id="lerr" class="msg err" hidden></div></form></section>
 <div id="panel" hidden>
 <div class="sum" id="sum" style="grid-template-columns:repeat(4,1fr)"></div>
-<p class="meta" id="who" style="margin-bottom:12px"></p><div id="gerr" class="msg err" hidden></div>
+<p class="meta" id="who" style="margin-bottom:12px"></p><div id="gerr" class="msg err" hidden></div><div id="gok" class="msg ok" hidden></div>
 <div class="tabs" id="tabs"><button class="tab on" data-t="donations">Donations</button><button class="tab" data-t="spending">Spending</button><button class="tab" data-t="programs">Programs</button><button class="tab" data-t="reports">Reports</button><button class="tab" data-t="team">Team</button></div>
 <div id="t-donations"></div><div id="t-spending" hidden></div><div id="t-programs" hidden></div><div id="t-reports" hidden></div><div id="t-team" hidden></div>
 </div></main>
@@ -27,8 +27,10 @@ function money(n){return '\u09F3'+Number(n||0).toLocaleString('en-US',{maximumFr
 function fd(d){return new Date(d).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}
 function r2(n){return Math.round(n*100)/100}
 function gerr(t){var e=$('gerr');e.textContent=t||'';e.hidden=!t}
+function gok(t){var e=$('gok');e.textContent=t||'';e.hidden=!t}
+function showRes(x){if(x.ok){gerr('');gok(x.msg)}else{gok('');gerr(x.msg)}}
 var DON=[],ALLOC=[],PROG=[],CATS=['Food','Clothing & blankets','Medicine & health','Education','Transport','Printing & materials','Venue & equipment','Admin & other'];
-var dq='',df='pending',sp='',ROLE='admin',EMAIL='',ADMINS=[],EDIT=null,ROLES=[['admin','Admin'],['finance','Finance'],['viewer','Viewer']];
+var dq='',df='pending',sp='',MLANG='bn',ROLE='admin',EMAIL='',ADMINS=[],EDIT=null,ROLES=[['admin','Admin'],['finance','Finance'],['viewer','Viewer']];
 function canW(){return ROLE==='admin'||ROLE==='finance'}
 function isOwner(){return ROLE==='admin'}
 function btns(a,b){var w=el('div');w.append(a,b);return w}
@@ -66,23 +68,25 @@ function summary(){var ver=DON.filter(function(d){return d.status==='verified'})
 /* ---- Donations ---- */
 function drawDon(){var box=$('t-donations');box.replaceChildren();var c=el('div','card'),f=sel([['pending','Pending'],['verified','Verified'],['rejected','Rejected'],['all','All']]);f.value=df;
  var q=inp('search','Search Donor ID, name, TrxID, contact');q.value=dq;f.onchange=function(){df=f.value;drawDon()};q.oninput=function(){dq=q.value;drawDonList(list)};
- var row=el('div','row2');row.append(wrap('Show',f),wrap('Search',q));c.append(row);box.append(c);var list=el('div');box.append(list);drawDonList(list);if(dq){q.focus()}}
+ var lg=sel([['bn','Bangla'],['en','English']]);lg.value=MLANG;lg.onchange=function(){MLANG=lg.value;drawDonList(list)};var row=el('div','row3');row.append(wrap('Show',f),wrap('Search',q),wrap('Message language',lg));c.append(row);box.append(c);var list=el('div');box.append(list);drawDonList(list);if(dq){q.focus()}}
 function drawDonList(list){list.replaceChildren();var q=dq.trim().toLowerCase();
  var rows=DON.filter(function(d){return(df==='all'||d.status===df)&&(!q||[d.donor_id,d.donor_name,d.tx_id,d.contact].join(' ').toLowerCase().indexOf(q)>=0)});
  if(!rows.length)list.append(el('div','msg ok','Nothing to show here.'));rows.forEach(function(d){list.append(donCard(d))})}
 function donCard(d){var c=el('section','card');c.append(el('h2','',d.donor_id+'  \u00B7  '+money(d.amount)),el('span','badge b-'+d.status,d.status));
  c.append(el('p','meta',d.method+' \u00B7 TrxID: '+d.tx_id+' \u00B7 '+fd(d.created_at)));
- c.append(el('p','meta','Name: '+(d.donor_name||'Anonymous')+(d.contact?' \u00B7 Contact: '+d.contact:'')));
+ c.append(el('p','meta','Name: '+(d.donor_name||'Anonymous')));if(d.phone||d.email||d.contact)c.append(el('p','meta',(d.phone?'Phone: '+d.phone:'')+(d.phone&&d.email?' \u00B7 ':'')+(d.email?'Email: '+d.email:'')+(!d.phone&&!d.email&&d.contact?'Contact: '+d.contact:'')));
  if(d.note)c.append(el('p','meta','Message: '+d.note));if(d.admin_note)c.append(el('p','meta','Admin note: '+d.admin_note));
  var acts=el('div','acts');
  if(d.status==='pending'&&canW()){
   var v=el('button','btn small','Verify');v.onclick=async function(){if(!confirm('Did you check TrxID '+d.tx_id+' for '+money(d.amount)+' in the bKash/Nagad statement?'))return;
-   var r=await db.from('donations').update({status:'verified',verified_at:new Date().toISOString()}).eq('id',d.id);if(r.error)gerr('Could not verify.');else load()};
+   var r=await db.from('donations').update({status:'verified',verified_at:new Date().toISOString()}).eq('id',d.id);if(r.error){gerr('Could not verify.');return}
+   var res=d.email?await sendReceipt(d):{ok:true,msg:'Verified. No email was given, so use the SMS or WhatsApp button to send the donor their ID.'};await load();showRes(res)};
   var x=el('button','btn small red','Reject');x.onclick=async function(){var why=prompt('Reason (the donor will see this):');if(!why)return;
    var r=await db.from('donations').update({status:'rejected',admin_note:why}).eq('id',d.id);if(r.error)gerr('Could not reject.');else load()};
   acts.append(v,x)}
  if(d.status==='verified'){c.append(el('p','meta','Spent: '+money(spentOf(d.id))+' \u00B7 Not spent yet: '+money(left(d))));
   ALLOC.filter(function(a){return a.donation_id===d.id}).forEach(function(a){c.append(el('div','alloc',money(a.amount)+' \u2014 '+(a.item||a.purpose)+(progName(a.program_id)||a.event?' ('+(progName(a.program_id)||a.event)+')':'')+' \u00B7 '+fd(a.spent_on)))})}
+ if(d.status==='verified'&&canW()){c.append(el('p','meta',(d.receipt_emailed_at?'Receipt emailed '+fd(d.receipt_emailed_at):'Receipt email: not sent')+' \u00B7 '+(d.sms_sent_at?'Message sent '+fd(d.sms_sent_at):'Message: not sent')));notify(d,acts)}
  c.append(acts);return c}
 
 /* ---- Spending ---- */
@@ -182,5 +186,20 @@ function drawTeam(){var box=$('t-team');box.replaceChildren();var c=el('section'
  if(!isOwner())return;var k=el('section','card');k.append(el('h2','','Add a team member'));k.append(el('p','meta','First create their login in Supabase: Authentication \u2192 Users \u2192 Add user. Then add the same email here.'));
  var em=inp('email','name@example.com',120),rl=sel(ROLES);rl.value='finance';var row=el('div','row2');row.append(wrap('Email',em),wrap('Role',rl));var f=el('form');f.append(row);var sb=el('button','btn','Add to team');sb.type='submit';var m=el('div','msg err');m.hidden=true;f.append(sb,m);
  f.onsubmit=async function(e){e.preventDefault();var v=em.value.trim().toLowerCase();if(!v)return;var r=await db.from('admins').insert({email:v,role:rl.value});if(r.error){m.textContent='Could not add. '+r.error.message;m.hidden=false}else load()};k.append(f);box.append(k)}
+function msgText(d){var nm=d.donor_name||(MLANG==='bn'?'\u09A6\u09BE\u09A4\u09BE':'Donor'),amt=Number(d.amount).toLocaleString('en-US',{maximumFractionDigits:2}),url=location.origin+'/track.html';
+ return MLANG==='bn'?'\u09AA\u09CD\u09B0\u09BF\u09DF '+nm+', KindleSociety-\u09A4\u09C7 '+amt+' \u099F\u09BE\u0995\u09BE \u09A6\u09BE\u09A8 \u0995\u09B0\u09BE\u09B0 \u099C\u09A8\u09CD\u09AF \u09A7\u09A8\u09CD\u09AF\u09AC\u09BE\u09A6\u0964 \u0986\u09AA\u09A8\u09BE\u09B0 Donor ID: '+d.donor_id+'\u0964 \u09A6\u09BE\u09A8 \u0995\u09CB\u09A5\u09BE\u09DF \u0996\u09B0\u099A \u09B9\u099A\u09CD\u099B\u09C7 \u09A6\u09C7\u0996\u09C1\u09A8: '+url+' (ID \u0986\u09B0 TrxID-\u09B0 \u09B6\u09C7\u09B7 4 \u0985\u0995\u09CD\u09B7\u09B0 \u09B2\u09BE\u0997\u09AC\u09C7)\u0964 - KindleSociety'
+ :'Dear '+nm+', thank you for donating BDT '+amt+' to KindleSociety. Your Donor ID: '+d.donor_id+'. See how your donation is used: '+url+' (you need this ID and the last 4 characters of your TrxID). - KindleSociety'}
+function phoneIntl(p){var s=String(p||'').replace(/[^\d]/g,'');if(/^01\d{9}$/.test(s))s='88'+s;return s}
+async function sendReceipt(d){try{var r=await db.functions.invoke('send-receipt',{body:{donation_id:d.id,site:location.origin}});
+ if(r.error){var m=r.error.message;try{var j=await r.error.context.json();if(j&&j.error)m=j.error}catch(e){}return{ok:false,msg:'Email not sent: '+m}}
+ return{ok:true,msg:'Receipt emailed to '+d.email+'.'}}catch(e){return{ok:false,msg:'Email not sent. Is the send-receipt function deployed? (see SETUP.txt)'}}}
+function markSms(d){setTimeout(async function(){await db.from('donations').update({sms_sent_at:new Date().toISOString()}).eq('id',d.id);load()},700)}
+function notify(d,acts){var ph=phoneIntl(d.phone),text=msgText(d);
+ var em=el('button','btn small',d.receipt_emailed_at?'Resend email receipt':'Email receipt');if(!d.email){em.disabled=true;em.title='No email given'}
+ em.onclick=async function(){em.disabled=true;var res=await sendReceipt(d);await load();showRes(res)};acts.append(em);
+ if(ph){var sm=el('a','btn small','Send SMS');sm.href='sms:+'+ph+'?&body='+encodeURIComponent(text);sm.onclick=function(){markSms(d)};acts.append(sm);
+  var wa=el('a','btn small','WhatsApp');wa.href='https://wa.me/'+ph+'?text='+encodeURIComponent(text);wa.target='_blank';wa.rel='noopener';wa.onclick=function(){markSms(d)};acts.append(wa)}
+ var cp=el('button','btn small line','Copy message');cp.onclick=function(){var done=function(){gerr('');gok('Message copied. Paste it into SMS or any chat.')};
+  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(text).then(done,function(){gerr('Could not copy. Select and copy it manually.')});else gerr('Copy is not available in this browser.')};acts.append(cp)}
 boot();
 </script></body></html>
