@@ -1,39 +1,119 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif:wght@600;700&family=Noto+Sans+Bengali:wght@500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="app.css"><title>Transparency | KindleSociety</title>
-<style>.tw{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:.9rem}th,td{text-align:left;padding:10px 8px;border-bottom:1px solid #e3ece6;vertical-align:top}th{font-size:.75rem;color:var(--soft);text-transform:uppercase;letter-spacing:.06em}
-.pbar{height:8px;border-radius:6px;background:var(--mist);overflow:hidden;min-width:90px}.pbar i{display:block;height:100%;background:var(--mint)}.b-live{background:#d6f0dc;color:#0a5c45}.b-planned{background:#e8eefc;color:#2a4a9a}.b-completed{background:#eee;color:#555}</style>
-<link rel="stylesheet" href="layout.css">
-</head><body>
-<div class="top"><div class="wrap"><div class="bar"><a class="brand" href="index.html"><img src="logo.png" alt="KindleSociety logo"><span>KINDLE<em>SOCIETY</em></span></a><a class="back" href="index.html">&larr; Back to website</a></div>
-<div class="hd"><h1>Where the money goes</h1><p>An open record of the donations we received and how we spent them. Donor names are never shown here.</p></div></div></div>
+<title>Transparency | KindleSociety</title>
+<style>
+:root{--deep:#0f3d30;--green:#1f7a57;--mint:#3fb67f;--amber:#f5a524;--coral:#ef6f5e;--sky:#4a8fe7;--plum:#9b6bd1;--cream:#f2f8f4;--ink:#10241c;--soft:#5b7268;--line:#e1ece5;--card:#fff}
+@media(prefers-color-scheme:dark){:root{--cream:#0d1a15;--ink:#e8f3ec;--soft:#9bb5a8;--line:#223a30;--card:#14271f}}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,'Noto Sans Bengali',system-ui,sans-serif;background:var(--cream);color:var(--ink);line-height:1.5}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+a{color:var(--green)}
+/* hero */
+.hero{position:relative;background:radial-gradient(circle at 75% 10%,#2f8f68 0,transparent 45%),linear-gradient(160deg,#1b5e47,var(--deep));color:#fff;padding:22px 0 110px;overflow:hidden}
+.bar{display:flex;justify-content:space-between;align-items:center}
+.brand{display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;font-weight:700;letter-spacing:.18em;font-size:.85rem}
+.brand img{width:38px;height:38px;border-radius:50%;background:#fff}.brand em{font-style:normal;color:#8fe3b5}
+.back{color:#d6f0dc;text-decoration:none;font-size:.85rem}.back:hover{text-decoration:underline}
+.hero h1{font-family:'Noto Serif',serif;font-size:clamp(2rem,6vw,3.4rem);margin:48px 0 10px;line-height:1.15}
+.hero h1 span{color:var(--amber)}
+.hero p{max-width:520px;color:#cfe9da;margin:0 0 18px}
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);padding:6px 12px;border-radius:99px;font-size:.8rem;backdrop-filter:blur(4px)}
+.dot{position:absolute;border-radius:50%;opacity:.35;animation:fl 9s ease-in-out infinite}
+.d1{width:90px;height:90px;background:var(--amber);right:12%;top:30%}.d2{width:44px;height:44px;background:var(--mint);right:30%;top:62%;animation-delay:-3s}.d3{width:26px;height:26px;background:var(--coral);right:6%;top:70%;animation-delay:-5s}
+@keyframes fl{50%{transform:translateY(-22px)}}
+.wave{position:absolute;bottom:-1px;left:0;width:100%;height:70px}.wave path{fill:var(--cream)}
+/* layout */
+main{margin-top:-60px;position:relative;padding-bottom:40px}
+.card{background:var(--card);border-radius:20px;padding:24px;margin-bottom:22px;box-shadow:0 8px 30px rgba(15,61,48,.08);border:1px solid var(--line)}
+.card h2{font-family:'Noto Serif',serif;font-size:1.25rem;margin:0 0 4px;display:flex;align-items:center;gap:8px}
+.sub{color:var(--soft);font-size:.85rem;margin:0 0 18px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.stat{border-radius:16px;padding:18px;position:relative;overflow:hidden;color:#fff}
+.stat:nth-child(1){background:linear-gradient(135deg,#1f7a57,#3fb67f)}.stat:nth-child(2){background:linear-gradient(135deg,#e08a0b,#f5a524)}.stat:nth-child(3){background:linear-gradient(135deg,#3a77cf,#4a8fe7)}
+.stat .ic{font-size:1.6rem}.stat b{display:block;font-family:'Noto Serif',serif;font-size:1.7rem;margin-top:6px}.stat span{font-size:.82rem;opacity:.92}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:22px}@media(max-width:760px){.two{grid-template-columns:1fr}}
+.ring{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.ring svg{width:170px;height:170px;flex:none}
+.ring .big{font-family:'Noto Serif',serif;font-size:1.9rem;font-weight:700}
+.leg{list-style:none;margin:0;padding:0;flex:1;min-width:160px}.leg li{display:flex;align-items:center;gap:8px;font-size:.88rem;padding:5px 0}
+.leg i{width:11px;height:11px;border-radius:4px;flex:none}.leg em{margin-left:auto;font-style:normal;font-weight:600}
+.empty{text-align:center;padding:28px 12px;color:var(--soft);background:var(--cream);border-radius:14px;border:2px dashed var(--line)}.empty b{display:block;font-size:2rem}
+/* programs */
+.progs{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.prog{border:1px solid var(--line);border-radius:16px;padding:16px;background:var(--cream)}
+.prog h3{margin:0 0 8px;font-size:1rem}.badge{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:3px 9px;border-radius:99px}
+.b-live{background:#d6f0dc;color:#0a5c45}.b-planned{background:#e8eefc;color:#2a4a9a}.b-completed{background:#eee;color:#555}
+.pbar{height:10px;border-radius:8px;background:var(--line);overflow:hidden;margin:12px 0 6px}.pbar i{display:block;height:100%;border-radius:8px;background:linear-gradient(90deg,var(--mint),var(--amber));width:0;transition:width 1.2s ease}
+.row{display:flex;justify-content:space-between;font-size:.82rem;color:var(--soft)}
+/* timeline */
+.tl{list-style:none;margin:0;padding:0 0 0 18px;border-left:3px solid var(--line)}
+.tl li{position:relative;padding:0 0 18px 18px}.tl li:before{content:'';position:absolute;left:-26px;top:4px;width:13px;height:13px;border-radius:50%;background:var(--mint);border:3px solid var(--card)}
+.tl .t{display:flex;justify-content:space-between;gap:10px;font-weight:600}.tl small{color:var(--soft)}
+.tag{display:inline-block;font-size:.7rem;background:var(--cream);border:1px solid var(--line);padding:1px 8px;border-radius:99px;margin-right:4px;color:var(--soft)}
+/* trust */
+.trust{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.trust div{text-align:center;padding:14px}.trust b{font-size:1.8rem;display:block}.trust span{font-size:.85rem;color:var(--soft)}
+.cta{background:linear-gradient(135deg,var(--deep),#1f7a57);color:#fff;text-align:center;padding:32px 20px;border-radius:20px}
+.cta h2{justify-content:center;color:#fff}.cta a.btn{display:inline-block;background:var(--amber);color:#3a2600;font-weight:700;padding:11px 22px;border-radius:99px;text-decoration:none;margin-top:10px}
+.msg{padding:14px 16px;border-radius:12px;margin-bottom:18px;font-size:.9rem}.warn{background:#fff4d6;color:#7a5200}.err{background:#fde4e0;color:#8a2b1f}
+footer{text-align:center;color:var(--soft);font-size:.8rem;padding:10px 0 30px}
+.fade{opacity:0;transform:translateY(14px);transition:.7s}.fade.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.dot{animation:none}.fade{opacity:1;transform:none;transition:none}.pbar i{transition:none}}
+[hidden]{display:none!important}
+</style></head><body>
+<header class="hero"><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i>
+<div class="wrap"><div class="bar"><a class="brand" href="index.html"><img src="logo.png" alt="KindleSociety logo"><span>KINDLE<em>SOCIETY</em></span></a><a class="back" href="index.html">&larr; Back to website</a></div>
+<h1>Where the money goes,<br><span>every single taka</span> 🌱</h1>
+<p>An open record of the donations we received and how we spent them. Donor names are never shown here. ধন্যবাদ for trusting us!</p>
+<div class="pills"><span class="pill">🔍 100% open</span><span class="pill">🧾 Receipts shown</span><span class="pill">🔒 Donors stay private</span></div></div>
+<svg class="wave" viewBox="0 0 1440 70" preserveAspectRatio="none"><path d="M0 40C240 80 480 0 720 30s480 50 720 0V70H0z"/></svg></header>
 <main class="wrap">
-<div id="setup" class="msg warn" hidden>This page is not connected yet. Fill in config.js (see SETUP.txt).</div>
+<div id="setup" class="msg warn" hidden>This page is not connected yet. Fill in config.js (see SETUP.txt). Tip: add <b>?demo</b> to the URL to preview with sample data.</div>
 <div id="err" class="msg err" hidden></div>
-<section class="card" id="totals" hidden><h2>Overview</h2><div class="sum" id="sum"></div><p class="meta" id="count"></p></section>
-<section class="card" id="progs" hidden><h2>Programs</h2><div id="progt"></div></section>
-<section class="card" id="cats" hidden><h2>Spending by category</h2><div id="catt"></div></section>
-<section class="card" id="rec" hidden><h2>Recent spending</h2><div id="rect"></div></section>
-<p class="meta" style="text-align:center">Want to follow your own donation? <a href="track.html">Track it with your Donor ID</a>.</p>
+<section class="card fade" id="totals" hidden><h2>✨ Overview</h2><p class="sub" id="count"></p><div class="stats" id="sum"></div></section>
+<div class="two">
+<section class="card fade" id="useCard" hidden><h2>🎯 Fund usage</h2><p class="sub">How much of the money received has been put to work.</p><div class="ring" id="use"></div></section>
+<section class="card fade" id="cats" hidden><h2>🥧 Spending by category</h2><p class="sub">Where the spent money went.</p><div id="catt"></div></section>
+</div>
+<section class="card fade" id="progs" hidden><h2>🌟 Our programs</h2><p class="sub">Progress of each program against its budget.</p><div class="progs" id="progt"></div></section>
+<section class="card fade" id="rec" hidden><h2>🧾 Recent spending</h2><p class="sub">Latest expenses, with receipts where available.</p><ul class="tl" id="rect"></ul></section>
+<section class="card fade"><div class="trust"><div><b>🔍</b><span>Every expense is recorded</span></div><div><b>🧾</b><span>Receipts published</span></div><div><b>🙈</b><span>Donor identity protected</span></div><div><b>💚</b><span>Track your own gift</span></div></div></section>
+<section class="cta fade"><h2>Want to follow your own donation?</h2><p>Use your Donor ID to see your gift's journey.</p><a class="btn" href="track.html">Track my donation →</a></section>
 </main>
+<footer>© KindleSociety · Built on trust and shared openly 💚</footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.0/dist/umd/supabase.min.js"></script><script src="config.js"></script>
 <script>
-const K=window.KS,ready=!K.SUPABASE_URL.includes('YOUR-'),$=id=>document.getElementById(id);
+const K=window.KS||{SUPABASE_URL:'YOUR-',SUPABASE_ANON_KEY:''},demo=/[?&]demo/.test(location.search),ready=!K.SUPABASE_URL.includes('YOUR-'),$=id=>document.getElementById(id);
+const NS='http://www.w3.org/2000/svg',COL=['#3fb67f','#f5a524','#4a8fe7','#ef6f5e','#9b6bd1','#2cb5b0','#d6609b'];
 const el=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e};
 const money=n=>'\u09F3'+Number(n||0).toLocaleString('en-US',{maximumFractionDigits:2});
 const fd=d=>new Date(d).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
-function tbl(h,rows){const w=el('div','tw'),t=el('table'),tr=el('tr');h.forEach(x=>tr.append(el('th','',x)));const th=el('thead');th.append(tr);t.append(th);const tb=el('tbody');
- rows.forEach(r=>{const tr=el('tr');r.forEach(c=>{const td=el('td');if(c&&c.nodeType)td.append(c);else td.textContent=c==null?'':c;tr.append(td)});tb.append(tr)});t.append(tb);w.append(t);return w}
-(async()=>{if(!ready){$('setup').hidden=false;return}
+function count(node,val){const t=1100,s=performance.now();(function f(n){const p=Math.min(1,(n-s)/t),e=1-Math.pow(1-p,3);node.textContent=money(val*e);if(p<1)requestAnimationFrame(f)})(s)}
+function donut(parts,size=170,w=26){const svg=document.createElementNS(NS,'svg');svg.setAttribute('viewBox','0 0 '+size+' '+size);const r=(size-w)/2,C=2*Math.PI*r,tot=parts.reduce((a,p)=>a+p.v,0)||1;let off=0;
+ const bg=document.createElementNS(NS,'circle');[['cx',size/2],['cy',size/2],['r',r],['fill','none'],['stroke','#e1ece5'],['stroke-width',w]].forEach(([k,v])=>bg.setAttribute(k,v));svg.append(bg);
+ parts.forEach(p=>{const len=p.v/tot*C,c=document.createElementNS(NS,'circle');[['cx',size/2],['cy',size/2],['r',r],['fill','none'],['stroke',p.c],['stroke-width',w],['stroke-dasharray',len+' '+(C-len)],['stroke-dashoffset',-off],['transform','rotate(-90 '+size/2+' '+size/2+')']].forEach(([k,v])=>c.setAttribute(k,v));svg.append(c);off+=len});return svg}
+function legend(parts,fmt){const ul=el('ul','leg'),tot=parts.reduce((a,p)=>a+p.v,0)||1;parts.forEach(p=>{const li=el('li'),i=el('i');i.style.background=p.c;li.append(i,el('span','',p.n),el('em','',fmt?fmt(p):Math.round(p.v/tot*100)+'%'));ul.append(li)});return ul}
+function render(data){
+ const don=Number(data.total_donated),sp=Number(data.total_spent),bal=don-sp,pct=don>0?sp/don*100:0,s=$('sum');
+ [['🤝','Donations received',don],['🌱','Spent so far',sp],['🏦','Not spent yet',bal]].forEach(([ic,k,v])=>{const d=el('div','stat');d.append(el('span','ic',ic),el('b','',money(0)),el('span','',k));s.append(d);count(d.querySelector('b'),v)});
+ $('count').textContent=data.donations_count+' verified donation'+(data.donations_count==1?'':'s')+' so far. Thank you! 💚';$('totals').hidden=false;
+ const u=$('use'),box=el('div');box.append(el('div','big',pct.toFixed(1)+'%'),el('div','sub','of funds spent'));
+ u.append(donut([{v:sp,c:'#f5a524'},{v:Math.max(bal,0),c:'#3fb67f'}]),box,legend([{n:'Spent',v:sp,c:'#f5a524'},{n:'Available',v:Math.max(bal,0),c:'#3fb67f'}],p=>money(p.v)));$('useCard').hidden=false;
+ const cats=data.by_category||[];$('catt').parentNode.hidden=false;
+ if(cats.length&&sp>0){const parts=cats.map((c,i)=>({n:c.category,v:Number(c.spent),c:COL[i%COL.length]})),w=el('div','ring');w.append(donut(parts),legend(parts));$('catt').append(w)}
+ else{const e=el('div','empty');e.append(el('b','','🌱'),el('div','','Nothing spent yet. Your donations are safe, and every expense will appear here with a receipt.'));$('catt').append(e)}
+ if((data.programs||[]).length){data.programs.forEach(p=>{const c=el('div','prog'),h=el('h3','',p.name+' '),b=el('span','badge b-'+p.status,p.status);h.append(b);const ratio=p.budget>0?Math.min(100,p.spent/p.budget*100):0,bar=el('div','pbar'),i=el('i');bar.append(i);
+  const r=el('div','row');r.append(el('span','',money(p.spent)+' spent'),el('span','',p.budget>0?'of '+money(p.budget):'No budget set'));c.append(h,bar,r);$('progt').append(c);setTimeout(()=>i.style.width=ratio+'%',200)});$('progs').hidden=false}
+ if((data.recent||[]).length){data.recent.forEach(r=>{const li=el('li'),t=el('div','t');let it=el('span','',r.item);
+  if(r.proof_url&&/^https:\/\//.test(r.proof_url)){it=el('a','',r.item+' (receipt)');it.href=r.proof_url;it.target='_blank';it.rel='noopener'}
+  t.append(it,el('span','',money(r.amount)));const m=el('small');m.append(el('span','tag',r.program||'General'));if(r.category)m.append(el('span','tag',r.category));m.append(' '+fd(r.spent_on));li.append(t,m);$('rect').append(li)});$('rec').hidden=false}
+ const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.1});document.querySelectorAll('.fade').forEach(n=>io.observe(n))}
+(async()=>{
+ if(demo){render({total_donated:53058798,total_spent:18420000,donations_count:9,programs:[{name:'Winter Relief',status:'live',spent:7200000,budget:12000000},{name:'School Kits',status:'completed',spent:5100000,budget:5000000},{name:'Clean Water',status:'planned',spent:0,budget:9000000}],by_category:[{category:'Food',spent:7000000},{category:'Education',spent:5100000},{category:'Health',spent:3800000},{category:'Logistics',spent:2520000}],recent:[{spent_on:'2026-11-05',item:'Blankets (500 pcs)',program:'Winter Relief',category:'Supplies',amount:1250000,proof_url:null},{spent_on:'2026-10-28',item:'School bags',program:'School Kits',category:'Education',amount:640000}]});return}
+ if(!ready){$('setup').hidden=false;return}
  const db=supabase.createClient(K.SUPABASE_URL,K.SUPABASE_ANON_KEY),{data,error}=await db.rpc('public_summary');
  if(error||!data){$('err').textContent='The transparency report is not available yet.';$('err').hidden=false;return}
- const s=$('sum'),bal=Number(data.total_donated)-Number(data.total_spent);
- [['Donations received',data.total_donated],['Spent so far',data.total_spent],['Not spent yet',bal]].forEach(([k,v])=>{const d=el('div');d.append(el('b','',money(v)),el('span','',k));s.append(d)});
- $('count').textContent=data.donations_count+' verified donation'+(data.donations_count==1?'':'s')+' so far.';$('totals').hidden=false;
- if(data.programs.length){$('progt').append(tbl(['Program','Status','Spent','Budget'],data.programs.map(p=>{const st=el('span','badge b-'+p.status,p.status);let b=money(p.budget);
-  if(p.budget>0){const bar=el('div','pbar'),i=el('i');i.style.width=Math.min(100,p.spent/p.budget*100)+'%';bar.append(i);const w=el('div');w.append(el('div','',money(p.budget)),bar);b=w}else b='-';return[p.name,st,money(p.spent),b]})));$('progs').hidden=false}
- if(data.by_category.length){$('catt').append(tbl(['Category','Spent'],data.by_category.map(c=>[c.category,money(c.spent)])));$('cats').hidden=false}
- if(data.recent.length){$('rect').append(tbl(['Date','Item','Program','Category','Amount'],data.recent.map(r=>{let it=r.item;if(r.proof_url&&/^https:\/\//.test(r.proof_url)){it=el('a','',r.item+' (receipt)');it.href=r.proof_url;it.target='_blank';it.rel='noopener'}return[fd(r.spent_on),it,r.program||'General',r.category||'',money(r.amount)]})));$('rec').hidden=false}
-})();
+ render(data)})();
 </script></body></html>
