@@ -27,7 +27,7 @@ tl.append(step('Received',[fd(r.created_at)+' \u00B7 '+money(r.amount)+' via '+r
 if(r.status==='verified')tl.append(step('Verified by KindleSociety',[r.verified_at?fd(r.verified_at):'']));
 else if(r.status==='rejected')tl.append(step('Could not be verified',[r.admin_note||'Please contact us.']));
 else tl.append(step('Waiting for verification',['We check each donation against our payment records.'],true));
-r.allocations.forEach(a=>{const li=step(money(a.amount)+' spent: '+a.purpose,[fd(a.spent_on)+(a.event?' \u00B7 '+a.event:''),a.details]);
+r.allocations.forEach(a=>{const pr=a.program||a.event,qty=a.quantity&&a.unit_price?a.quantity+' \u00D7 '+money(a.unit_price):'';const li=step(money(a.amount)+' spent: '+(a.item||a.purpose),[fd(a.spent_on)+(pr?' \u00B7 '+pr:''),[a.category,qty,a.vendor?'from '+a.vendor:''].filter(Boolean).join(' \u00B7 '),a.details]);
  if(a.proof_url&&/^https:\/\//.test(a.proof_url)){const l=el('a','','View proof');l.href=a.proof_url;l.target='_blank';l.rel='noopener';li.append(l)}tl.append(li)});
 if(r.status==='verified'&&left>0)tl.append(step(money(left)+' not spent yet',['New updates will appear here.'],true));
 c.append(tl);out.append(c)}
