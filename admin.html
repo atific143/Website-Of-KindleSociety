@@ -207,8 +207,9 @@ function gerr(t){var e=$('gerr');e.textContent=t||'';e.hidden=!t}
 function gok(t){var e=$('gok');e.textContent=t||'';e.hidden=!t}
 function showRes(x){if(x.ok){gerr('');gok(x.msg)}else{gok('');gerr(x.msg)}}
 var DON=[],ALLOC=[],PROG=[],CATS=['Food','Clothing & blankets','Medicine & health','Education','Transport','Printing & materials','Venue & equipment','Admin & other'];
-var dq='',df='pending',sp='',MLANG='bn',ROLE='admin',EMAIL='',ADMINS=[],EDIT=null,ROLES=[['admin','Admin'],['finance','Finance'],['viewer','Viewer']];
+var dq='',df='pending',sp='',MLANG='bn',ROLE='admin',EMAIL='',ADMINS=[],EDIT=null,ROLES=[['admin','Admin'],['finance','Board member'],['viewer','Guest member'],['auditor','Auditor']];
 var TITLES={donations:'Donations',spending:'Spending',programs:'Programs',reports:'Reports',team:'Team'};
+function roleLabel(r){var x=ROLES.filter(function(a){return a[0]===r})[0];return x?x[1]:r}
 function canW(){return ROLE==='admin'||ROLE==='finance'}
 function isOwner(){return ROLE==='admin'}
 function btns(a,b){var w=el('div');w.append(a,b);return w}
@@ -227,7 +228,7 @@ async function load(){gerr('');
  if(r[2].error){gerr('Programs are not set up yet. Run upgrade_programs.sql in Supabase (see SETUP.txt).');r[2].data=[]}
  DON=r[0].data;ALLOC=r[1].data;PROG=r[2].data;ADMINS=r[3].error?[]:r[3].data;
  var me=ADMINS.filter(function(a){return a.email.toLowerCase()===EMAIL.toLowerCase()})[0];ROLE=(me&&me.role)||'admin';
- $('who').textContent=EMAIL;$('role').textContent=ROLE;$('uav').textContent=(EMAIL||'?').charAt(0).toUpperCase();drawAll()}
+ $('who').textContent=EMAIL;$('role').textContent=roleLabel(ROLE);$('uav').textContent=(EMAIL||'?').charAt(0).toUpperCase();drawAll()}
 function donById(id){return DON.filter(function(d){return d.id===id})[0]}
 function progName(id){var p=PROG.filter(function(x){return x.id===id})[0];return p?p.name:''}
 function spentOf(id){return ALLOC.filter(function(a){return a.donation_id===id}).reduce(function(s,a){return s+Number(a.amount)},0)}
@@ -358,8 +359,8 @@ function editCard(a){var c=el('section','card');c.append(el('h2','','Edit spendi
   sb.disabled=false;if(r.error)return bad('Could not save. '+r.error.message);EDIT=null;load()};
  c.append(f);return c}
 function drawTeam(){var box=$('t-team');box.replaceChildren();var c=el('section','card');c.append(el('h2','','Team and permissions'));
- c.append(el('p','meta','Admin: everything, including managing the team. Finance: verify donations, record and edit spending, manage programs. Viewer: can only look.'));
- var rows=ADMINS.map(function(a){var me=a.email.toLowerCase()===EMAIL.toLowerCase(),role=a.role||'admin';if(!isOwner()||me)return[a.email+(me?' (you)':''),role,''];
+ c.append(el('p','meta','Admin: everything, including managing the team. Board member: verify donations, record and edit spending, manage programs. Guest member: can only look. Auditor: can only look, for reviewing records and reports.'));
+ var rows=ADMINS.map(function(a){var me=a.email.toLowerCase()===EMAIL.toLowerCase(),role=a.role||'admin';if(!isOwner()||me)return[a.email+(me?' (you)':''),roleLabel(role),''];
   var s=sel(ROLES);s.value=role;s.onchange=async function(){var r=await db.from('admins').update({role:s.value}).eq('email',a.email);if(r.error)gerr('Could not change the role.');else load()};
   var x=el('button','btn small red','Remove');x.onclick=async function(){if(!confirm('Remove '+a.email+' from the team? They will lose access to this panel.'))return;var r=await db.from('admins').delete().eq('email',a.email);if(r.error)gerr('Could not remove.');else load()};return[a.email,s,x]});
  c.append(rows.length?tbl(['Email','Role',''],rows):el('p','meta','Team list not available yet. Run upgrade_team_receipts_public.sql (see SETUP.txt).'));box.append(c);
