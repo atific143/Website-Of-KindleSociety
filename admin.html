@@ -190,9 +190,11 @@ function msgText(d){var nm=d.donor_name||(MLANG==='bn'?'\u09A6\u09BE\u09A4\u09BE
  return MLANG==='bn'?'\u09AA\u09CD\u09B0\u09BF\u09DF '+nm+', KindleSociety-\u09A4\u09C7 '+amt+' \u099F\u09BE\u0995\u09BE \u09A6\u09BE\u09A8 \u0995\u09B0\u09BE\u09B0 \u099C\u09A8\u09CD\u09AF \u09A7\u09A8\u09CD\u09AF\u09AC\u09BE\u09A6\u0964 \u0986\u09AA\u09A8\u09BE\u09B0 Donor ID: '+d.donor_id+'\u0964 \u09A6\u09BE\u09A8 \u0995\u09CB\u09A5\u09BE\u09DF \u0996\u09B0\u099A \u09B9\u099A\u09CD\u099B\u09C7 \u09A6\u09C7\u0996\u09C1\u09A8: '+url+' (ID \u0986\u09B0 TrxID-\u09B0 \u09B6\u09C7\u09B7 4 \u0985\u0995\u09CD\u09B7\u09B0 \u09B2\u09BE\u0997\u09AC\u09C7)\u0964 - KindleSociety'
  :'Dear '+nm+', thank you for donating BDT '+amt+' to KindleSociety. Your Donor ID: '+d.donor_id+'. See how your donation is used: '+url+' (you need this ID and the last 4 characters of your TrxID). - KindleSociety'}
 function phoneIntl(p){var s=String(p||'').replace(/[^\d]/g,'');if(/^01\d{9}$/.test(s))s='88'+s;return s}
-async function sendReceipt(d){try{var r=await db.functions.invoke('send-receipt',{body:{donation_id:d.id,site:location.origin}});
- if(r.error){var m=r.error.message;try{var j=await r.error.context.json();if(j&&j.error)m=j.error}catch(e){}return{ok:false,msg:'Email not sent: '+m}}
- return{ok:true,msg:'Receipt emailed to '+d.email+'.'}}catch(e){return{ok:false,msg:'Email not sent. Is the send-receipt function deployed? (see SETUP.txt)'}}}
+async function sendReceipt(d){if(!K.RECEIPT_URL)return{ok:false,msg:'Email is not set up yet. Add RECEIPT_URL to config.js (see SETUP.txt).'};
+ try{var s=await db.auth.getSession(),tok=s.data.session.access_token;
+  var r=await fetch(K.RECEIPT_URL,{method:'POST',body:JSON.stringify({token:tok,donation_id:d.id,site:location.origin})});var j=await r.json();
+  if(j.ok)return{ok:true,msg:'Receipt emailed to '+d.email+'.'};return{ok:false,msg:'Email not sent: '+(j.error||'unknown error')}}
+ catch(e){return{ok:false,msg:'Email not sent. Check RECEIPT_URL in config.js and that the Google script is deployed with access for Anyone.'}}}
 function markSms(d){setTimeout(async function(){await db.from('donations').update({sms_sent_at:new Date().toISOString()}).eq('id',d.id);load()},700)}
 function notify(d,acts){var ph=phoneIntl(d.phone),text=msgText(d);
  var em=el('button','btn small',d.receipt_emailed_at?'Resend email receipt':'Email receipt');if(!d.email){em.disabled=true;em.title='No email given'}
