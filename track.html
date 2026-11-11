@@ -129,11 +129,40 @@ input:focus{outline:none;border-color:var(--leaf-d);background:linear-gradient(1
 .cf{position:fixed;top:-16px;width:9px;height:14px;border-radius:2px;pointer-events:none;z-index:50;animation:fall var(--d) cubic-bezier(.3,.6,.4,1) forwards}
 @keyframes fall{to{transform:translate(var(--x),108vh) rotate(var(--r))}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.cf{display:none}}
+
+/* ===== colourful layer ===== */
+:root{--sun:#f5a524;--coral:#ef6f5e;--sky:#4a8fe7;--plum:#9b6bd1;--teal:#2cb5b0;--pink:#d6609b}
+.top{background:radial-gradient(520px 300px at 88% 0,rgba(245,165,36,.38),transparent 70%),radial-gradient(460px 260px at 62% 105%,rgba(239,111,94,.30),transparent 70%),radial-gradient(520px 300px at 0 100%,rgba(74,143,231,.28),transparent 70%),linear-gradient(180deg,#1b4d3a,var(--deep))}
+.hero h1 span{background:linear-gradient(90deg,#ffd36b,#ff9a7a);-webkit-background-clip:text;background-clip:text;color:transparent}
+.c1{background:#ffe9e5;color:var(--coral)}.c2{background:#e4eefc;color:var(--sky)}.c3{background:#fff2d6;color:var(--sun)}
+.mini .pill b{background:linear-gradient(90deg,var(--leaf),var(--sun),var(--coral))}
+.find{border-top:5px solid transparent;background:linear-gradient(#fff,#fff) padding-box,linear-gradient(90deg,var(--leaf),var(--sun),var(--coral),var(--sky),var(--plum)) border-box}
+.sb>svg{color:var(--sky)}
+.btn{background:linear-gradient(180deg,#ffc24d,var(--sun));color:#3a2600;box-shadow:0 10px 20px -9px rgba(245,165,36,.85)}
+.btn[disabled]::before{border-color:rgba(58,38,0,.3);border-top-color:#3a2600}
+input:focus{border-color:var(--sun);background:linear-gradient(180deg,transparent,rgba(245,165,36,.1))}
+.help{color:var(--muted)}
+#out .card{border-top:5px solid var(--leaf)}
+#out .card:nth-child(2){border-top-color:var(--sky)}#out .card:nth-child(3){border-top-color:var(--coral)}
+.big b{background:linear-gradient(90deg,var(--forest),var(--leaf-d));-webkit-background-clip:text;background-clip:text;color:transparent}
+.meter b{background:linear-gradient(90deg,var(--leaf),var(--sun),var(--coral))}
+.trk-fill{background:linear-gradient(90deg,var(--leaf),var(--sun),var(--coral))}
+.dot.done{color:var(--leaf-d)}
+.dot.now{box-shadow:inset 0 0 0 4px var(--sun)}
+@keyframes ping{0%{box-shadow:inset 0 0 0 4px var(--sun),0 0 0 0 rgba(245,165,36,.6)}100%{box-shadow:inset 0 0 0 4px var(--sun),0 0 0 12px rgba(245,165,36,0)}}
+.hi{color:var(--forest)}
+.cheer{background:linear-gradient(90deg,#e2f3e5,#fff2d6,#e4eefc)}
+.tb tbody tr:nth-child(4n+1){background:linear-gradient(90deg,rgba(95,168,106,.08),transparent 60%)}
+.tb tbody tr:nth-child(4n+2){background:linear-gradient(90deg,rgba(74,143,231,.08),transparent 60%)}
+.tb tbody tr:nth-child(4n+3){background:linear-gradient(90deg,rgba(245,165,36,.1),transparent 60%)}
+.tb tbody tr:nth-child(4n){background:linear-gradient(90deg,rgba(239,111,94,.08),transparent 60%)}
+.tb .ev small{display:inline-block;background:#eef5ff;color:#2a4a9a;padding:1px 9px;border-radius:99px;font-size:12px;font-weight:600;margin-top:3px}
+.tb a{background:#fff2d6;color:#7a5210}.tb a:hover{background:#ffe6a8}
 </style>
 <link rel="stylesheet" href="layout.css">
 </head><body>
 <div class="top"><div class="wrap"><div class="bar"><a class="brand" href="index.html"><img src="logo.png" alt="KindleSociety logo"><span>KINDLE<em>SOCIETY</em></span></a><a class="back" href="index.html">&larr; Back to website</a></div>
-<div class="hero"><div><h1>Track your donation</h1><p>See whether your donation was verified and how it was spent.</p></div>
+<div class="hero"><div><h1>Track your <span>donation</span> 🌈</h1><p>See whether your donation was verified and how it was spent.</p></div>
 <div class="art" aria-hidden="true"><div class="mini"><i></i><div class="pill"><b></b></div><i></i></div>
 <div class="chip c1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.4-9.3-9A5.2 5.2 0 0 1 12 6.6 5.2 5.2 0 0 1 21.3 12C19 16.6 12 21 12 21z"/></svg></div>
 <div class="chip c2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
@@ -161,7 +190,7 @@ function ic(d){const s=document.createElementNS(NS,'svg'),p=document.createEleme
  [['viewBox','0 0 24 24'],['fill','none'],['stroke','currentColor'],['stroke-width','3.4'],['stroke-linecap','round'],['stroke-linejoin','round']].forEach(([k,v])=>s.setAttribute(k,v));p.setAttribute('d',d);s.append(p);return s}
 const calm=matchMedia('(prefers-reduced-motion:reduce)').matches;
 function count(n,to,fmt){fmt=fmt||money;if(calm){n.textContent=fmt(to);return}const t0=performance.now();(function f(t){const k=Math.min(1,(t-t0)/1000),e=1-Math.pow(1-k,3);n.textContent=k<1?fmt(Math.round(to*e)):fmt(to);if(k<1)requestAnimationFrame(f)})(t0)}
-function party(){if(calm)return;const c=['#5fa86a','#3f8a4d','#f2b84b','#bfe3c4','#f08a5d'];
+function party(){if(calm)return;const c=['#5fa86a','#f5a524','#4a8fe7','#ef6f5e','#9b6bd1'];
  for(let i=0;i<40;i++){const e=document.createElement('i');e.className='cf';e.style.left=(8+Math.random()*84)+'vw';e.style.background=c[i%5];
  e.style.setProperty('--x',(Math.random()*180-90)+'px');e.style.setProperty('--r',(Math.random()*720-360)+'deg');e.style.setProperty('--d',(2+Math.random()*1.6)+'s');e.style.animationDelay=(Math.random()*.5)+'s';document.body.append(e);setTimeout(()=>e.remove(),4500)}}
 function render(r){const out=$('out');out.replaceChildren();
