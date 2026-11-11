@@ -23,7 +23,7 @@ document.getElementById('run').onclick=async function(){
  if(/service_role|sb_secret/.test(k))add('bad','This looks like a SECRET key. Remove it from config.js immediately and use the anon/publishable key.');
  var db;try{db=supabase.createClient(u.replace(/\/$/,''),k)}catch(e){add('bad','Could not start the Supabase library.',String(e));return}
  var r=await db.from('donations').select('id').limit(1);
- if(!r.error)add('warn','Table donations is readable by the public (it should not be). Run schema.sql policies again.');
+ if(!r.error)add('ok','Connected to Supabase and the donations table exists.');
  else if(r.error.code==='42P01'||/does not exist|schema cache/i.test(r.error.message))add('bad','Table "donations" does not exist. Run schema.sql in the Supabase SQL Editor.',r.error.code+': '+r.error.message);
  else if(/invalid api key|JWT/i.test(r.error.message))add('bad','The key is wrong or from a different project.',r.error.code+': '+r.error.message);
  else add('ok','Connected to Supabase and the donations table exists (public read is blocked, which is correct).',r.error.code+': '+r.error.message);
@@ -32,6 +32,9 @@ document.getElementById('run').onclick=async function(){
  var w=await db.from('donations').insert({donor_id:id,donor_name:'SELF TEST',amount:1,method:'Other',tx_id:tx,note:'SELF TEST - ignore'});
  if(!w.error)add('ok','Saving a donation works. A test donation (SELF TEST, 1 BDT) was created. Reject it in the Finance panel.');
  else add('bad','Saving a donation FAILED. This is why no Donor ID appears.',w.error.code+': '+w.error.message+(w.error.hint?' | hint: '+w.error.hint:''));
+ if(!w.error){var p=await db.from('donations').select('id').limit(5);
+  if(p.error||(p.data&&p.data.length===0))add('ok','Donations are private: the public cannot read them (correct).');
+  else add('bad','The public CAN read donations. Run schema.sql again (the row-level security part).');}
  var t=await db.rpc('track_donation',{p_donor_id:'KS-AAAAAA',p_tx4:'0000'});
  if(!t.error)add('ok','The tracking function exists.');
  else add('bad','The tracking function is missing or blocked. Run schema.sql / fix_permissions.sql.',t.error.code+': '+t.error.message);
