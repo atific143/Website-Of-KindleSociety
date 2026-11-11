@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KindleSociety | Building Leaders. Inspiring Change.</title>
+<meta name="description" content="KindleSociety is a registered non-profit youth organization. Building Leaders. Inspiring Change.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif:wght@600;700&family=Noto+Sans+Bengali:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--deep:#062f25;--forest:#0a5c45;--mint:#4caf5f;--mist:#eaf4ec;--ink:#0b2a22;--soft:#3f5a50;--ember:#f26a1b;
+--serif:"Noto Serif","Noto Sans Bengali",Georgia,"Times New Roman",serif;--sans:Inter,"Noto Sans Bengali",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);color:var(--ink);background:#fff;line-height:1.7;font-size:17px}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--mint);outline-offset:3px}
+.wrap{max-width:1440px;margin:0 auto;padding:0 clamp(20px,5vw,72px)}
+.cap{font-weight:700;text-transform:uppercase;letter-spacing:.22em;font-size:.78rem}
+
+/* dark zones */
+.dark{background:radial-gradient(ellipse at 70% 30%,#0c6b52 0%,var(--forest) 28%,var(--deep) 85%);color:#fff;position:relative;overflow:hidden}
+.arc{position:absolute;border:1.5px solid rgba(76,175,95,.2);border-radius:50%;pointer-events:none}
+.dark>.wrap{position:relative}
+
+/* header */
+.bar{display:flex;align-items:center;justify-content:space-between;padding:22px 0;gap:16px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:16px;text-decoration:none}
+.brand img{width:56px;height:56px;border-radius:50%;display:block}
+.brand span{font-weight:700;letter-spacing:.28em;font-size:1.05rem}
+.brand em{font-style:normal;color:var(--mint)}
+nav ul{display:flex;gap:22px;list-style:none;font-size:.92rem;font-weight:500}
+nav a{text-decoration:none;color:#cfe5d6;padding:4px 0;border-bottom:2px solid transparent}
+nav a:hover,nav a.on{color:#fff;border-color:var(--mint)}
+
+/* hero */
+.hero{padding:96px 0 120px}
+.term{display:inline-flex;align-items:center;gap:10px;border:2px solid var(--mint);border-radius:999px;padding:9px 24px;background:rgba(76,175,95,.16);color:#fff}
+.term::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--ember);box-shadow:0 0 10px var(--ember)}
+.hero h1{font-family:var(--serif);font-weight:700;font-size:clamp(2.6rem,7.2vw,5.6rem);line-height:1.04;letter-spacing:-.01em;margin:30px 0 28px;max-width:13ch}
+.hero h1 b{color:var(--mint);font-weight:700;display:block}
+.hero p{max-width:54ch;font-size:1.18rem;color:#cfe5d6}
+@media(min-width:1200px){.hero{padding:120px 0 150px}.hero h1{font-size:clamp(4.4rem,6.4vw,7rem);max-width:12ch}.hero p{font-size:1.3rem}body{font-size:18px}section{padding:110px 0}.evs{gap:36px}.acts h3{font-size:1.3rem}.acts p{font-size:1rem}.flow{gap:36px}}
+.cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:40px}
+.btn{display:inline-block;text-decoration:none;font-weight:700;font-size:.95rem;padding:14px 28px;border-radius:999px;background:var(--mint);color:var(--deep);border:2px solid var(--mint)}
+.btn:hover{background:#5cc06e}
+.btn.ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.55)}
+.btn.ghost:hover{border-color:#fff;background:rgba(255,255,255,.08)}
+.contact{text-align:center;background:var(--mist)}
+.contact h2{margin-bottom:14px}
+.contact p{color:var(--soft);max-width:52ch;margin:0 auto}
+
+/* light sections */
+section{padding:88px 0}
+h2{font-family:var(--serif);font-weight:700;font-size:clamp(1.8rem,4vw,2.6rem);line-height:1.2;letter-spacing:-.01em}
+.who{background:var(--mist)}
+.two{display:grid;grid-template-columns:1.25fr 1fr;gap:96px;align-items:start}
+.who h2{margin-bottom:22px}
+.who p{color:var(--soft);max-width:58ch}
+.who p+p{margin-top:16px}
+.facts{background:#fff;border-radius:12px;border-left:8px solid var(--mint);padding:28px 30px;box-shadow:0 1px 0 rgba(6,47,37,.08)}
+.facts div+div{margin-top:18px}
+.facts dt{font-weight:700;font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;color:var(--forest)}
+.facts dd{margin-top:2px}
+
+/* work */
+.work h2{margin-bottom:12px}
+.work>.wrap>p{color:var(--soft);max-width:56ch}
+.acts{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:44px;border-top:2px solid var(--ink)}
+.acts div{padding:22px 22px 8px 0}
+.acts div+div{padding-left:22px;border-left:1px solid #cfdcd3}
+.acts h3{font-family:var(--serif);font-size:1.15rem;line-height:1.3;margin-bottom:6px}
+.acts p{font-size:.92rem;color:var(--soft)}
+
+nav a.navbtn{background:var(--mint);color:var(--deep);padding:8px 20px;border-radius:999px;border:0;font-weight:700}
+nav a.navbtn:hover{background:#5cc06e;color:var(--deep)}
+.give{background:var(--mist);text-align:center}
+.give h2{margin-bottom:12px}
+.give>.wrap>p{color:var(--soft);max-width:56ch;margin:0 auto}
+.give .flow{text-align:left}
+.give .flow div{background:#fff}
+.join{text-align:center}
+.join h2{margin-bottom:12px}
+.join>.wrap>p{color:#cfe5d6;max-width:54ch;margin:0 auto}
+.paths{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:960px;margin:40px auto 36px;text-align:left}
+.paths div{background:rgba(255,255,255,.07);border:2px solid rgba(76,175,95,.55);border-left:10px solid var(--mint);border-radius:16px;padding:24px 26px}
+.paths h3{font-family:var(--serif);font-size:1.2rem;margin-bottom:6px}
+.paths p{font-size:.93rem;color:#cfe5d6}
+/* events */
+.events{background:var(--mist)}
+.events h2{margin-bottom:12px}
+.events>.wrap>p{color:var(--soft);max-width:56ch}
+.evs{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:44px}
+.ev{background:#fff;border-radius:16px;overflow:hidden;border-top:5px solid var(--mint);display:flex;flex-direction:column;box-shadow:0 1px 0 rgba(6,47,37,.08)}
+.media{min-height:200px;display:grid;place-items:center;background:radial-gradient(circle at 70% 30%,#0c6b52,var(--deep))}
+.media.live{display:block;background:#000;min-height:0}
+.media iframe{width:100%;height:300px;border:0;display:block}
+.media.live.reel iframe{height:560px}.media.live.post iframe{height:480px}
+.play{background:var(--mint);color:var(--deep);border:0;border-radius:999px;padding:13px 28px;font:700 .95rem var(--sans);cursor:pointer}
+.play:hover{background:#5cc06e}
+.ev .body{padding:22px 24px 26px;display:flex;flex-direction:column;gap:8px;flex:1}
+.ev h3{font-family:var(--serif);font-size:1.15rem;line-height:1.3}
+.ev p{font-size:.92rem;color:var(--soft);flex:1}
+.ev a.fb{font-weight:700;font-size:.9rem;color:var(--forest);text-decoration:underline;text-underline-offset:3px}
+.btn.line{background:transparent;color:var(--deep);border-color:var(--deep)}
+.btn.line:hover{background:var(--mist)}
+/* board */
+.board{padding:96px 0}
+.board .top{text-align:center}
+.board h2{font-size:clamp(2rem,5vw,3.4rem);margin:22px 0 14px}
+.board h2 b{color:var(--mint)}
+.board .top>p{max-width:52ch;margin:0 auto 30px;color:#cfe5d6}
+.rows{margin:52px auto 0;max-width:1100px;display:grid;gap:16px}
+.row{display:grid;grid-template-columns:1fr auto;gap:4px 24px;align-items:center;background:rgba(255,255,255,.07);border:2px solid rgba(76,175,95,.55);border-left:12px solid var(--mint);border-radius:16px;padding:20px 28px}
+.row h3{font-family:var(--serif);font-size:clamp(1.15rem,3vw,1.7rem);letter-spacing:.05em;text-transform:uppercase;line-height:1.25}
+.row .role{color:var(--mint);font-weight:700;letter-spacing:.2em;text-transform:uppercase;font-size:.78rem;grid-column:1}
+.row .dept{grid-column:2;grid-row:1/3;text-align:right;color:#b9d6c3;font-size:.9rem;max-width:16ch;line-height:1.35}
+.appr{display:flex;align-items:center;justify-content:center;gap:18px;margin:44px auto 0;max-width:1100px;color:#d6ebdc}
+.appr::before,.appr::after{content:"";flex:1;height:3px;background:var(--mint);border-radius:2px;max-width:70px}
+.adv{text-align:center;margin-top:20px;color:#b9d6c3;font-size:.95rem}
+
+/* how */
+.how h2{margin-bottom:12px}
+.how .lead{color:var(--soft);max-width:58ch}
+.flow{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin:40px 0 52px}
+.flow div{background:var(--mist);border-radius:12px;padding:26px;border-top:5px solid var(--mint)}
+.flow h3{font-family:var(--serif);font-size:1.15rem;margin-bottom:6px}
+.flow p{font-size:.93rem;color:var(--soft)}
+.depts{display:grid;grid-template-columns:1fr 1fr;gap:0 48px;list-style:none}
+.depts li{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid #cfdcd3;font-size:.95rem}
+.depts span{color:var(--soft);text-align:right}
+.depts b{font-weight:600}
+
+/* restart */
+.gov{background:var(--mist)}
+.gov h2{margin-bottom:12px}
+.gov .lead{color:var(--soft);max-width:58ch}
+.rules{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:40px}
+.rules div{background:#fff;border:1px solid #cfdcd3;border-left:6px solid var(--mint);border-radius:12px;padding:24px 26px}
+.rules h3{font-family:var(--serif);font-size:1.1rem;margin-bottom:6px}
+.rules p{font-size:.93rem;color:var(--soft)}
+.restart{background:#fff;text-align:center}
+.restart h2{max-width:20ch;margin:0 auto 14px}
+.restart p{color:var(--soft);max-width:50ch;margin:0 auto}
+
+/* footer */
+footer .main{padding:56px 0 44px;display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap}
+footer .brand img{width:48px;height:48px}
+footer p{color:#b9d6c3;font-size:.9rem;margin-top:14px;max-width:34ch}
+footer h4{color:var(--mint);margin-bottom:10px}
+footer li{list-style:none;font-size:.92rem;margin-bottom:6px}
+footer a{text-decoration:none}footer a:hover{color:var(--mint)}
+footer p.regno{font-size:.82rem;letter-spacing:.03em;color:#8fb8a0;margin-top:8px}
+.strip{background:#fff;border-top:5px solid var(--mint);text-align:center;padding:26px 16px;color:var(--deep);font-size:clamp(.7rem,2vw,1.05rem);letter-spacing:.3em}
+
+@media(max-width:860px){.two,.flow,.depts{grid-template-columns:1fr}.acts{grid-template-columns:1fr 1fr}.acts div:nth-child(3){border-left:0;padding-left:0}.acts div:nth-child(n+3){border-top:1px solid #cfdcd3;margin-top:14px}nav{display:none}.hero{padding:64px 0 80px}}
+@media(max-width:560px){.acts{grid-template-columns:1fr}.acts div+div{border-left:0;padding-left:0;border-top:1px solid #cfdcd3}.row{grid-template-columns:1fr}.row .dept{grid-column:1;grid-row:auto;text-align:left;max-width:none}}
+@media(max-width:860px){.evs{grid-template-columns:1fr 1fr}.rules,.paths{grid-template-columns:1fr}}
+@media(max-width:560px){.evs{grid-template-columns:1fr}}
+@media print{*{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+
+/* ===== v2: graphics + mobile ===== */
+body{overflow-x:hidden}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+.hero-text{min-width:0}
+.art{position:relative;width:100%;max-width:560px;justify-self:end}
+.art svg{width:100%;height:auto;display:block;overflow:visible}
+.ring{transform-box:fill-box;transform-origin:center;animation:spin 60s linear infinite}
+.flame{transform-box:fill-box;transform-origin:50% 100%;animation:flick 3.4s ease-in-out infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes flick{0%,100%{transform:scale(1)}50%{transform:scale(1.04,1.07)}}
+.chip{position:absolute;display:flex;align-items:center;gap:8px;background:#fff;color:var(--deep);font-weight:700;font-size:.85rem;line-height:1.25;padding:10px 16px;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.chip::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--ember);flex:none}
+.chip.a{left:-4%;top:9%}.chip.b{right:-2%;bottom:7%}
+@media(prefers-reduced-motion:reduce){.ring,.flame{animation:none}}
+
+.statsec{background:var(--mist);display:flow-root}
+.statsec .wrap{display:flow-root}
+.stats{position:relative;z-index:2;margin-top:-56px;display:grid;grid-template-columns:repeat(4,1fr);background:#fff;border-radius:18px;box-shadow:0 18px 40px rgba(6,47,37,.18);overflow:hidden;border-bottom:5px solid var(--mint)}
+.stats div{padding:24px 20px;text-align:center}
+.stats div+div{border-left:1px solid #dbe7de}
+.stats b{display:block;font-family:var(--serif);font-size:2.4rem;line-height:1.1;color:var(--forest)}
+.stats span{display:block;margin-top:4px;font-size:.88rem;line-height:1.4;color:var(--soft)}
+.statsec+.who{padding-top:64px}
+
+.ic{display:grid;place-items:center;width:48px;height:48px;border-radius:14px;background:var(--mist);margin-bottom:12px}
+.ic svg{width:26px;height:26px;stroke:var(--forest);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+.who,.give{position:relative}
+.who::after,.give::after{content:"";position:absolute;right:24px;bottom:24px;width:140px;height:140px;background-image:radial-gradient(var(--mint) 2px,transparent 2.5px);background-size:20px 20px;opacity:.35;pointer-events:none}
+.give::after{left:24px;right:auto;top:24px;bottom:auto}
+
+.media{position:relative;overflow:hidden}
+.media::before,.media::after{content:"";position:absolute;border:1.5px solid rgba(76,175,95,.28);border-radius:50%;pointer-events:none}
+.media::before{width:260px;height:260px;right:-80px;top:-90px}
+.media::after{width:180px;height:180px;left:-60px;bottom:-70px}
+.media.live::before,.media.live::after{display:none}
+.media .play{position:relative;z-index:1}
+
+.flow{counter-reset:s}
+.flow div::before{counter-increment:s;content:counter(s);display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--forest);color:#fff;font:700 .95rem var(--sans);margin-bottom:12px}
+
+.row{grid-template-columns:auto 1fr auto;gap:2px 20px}
+.row .av{grid-column:1;grid-row:1/3;width:64px;height:64px;border-radius:50%;display:grid;place-items:center;background:var(--mint);color:var(--deep);font:700 1.2rem var(--serif);overflow:hidden;box-shadow:0 0 0 4px rgba(76,175,95,.25)}
+.row .av img{width:100%;height:100%;object-fit:cover}
+.row h3{grid-column:2;align-self:end}
+.row .role{grid-column:2;align-self:start}
+.row .dept{grid-column:3;grid-row:1/3}
+
+.menu{display:none;width:46px;height:46px;border-radius:12px;border:2px solid rgba(255,255,255,.4);background:transparent;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px}
+.menu span{width:20px;height:2px;background:#fff;border-radius:2px;transition:transform .2s,opacity .2s}
+.menu[aria-expanded=true] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.menu[aria-expanded=true] span:nth-child(2){opacity:0}
+.menu[aria-expanded=true] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+@media(max-width:860px){
+.hero{grid-template-columns:1fr;gap:36px}
+.art{justify-self:center;max-width:320px}
+.menu{display:flex}
+nav.open{display:block;width:100%}
+nav ul{flex-direction:column;gap:0;padding:6px 0 14px}
+nav a{display:block;padding:13px 4px;border-bottom:1px solid rgba(255,255,255,.12)}
+nav a.navbtn{display:inline-block;margin-top:14px;border:0;padding:11px 26px}
+.stats{grid-template-columns:1fr 1fr}
+.stats div:nth-child(3){border-left:0}
+.stats div:nth-child(n+3){border-top:1px solid #dbe7de}
+.who::after,.give::after{display:none}
+}
+@media(max-width:560px){
+body{font-size:16px}
+.wrap{padding:0 20px}
+section{padding:60px 0}
+.board{padding:64px 0}
+.bar{padding:16px 0}
+.brand{gap:12px}.brand img{width:46px;height:46px}
+.brand span{letter-spacing:.16em;font-size:.95rem}
+.hero{padding:36px 0 84px}
+.term{padding:8px 16px;font-size:.68rem;letter-spacing:.12em;line-height:1.4}
+.cap{letter-spacing:.14em}
+.hero p{font-size:1.05rem}
+.cta .btn{flex:1 1 100%;text-align:center}
+.art{max-width:290px}
+.chip{font-size:.74rem;padding:8px 12px}
+.stats b{font-size:1.9rem}.stats div{padding:18px 10px}
+.facts{padding:22px}
+.row{grid-template-columns:auto 1fr;padding:16px 18px;border-left-width:8px;gap:2px 14px}
+.row .av{width:52px;height:52px;font-size:1rem}
+.row h3{letter-spacing:.02em}
+.row .role{letter-spacing:.1em}
+.row .dept{grid-column:1/-1;grid-row:auto;text-align:left;max-width:none;margin-top:8px}
+.appr::before,.appr::after{display:none}
+.depts li{flex-direction:column;gap:2px}.depts span{text-align:left}
+.paths div{padding:20px}
+.media iframe{height:240px}
+.media.live.post iframe{height:440px}
+.media.live.reel iframe{height:480px}
+.strip{letter-spacing:.14em}
+}
+</style>
+</head>
+<body>
+
+<div class="dark" id="top">
+  <div class="arc" style="width:760px;height:760px;right:-240px;top:-180px"></div>
+  <div class="arc" style="width:520px;height:520px;right:-110px;top:-60px"></div>
+  <div class="arc" style="width:980px;height:980px;left:-520px;bottom:-640px"></div>
+  <div class="wrap">
+    <header class="bar">
+      <a class="brand" href="#top"><img src="logo.png" alt="KindleSociety logo"><span>KINDLE<em>SOCIETY</em></span></a>
+      <button class="menu" aria-label="Menu" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
+      <nav id="nav" aria-label="Main"><ul>
+        <li><a href="#top">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#work">Our work</a></li>
+        <li><a href="#events">Events</a></li>
+        <li><a href="#board">Board</a></li>
+        <li><a href="#how">How we run</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a class="navbtn" href="https://join-kindlesociety.vercel.app/" target="_blank" rel="noopener">Join us</a></li>
+      </ul></nav>
+    </header>
+    <div class="hero">
+      <div class="hero-text">
+      <span class="term cap">Registered non-profit youth organization</span>
+      <h1>Building Leaders. <b>Inspiring Change.</b></h1>
+      <p>KindleSociety brings young people together to grow as leaders and to serve their communities through youth leadership, social development and humanitarian work.</p>
+      <div class="cta"><a class="btn" href="#board">Meet the Board</a><a class="btn ghost" href="#work">See our work</a><a class="btn ghost" href="donate.html">Donate</a></div>
+      </div>
+      <div class="art" aria-hidden="true">
+        <svg viewBox="0 0 480 480">
+          <defs>
+            <radialGradient id="gd" cx="50%" cy="38%" r="65%"><stop offset="0" stop-color="#14876a"/><stop offset="1" stop-color="#083d31"/></radialGradient>
+            <linearGradient id="gf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffc15a"/><stop offset="1" stop-color="#f26a1b"/></linearGradient>
+          </defs>
+          <circle cx="240" cy="240" r="232" fill="none" stroke="#4caf5f" stroke-opacity=".2" stroke-width="1.5"/>
+          <circle class="ring" cx="240" cy="240" r="180" fill="none" stroke="#4caf5f" stroke-opacity=".55" stroke-width="2.5" stroke-dasharray="2 12" stroke-linecap="round"/>
+          <circle cx="240" cy="240" r="126" fill="url(#gd)" stroke="#4caf5f" stroke-width="3"/>
+          <g class="flame"><path d="M240 160c12 24 38 40 38 72a38 38 0 0 1-76 0c0-16 7-27 16-36 2 11 9 18 15 20-5-22 0-38 7-56z" fill="url(#gf)"/><path d="M240 208c6 11 18 18 18 33a18 18 0 0 1-36 0c0-8 4-13 8-17 1 5 4 8 7 9-2-9 0-17 3-25z" fill="#ffe3a8"/></g>
+          <path d="M240 318c-46 3-76-16-88-46 38-4 74 11 88 46z" fill="#4caf5f"/>
+          <path d="M240 318c46 3 76-16 88-46-38-4-74 11-88 46z" fill="#2f8f4a"/>
+          <g fill="#062f25" stroke="#4caf5f" stroke-width="2.5">
+            <circle cx="240" cy="60" r="31"/><circle cx="420" cy="240" r="31"/><circle cx="240" cy="420" r="31"/><circle cx="60" cy="240" r="31"/>
+          </g>
+          <g fill="none" stroke="#bfe6c8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path transform="translate(240 60)" d="M0 12C-14 3-15-9-8-12c4-2 7 0 8 4 1-4 4-6 8-4 7 3 6 15-8 24z"/>
+            <g transform="translate(420 240)"><circle cx="0" cy="-4" r="10"/><path d="M0 6v10M-5 16h10"/></g>
+            <path transform="translate(240 420)" d="M5-14A15 15 0 1 0 14 5 11 11 0 0 1 5-14z"/>
+            <path transform="translate(60 240)" d="M0-14V14M-12-7L12 7M-12 7L12-7"/>
+          </g>
+          <circle cx="400" cy="92" r="6" fill="#f26a1b"/><circle cx="78" cy="392" r="5" fill="#4caf5f"/><circle cx="420" cy="410" r="3.5" fill="#bfe6c8"/>
+        </svg>
+        <span class="chip a">Youth-led since 2023</span>
+        <span class="chip b">Iftar for 115 people</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main>
+<div class="statsec"><div class="wrap"><div class="stats">
+  <div><b>2023</b><span>Year we started</span></div>
+  <div><b>115</b><span>People at our third iftar</span></div>
+  <div><b>4</b><span>Founders on the board</span></div>
+  <div><b>6</b><span>Departments</span></div>
+</div></div></div>
+
+<section class="who" id="about">
+  <div class="wrap two">
+    <div>
+      <h2>A group of friends who decided to act</h2>
+      <p>KindleSociety started in 2023, when a group of friends chose to turn good intentions into steady work for their community.</p>
+      <p>Today we are a registered non-profit youth organization, registered with the help of Rahman Charitable Trust, a concern of Rahman Group. Our belief is simple: give young people real responsibility and they will lead.</p>
+    </div>
+    <dl class="facts">
+      <div><dt>Started</dt><dd>2023, by a group of friends</dd></div>
+      <div><dt>Status</dt><dd>Registered non-profit youth organization</dd></div>
+      <div><dt>Registered with help from</dt><dd>Rahman Charitable Trust, a concern of Rahman Group</dd></div>
+      <div><dt>We work on</dt><dd>Youth leadership, social development, humanitarian work</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="work" id="work">
+  <div class="wrap">
+    <h2>What we have done</h2>
+    <p>Our activities since 2023 have been simple and direct, and they have always been for people close to home.</p>
+    <div class="acts">
+      <div><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/></svg></span><h3>Helping people in need</h3><p>Direct help for people and families who needed it most.</p></div>
+      <div><span class="ic"><svg viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg></span><h3>Iftar distribution</h3><p>Iftar meals shared with people during Ramadan.</p></div>
+      <div><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="5.5"/><path d="M12 14.5V21M9 21h6"/></svg></span><h3>Tree plantation</h3><p>Trees planted to make our neighborhoods greener.</p></div>
+      <div><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 3v18M4.2 7.5l15.6 9M4.2 16.5l15.6-9"/></svg></span><h3>Winter warmth drive</h3><p>Warm clothes and essentials for the cold season.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="events" id="events">
+  <div class="wrap">
+    <h2>Our events on video</h2>
+    <p>Watch some of our events here, or open them on our Facebook page.</p>
+    <div class="evs">
+      <article class="ev"><div class="media"><button class="play" data-kind="video" data-url="https://www.facebook.com/share/v/1HfiDzLoY1/" data-title="চলো সাহায্য করি, first event">Play video</button></div><div class="body"><h3>চলো সাহায্য করি, first event</h3><p>The first event of our “Let’s Help” series, completed with the prayers of everyone who supported us.</p><a class="fb" href="https://www.facebook.com/share/v/1HfiDzLoY1/" target="_blank" rel="noopener">Open on Facebook</a></div></article>
+      <article class="ev"><div class="media"><button class="play" data-kind="video" data-url="https://www.facebook.com/share/v/1A2NxkB83C/" data-title="চলো সাহায্য করি, second event">Play video</button></div><div class="body"><h3>চলো সাহায্য করি, second event</h3><p>The second event of the series, done by the grace of Allah. Keep us in your prayer.</p><a class="fb" href="https://www.facebook.com/share/v/1A2NxkB83C/" target="_blank" rel="noopener">Open on Facebook</a></div></article>
+      <article class="ev"><div class="media"><button class="play" data-kind="post" data-url="https://www.facebook.com/share/p/1FDiLAEDh5/" data-title="Winter Warmth Drive 2024">Show post</button></div><div class="body"><h3>Winter Warmth Drive 2024</h3><p>An invitation to stand with people facing the cold months without shelter: new jackets, blankets and other winter essentials, with help continuing through the season.</p><a class="fb" href="https://www.facebook.com/share/p/1FDiLAEDh5/" target="_blank" rel="noopener">Open on Facebook</a></div></article>
+      <article class="ev"><div class="media"><button class="play" data-kind="reel" data-url="https://www.facebook.com/share/r/1CMFfsnrR2/" data-title="Iftar distribution, third time">Play video</button></div><div class="body"><h3>Iftar distribution, third time</h3><p>Iftar shared with 115 people, Alhamdulillah, our third iftar distribution.</p><a class="fb" href="https://www.facebook.com/share/r/1CMFfsnrR2/" target="_blank" rel="noopener">Open on Facebook</a></div></article>
+      <article class="ev"><div class="media"><button class="play" data-kind="reel" data-url="https://www.facebook.com/share/r/1EyWdjuN5t/" data-title="Iftar with Qur’an memorizers">Play video</button></div><div class="body"><h3>Iftar with Qur’an memorizers</h3><p>Sharing iftar with Qur’an memorizers, a small act we hope Allah accepts.</p><a class="fb" href="https://www.facebook.com/share/r/1EyWdjuN5t/" target="_blank" rel="noopener">Open on Facebook</a></div></article>
+    </div>
+  </div>
+</section>
+
+<div class="dark board" id="board">
+  <div class="arc" style="width:640px;height:640px;left:-260px;top:-120px"></div>
+  <div class="arc" style="width:860px;height:860px;right:-460px;bottom:-420px"></div>
+  <div class="wrap">
+    <div class="top">
+      <span class="cap" style="color:var(--mint)">Proudly announcing</span>
+      <h2>The Board of <b>Founders</b></h2>
+      <p>The leaders guiding KindleSociety toward youth leadership, social development and humanitarian impact.</p>
+      <span class="term cap">Board term: 2026 – 2028</span>
+    </div>
+    <!-- Add a photo to a row by placing <img> inside it, or ask Claude for a photo version -->
+    <div class="rows">
+      <article class="row"><span class="av">SN</span><h3>Shahir Nuren</h3><p class="role">Co-Founder &amp; Board Chairman</p><p class="dept">Operations &amp; Fieldwork</p></article>
+      <article class="row"><span class="av">AA</span><h3>Atifur Rahman Ayman</h3><p class="role">Founder &amp; Board Vice Chairman</p><p class="dept">Executive &amp; Strategy</p></article>
+      <article class="row"><span class="av">AR</span><h3>Abdullah Raihan</h3><p class="role">Co-Founder &amp; Board Treasurer</p><p class="dept">Finance &amp; Legal</p></article>
+      <article class="row"><span class="av">AS</span><h3>Akifur Rahman Shitab</h3><p class="role">Board Secretary</p><p class="dept">Community Outreach &amp; HR</p></article>
+    </div>
+    <p class="appr cap">Approved by the Ministry of Social Welfare</p>
+    <p class="adv">An Advisory Board will be announced soon.</p>
+  </div>
+</div>
+
+<section class="how" id="how">
+  <div class="wrap">
+    <h2>How KindleSociety runs</h2>
+    <p class="lead">The board makes every decision. Departments and teams carry the work out, and most department heads sit on the board, so plans move quickly.</p>
+    <div class="flow">
+      <div><h3>The board decides</h3><p>Direction and major programs are set by the Board of Founders.</p></div>
+      <div><h3>Departments plan</h3><p>Each department turns decisions into plans for its area.</p></div>
+      <div><h3>Teams deliver</h3><p>Teams under each department do the work on the ground.</p></div>
+    </div>
+    <ul class="depts">
+      <li><b>Executive &amp; Strategy</b><span>Atifur Rahman Ayman</span></li>
+      <li><b>Operations &amp; Fieldwork</b><span>Shahir Nuren</span></li>
+      <li><b>Finance &amp; Legal</b><span>Abdullah Raihan</span></li>
+      <li><b>Community Outreach &amp; HR</b><span>Akifur Rahman Shitab</span></li>
+      <li><b>Public Affairs &amp; Spokesperson Office</b><span>Amirul Millat Sami</span></li>
+      <li><b>Communications &amp; Branding</b><span>Zidan Faizul</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="gov" id="governance">
+  <div class="wrap">
+    <h2>How the board is governed</h2>
+    <p class="lead">Our Founders Board Charter keeps leadership shared. No single person holds control, and every founder has an equal say.</p>
+    <div class="rules">
+      <div><h3>Annual rotation</h3><p>The Chairman, Co-Chairman, Secretary and Treasurer posts rotate among the founding members every year, so power is never held by one person for long.</p></div>
+      <div><h3>One member, one vote</h3><p>Whatever their title, every founding member has one equal vote on policy and strategy. Ordinary decisions are made by majority.</p></div>
+      <div><h3>Entry barrier</h3><p>A new founding member needs at least 2 years of active field service and the unanimous approval of the current board.</p></div>
+      <div><h3>Three-member veto</h3><p>Any three founding members can stop or pause a decision that goes against our mission or policy, with a written objection.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="restart">
+  <div class="wrap">
+    <h2>Activities restart in August 2027</h2>
+    <p>KindleSociety is being rebuilt with a new board and clearer departments. Follow our pages for announcements.</p>
+  </div>
+</section>
+<section class="give" id="donate">
+  <div class="wrap">
+    <h2>Donate, and see where it goes</h2>
+    <p>Every donation gets a Donor ID. Use it to follow your donation from verification to the day it is spent.</p>
+    <div class="flow">
+      <div><h3>Donate</h3><p>Send your donation and fill in a short form. You get your Donor ID right away.</p></div>
+      <div><h3>We verify it</h3><p>Our Finance team checks each donation against the payment records.</p></div>
+      <div><h3>Track it</h3><p>See how your donation was spent, with details and proof.</p></div>
+    </div>
+    <div class="cta" style="justify-content:center"><a class="btn" href="donate.html">Donate now</a><a class="btn line" href="track.html">Track your donation</a><a class="btn line" href="transparency.html">See where funds go</a></div>
+  </div>
+</section>
+
+<section class="dark join" id="join">
+  <div class="arc" style="width:620px;height:620px;left:-240px;top:-200px"></div>
+  <div class="arc" style="width:820px;height:820px;right:-420px;bottom:-460px"></div>
+  <div class="wrap">
+    <h2>Join KindleSociety</h2>
+    <p>Anyone can apply. Fill in our application form and choose whether you want to join the team or volunteer only.</p>
+    <div class="paths">
+      <div><h3>Join the team</h3><p>Become part of a department and help plan and run our work.</p></div>
+      <div><h3>Volunteer</h3><p>Help out at our events and drives.</p></div>
+    </div>
+    <a class="btn" href="https://join-kindlesociety.vercel.app/" target="_blank" rel="noopener">Open the application form</a>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <h2>Stay connected</h2>
+    <p>Follow KindleSociety for announcements, including our Advisory Board and the restart of activities.</p>
+    <div class="cta" style="justify-content:center"><a class="btn" href="https://www.facebook.com/kindlesociety.org" target="_blank" rel="noopener">Facebook page</a><a class="btn line" href="https://www.instagram.com/kindlesociety__org" target="_blank" rel="noopener">Instagram</a></div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="dark">
+    <div class="wrap main">
+      <div><a class="brand" href="#top"><img src="logo.png" alt=""><span>KINDLE<em>SOCIETY</em></span></a><p>A registered non-profit youth organization.</p><p class="regno">Reg No: DSS/CTG/2026/04821 | BNPC-ID: 2026-BNPC-9104</p></div>
+      <div><h4 class="cap">Explore</h4><ul><li><a href="#about">About</a></li><li><a href="#work">Our work</a></li><li><a href="#events">Events</a></li><li><a href="#board">Board of Founders</a></li><li><a href="#how">How we run</a></li><li><a href="#governance">Governance</a></li><li><a href="donate.html">Donate</a></li><li><a href="track.html">Track a donation</a></li><li><a href="transparency.html">Transparency</a></li><li><a href="https://join-kindlesociety.vercel.app/" target="_blank" rel="noopener">Join us</a></li></ul></div>
+      <div><h4 class="cap">Contact</h4><ul><li><a href="https://www.facebook.com/kindlesociety.org" target="_blank" rel="noopener">Facebook</a></li><li><a href="https://www.instagram.com/kindlesociety__org" target="_blank" rel="noopener">Instagram</a></li><li>&copy; 2026 KindleSociety</li></ul></div>
+    </div>
+  </div>
+  <div class="strip cap">Building Leaders. Inspiring Change.</div>
+</footer>
+<script>
+document.querySelectorAll('.play').forEach(function(b){b.addEventListener('click',function(){
+var u=encodeURIComponent(b.dataset.url),k=b.dataset.kind,f=document.createElement('iframe');
+f.src=k==='post'?'https://www.facebook.com/plugins/post.php?href='+u+'&show_text=true&width=500':'https://www.facebook.com/plugins/video.php?href='+u+'&show_text=false&width=560';
+f.title=b.dataset.title;f.allowFullscreen=true;f.loading='lazy';
+f.allow='autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share';
+var m=b.parentNode;m.classList.add('live',k);m.replaceChildren(f);});});
+var mb=document.querySelector('.menu'),nv=document.getElementById('nav');
+mb.addEventListener('click',function(){var o=nv.classList.toggle('open');mb.setAttribute('aria-expanded',o)});
+nv.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){nv.classList.remove('open');mb.setAttribute('aria-expanded','false')})});
+</script>
+</body>
+</html>
