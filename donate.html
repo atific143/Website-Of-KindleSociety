@@ -1,5 +1,10 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif:wght@600;700&family=Noto+Sans+Bengali:wght@500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="app.css">
 <title>Donate | KindleSociety</title>
@@ -8,7 +13,6 @@
 *{box-sizing:border-box}
 body{margin:0;font-family:Inter,"Noto Sans Bengali",system-ui,sans-serif;color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased}
 .wrap{max-width:680px;margin:0 auto;padding:0 20px}
-/* hero */
 .top{position:relative;overflow:hidden;color:#fff;background:radial-gradient(900px 420px at 80% -10%,#2f8a5f 0%,transparent 60%),radial-gradient(600px 300px at 0% 100%,#1d6a4a 0%,transparent 70%),linear-gradient(160deg,#0e3326,#144632 60%,#0b2a1f);padding-bottom:84px}
 .bar{display:flex;align-items:center;justify-content:space-between;padding:22px 0}
 .brand{display:flex;align-items:center;gap:12px;color:#fff;text-decoration:none;font-weight:700;letter-spacing:.18em;font-size:14px}
@@ -23,16 +27,7 @@ body{margin:0;font-family:Inter,"Noto Sans Bengali",system-ui,sans-serif;color:v
 .chips span{font-size:12.5px;padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);display:inline-flex;gap:6px;align-items:center}
 .deco{position:absolute;inset:0;pointer-events:none;z-index:1}
 .flame{position:absolute;right:6%;top:70px;width:170px;filter:drop-shadow(0 0 40px rgba(244,167,59,.55));animation:sway 5s ease-in-out infinite}
-.ember{position:absolute;bottom:-10px;width:7px;height:7px;border-radius:50%;background:var(--flame2);opacity:0;box-shadow:0 0 10px var(--flame);animation:rise 9s linear infinite}
-.ember:nth-child(2){left:62%;animation-delay:1.5s;width:5px;height:5px}
-.ember:nth-child(3){left:72%;animation-delay:3.2s}
-.ember:nth-child(4){left:81%;animation-delay:5s;width:4px;height:4px}
-.ember:nth-child(5){left:90%;animation-delay:6.6s;width:6px;height:6px}
-.ember:nth-child(6){left:55%;animation-delay:7.8s;width:4px;height:4px}
-@keyframes rise{0%{transform:translateY(0) translateX(0);opacity:0}15%{opacity:.9}100%{transform:translateY(-300px) translateX(24px);opacity:0}}
-@keyframes sway{50%{transform:translateY(-8px) rotate(2deg)}}
 .wave{position:absolute;left:0;bottom:-1px;width:100%;height:60px;display:block}
-/* cards */
 main{margin-top:-44px;position:relative;z-index:3;padding-bottom:60px}
 .card{background:#fff;border-radius:22px;padding:28px;margin-bottom:22px;box-shadow:0 1px 2px rgba(14,51,38,.06),0 18px 40px -18px rgba(14,51,38,.22);border:1px solid var(--line);position:relative}
 .card h2{font-family:"Noto Serif",serif;font-size:21px;margin:0 0 6px;display:flex;align-items:center;gap:12px}
@@ -41,98 +36,236 @@ main{margin-top:-44px;position:relative;z-index:3;padding-bottom:60px}
 .msg{border-radius:12px;padding:12px 14px;font-size:14px;line-height:1.5;margin:14px 0 0}
 .msg.warn{background:#fff6e0;color:#7a5200;border:1px solid #f3d99b;margin:0 0 22px}
 .msg.err{background:#fdecec;color:#9b1c1c;border:1px solid #f4c3c3}
-/* pay */
 .meta{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .pay{border-radius:16px;padding:16px;color:#fff;position:relative;overflow:hidden;min-height:96px;display:flex;flex-direction:column;justify-content:space-between}
-.pay:after{content:"";position:absolute;right:-30px;top:-30px;width:110px;height:110px;border-radius:50%;background:rgba(255,255,255,.16)}
 .pay.bKash{background:linear-gradient(135deg,#e2136e,#a80b52)}.pay.Nagad{background:linear-gradient(135deg,#f58220,#d4500c)}.pay.other{background:linear-gradient(135deg,var(--moss),var(--forest))}
 .pay b{font-size:13px;letter-spacing:.04em;opacity:.95}
 .pay .n{font-size:19px;font-weight:600;letter-spacing:.03em;margin:8px 0;font-variant-numeric:tabular-nums}
-.copy{align-self:flex-start;font:600 12px Inter,sans-serif;color:#fff;background:rgba(255,255,255,.22);border:0;border-radius:999px;padding:6px 12px;cursor:pointer;position:relative;z-index:2}
-.copy:hover{background:rgba(255,255,255,.34)}
-.note-pay{grid-column:1/-1;color:var(--soft);font-size:14px;margin:0}
-/* form */
+.copy{align-self:flex-start;font:600 12px Inter,sans-serif;color:#fff;background:rgba(255,255,255,.22);border:0;border-radius:999px;padding:6px 12px;cursor:pointer}
 label{display:block;font-size:13px;font-weight:600;margin:18px 0 7px;color:var(--forest)}
-input,select,textarea{width:100%;font:inherit;font-size:15px;color:var(--ink);background:var(--paper);border:1.5px solid var(--line);border-radius:12px;padding:13px 14px;transition:border-color .2s,box-shadow .2s,background .2s}
-input::placeholder,textarea::placeholder{color:#9aaea2}
+input,select,textarea{width:100%;font:inherit;font-size:15px;color:var(--ink);background:var(--paper);border:1.5px solid var(--line);border-radius:12px;padding:13px 14px}
 input:focus,select:focus,textarea:focus{outline:none;border-color:var(--moss);background:#fff;box-shadow:0 0 0 4px rgba(47,138,95,.16)}
-textarea{resize:vertical}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .hint{font-size:12.5px;color:var(--soft);margin:7px 2px 0;line-height:1.5}
 .amts{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-.amts button{font:600 13px Inter,sans-serif;border:1.5px solid var(--line);background:#fff;color:var(--forest);border-radius:999px;padding:7px 14px;cursor:pointer;transition:all .15s}
+.amts button{font:600 13px Inter,sans-serif;border:1.5px solid var(--line);background:#fff;color:var(--forest);border-radius:999px;padding:7px 14px;cursor:pointer}
 .amts button:hover,.amts button.on{background:var(--forest);color:#fff;border-color:var(--forest)}
-.secure{display:flex;gap:10px;align-items:flex-start;background:var(--mist);border-radius:12px;padding:11px 13px;margin-top:10px;font-size:12.5px;color:var(--forest);line-height:1.5}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;margin-top:24px;width:100%;font:700 16px Inter,sans-serif;color:#fff;text-decoration:none;border:0;border-radius:14px;padding:16px 22px;cursor:pointer;background:linear-gradient(135deg,#3a9d6c,#17503a);box-shadow:0 10px 22px -8px rgba(23,80,58,.65);transition:transform .15s,box-shadow .15s}
-.btn:hover{transform:translateY(-2px);box-shadow:0 14px 26px -8px rgba(23,80,58,.7)}
-.btn:disabled{opacity:.6;cursor:wait;transform:none}
-.btn:focus-visible,.copy:focus-visible,.amts button:focus-visible{outline:3px solid var(--flame);outline-offset:2px}
-/* done */
-#done{text-align:center;padding:36px 28px;overflow:hidden}
-#done .ok{width:74px;height:74px;margin:0 auto 14px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--flame2),var(--flame));box-shadow:0 0 0 8px rgba(244,167,59,.18);font-size:34px}
-#done h2{justify-content:center;font-size:26px}
-#done>p{max-width:420px;margin:8px auto 18px}
-.idbox{font:700 30px "Noto Serif",serif;letter-spacing:.12em;color:var(--forest);background:var(--mist);border:2px dashed var(--moss);border-radius:16px;padding:18px;margin:6px 0 16px;user-select:all}
-#done .meta{display:block;font-size:14px;color:var(--soft);line-height:1.6}
-.trust{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:6px}
-.trust div{text-align:center;font-size:12.5px;color:var(--soft);line-height:1.45;padding:14px 8px}
-.trust i{display:block;font-style:normal;font-size:24px;margin-bottom:6px}
-@media(max-width:560px){.row2,.meta{grid-template-columns:1fr}.flame{width:110px;right:2%;top:90px;opacity:.7}.card{padding:22px 18px}.trust{grid-template-columns:1fr}}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.proj-info{background:var(--mist);border:1px solid #c5decb;border-radius:12px;padding:12px 14px;margin-top:10px;font-size:13.5px;color:var(--forest);display:none}
+.secure{display:flex;gap:10px;align-items:flex-start;background:var(--mist);border-radius:12px;padding:11px 13px;margin-top:10px;font-size:12.5px;color:var(--forest)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;margin-top:24px;width:100%;font:700 16px Inter,sans-serif;color:#fff;text-decoration:none;border:0;border-radius:14px;padding:16px 22px;cursor:pointer;background:linear-gradient(135deg,#3a9d6c,#17503a)}
+#done{text-align:center;padding:36px 28px}
+.idbox{font:700 30px "Noto Serif",serif;letter-spacing:.12em;color:var(--forest);background:var(--mist);border:2px dashed var(--moss);border-radius:16px;padding:18px;margin:12px 0}
+@media(max-width:560px){.row2,.meta{grid-template-columns:1fr}}
 </style>
-<link rel="stylesheet" href="layout.css"><link rel="stylesheet" href="mobile.css"><link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png"><link rel="apple-touch-icon" href="apple-touch-icon.png"></head><body>
+</head>
+<body>
 <div class="top">
-<div class="deco" aria-hidden="true">
-<svg class="flame" viewBox="0 0 120 150" fill="none"><defs><linearGradient id="g1" x1="60" y1="0" x2="60" y2="150" gradientUnits="userSpaceOnUse"><stop stop-color="#ffe3a0"/><stop offset=".55" stop-color="#f4a73b"/><stop offset="1" stop-color="#e2711d"/></linearGradient></defs>
-<path d="M60 4C66 34 100 52 100 96c0 28-18 48-40 48S20 124 20 96c0-18 10-30 18-40 2 12 8 20 14 22C48 52 50 28 60 4Z" fill="url(#g1)"/><path d="M60 78c4 16 20 22 20 40 0 12-8 20-20 20s-20-8-20-20c0-12 8-18 12-26 2 6 5 8 8 8 0-8-1-14 0-22Z" fill="#fff6dc" opacity=".9"/></svg>
-<i class="ember" style="left:68%"></i><i class="ember"></i><i class="ember"></i><i class="ember"></i><i class="ember"></i><i class="ember"></i>
+  <div class="wrap">
+    <div class="bar">
+      <a class="brand" href="index.html"><img src="logo.png" alt="KindleSociety logo"><span>KINDLE<em>SOCIETY</em></span></a>
+      <a class="back" href="index.html">&larr; Back to website</a>
+    </div>
+    <div class="hd">
+      <h1>Light a candle for someone in need</h1>
+      <p>Choose a specific project or contribute to our General Fund. Every donation gets a tracking ID.</p>
+      <div class="chips"><span>🔒 Safe &amp; private</span><span>🧾 Full tracking</span><span>🌱 100% goes to work</span></div>
+    </div>
+  </div>
+  <svg class="wave" viewBox="0 0 1440 60" preserveAspectRatio="none"><path d="M0 30C240 70 480 0 720 22s480 44 720 4V60H0Z" fill="#f6faf6"/></svg>
 </div>
-<div class="wrap"><div class="bar"><a class="brand" href="index.html"><img src="logo.png" alt="KindleSociety logo"><span>KINDLE<em>SOCIETY</em></span></a><a class="back" href="index.html">&larr; Back to website</a></div>
-<div class="hd"><h1>Light a candle for someone in need</h1><p>Every donation gets a Donor ID. Use it to follow your donation from verification to the day it is spent.</p>
-<div class="chips"><span>🔒 Safe &amp; private</span><span>🧾 Full tracking</span><span>🌱 100% goes to work</span></div></div></div>
-<svg class="wave" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 30C240 70 480 0 720 22s480 44 720 4V60H0Z" fill="#f6faf6"/></svg>
-</div>
+
 <main class="wrap dn">
-<div id="setup" class="msg warn" hidden>This page is not connected yet. Fill in config.js (see SETUP.txt).</div>
-<section class="card" id="payinfo"><h2><span class="num">1</span>Send your donation</h2><p>Send money to one of these accounts, then note the transaction ID (TrxID).</p><div id="paynums" class="meta"></div></section>
-<section class="card" id="formcard"><h2><span class="num">2</span>Tell us about it</h2><p>It takes under a minute. Only the amount and TrxID are required.</p>
-<form id="f" autocomplete="off">
-<div class="row2"><div><label for="name">Your name (optional)</label><input id="name" maxlength="80" placeholder="Leave empty to stay anonymous"></div>
-<div><label for="phone">Phone (optional)</label><input id="phone" type="tel" inputmode="tel" maxlength="20" placeholder="01XXXXXXXXX"><p class="hint">We may send your Donor ID by SMS.</p></div></div>
-<label for="email">Email (optional)</label><input id="email" type="email" maxlength="80" placeholder="you@example.com"><p class="hint">If you add an email, we send your receipt there once your donation is verified.</p>
-<div class="row2"><div><label for="amount">Amount (BDT) *</label><input id="amount" type="number" min="1" step="0.01" required placeholder="৳ 500"><div class="amts" id="amts"><button type="button">100</button><button type="button">500</button><button type="button">1000</button><button type="button">5000</button></div></div>
-<div><label for="method">Sent through *</label><select id="method"><option>bKash</option><option>Nagad</option><option>Other</option></select></div></div>
-<label for="tx">Transaction ID (TrxID) *</label><input id="tx" required minlength="6" maxlength="40" placeholder="e.g. 9A1B2C3D4E">
-<div class="secure">🛡️<span>Never enter your PIN, password or OTP anywhere on this site.</span></div>
-<label for="note">Message (optional)</label><textarea id="note" rows="2" maxlength="300" placeholder="A few kind words, if you like"></textarea>
-<button class="btn" id="go" type="submit">💚 Submit donation</button><div id="err" class="msg err" hidden></div></form></section>
-<section class="card" id="done" hidden><div class="ok">🕯️</div><h2>Thank you!</h2><p>Your donation is recorded and waiting for verification. Your Donor ID:</p><div class="idbox" id="did"></div>
-<p class="meta"><b>Save this ID.</b> To track your donation you will need this ID and the <b>last 4 characters of your transaction ID</b>.</p><a class="btn" href="track.html">Track my donation</a></section>
-<div class="trust"><div><i>🔍</i>Every donation is verified by our team</div><div><i>📒</i>Track it until the day it is spent</div><div><i>🤝</i>Built on trust, run by volunteers</div></div>
+  <section class="card" id="payinfo">
+    <h2><span class="num">1</span>Send your donation</h2>
+    <p>Send money to one of these accounts, then note the transaction ID (TrxID).</p>
+    <div id="paynums" class="meta"></div>
+  </section>
+
+  <section class="card" id="formcard">
+    <h2><span class="num">2</span>Tell us about it</h2>
+    <p>Select where you want your contribution to go, and enter your payment details.</p>
+    <form id="f" autocomplete="off">
+      
+      <label for="project">Where should this donation go? *</label>
+      <select id="project">
+        <option value="">General Fund (Wherever needed most)</option>
+      </select>
+      <div id="projDesc" class="proj-info"></div>
+
+      <div class="row2">
+        <div>
+          <label for="name">Your name (optional)</label>
+          <input id="name" maxlength="80" placeholder="Leave empty to stay anonymous">
+        </div>
+        <div>
+          <label for="phone">Phone (optional)</label>
+          <input id="phone" type="tel" maxlength="20" placeholder="01XXXXXXXXX">
+        </div>
+      </div>
+
+      <label for="email">Email (optional)</label>
+      <input id="email" type="email" maxlength="80" placeholder="you@example.com">
+      <p class="hint">We will send your official receipt here once verified.</p>
+
+      <div class="row2">
+        <div>
+          <label for="amount">Amount (BDT) *</label>
+          <input id="amount" type="number" min="1" step="0.01" required placeholder="৳ 500">
+          <div class="amts" id="amts">
+            <button type="button">100</button>
+            <button type="button">500</button>
+            <button type="button">1000</button>
+            <button type="button">5000</button>
+          </div>
+        </div>
+        <div>
+          <label for="method">Sent through *</label>
+          <select id="method">
+            <option>bKash</option>
+            <option>Nagad</option>
+            <option>Other</option>
+          </select>
+        </div>
+      </div>
+
+      <label for="tx">Transaction ID (TrxID) *</label>
+      <input id="tx" required minlength="6" maxlength="40" placeholder="e.g. 9A1B2C3D4E">
+      <div class="secure">🛡️<span>Never enter your PIN, password or OTP anywhere on this site.</span></div>
+
+      <label for="note">Message (optional)</label>
+      <textarea id="note" rows="2" maxlength="300" placeholder="A few kind words, if you like"></textarea>
+
+      <button class="btn" id="go" type="submit">💚 Submit donation</button>
+      <div id="err" class="msg err" hidden></div>
+    </form>
+  </section>
+
+  <section class="card" id="done" hidden>
+    <div style="font-size:44px">🕯️</div>
+    <h2 style="justify-content:center">Thank you!</h2>
+    <p>Your donation is recorded and waiting for verification. Your Donor ID:</p>
+    <div class="idbox" id="did"></div>
+    <p id="donatedTo" style="font-weight:600;color:var(--forest);margin-bottom:10px"></p>
+    <p style="font-size:14px;color:var(--soft)"><b>Save this ID.</b> To track your donation you will need this ID and the <b>last 4 characters of your transaction ID</b>.</p>
+    <a class="btn" href="track.html">Track my donation</a>
+  </section>
 </main>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.0/dist/umd/supabase.min.js"></script><script src="config.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.0/dist/umd/supabase.min.js"></script>
+<script src="config.js"></script>
 <script>
-const K=window.KS,ready=!K.SUPABASE_URL.includes('YOUR-'),$=id=>document.getElementById(id);
-const db=ready?supabase.createClient(K.SUPABASE_URL,K.SUPABASE_ANON_KEY):null;
-if(!ready)$('setup').hidden=false;
-const nums=$('paynums');Object.entries(K.PAY).forEach(([m,n])=>{if(n.includes('XXX'))return;
- const d=document.createElement('div');d.className='pay '+(m==='bKash'||m==='Nagad'?m:'other');
- const b=document.createElement('b');b.textContent=m;const s=document.createElement('div');s.className='n';s.textContent=n;
- const c=document.createElement('button');c.type='button';c.className='copy';c.textContent='Copy number';
- c.onclick=()=>{(navigator.clipboard?navigator.clipboard.writeText(n):Promise.reject()).then(()=>{c.textContent='Copied ✓';setTimeout(()=>c.textContent='Copy number',1800)}).catch(()=>{})};
- d.append(b,s,c);nums.append(d)});
-if(!nums.children.length){const p=document.createElement('p');p.className='note-pay';p.textContent='Payment numbers will be added here soon.';nums.append(p)}
-document.querySelectorAll('#amts button').forEach(b=>b.onclick=()=>{$('amount').value=b.textContent;document.querySelectorAll('#amts button').forEach(x=>x.classList.toggle('on',x===b))});
-$('amount').addEventListener('input',()=>document.querySelectorAll('#amts button').forEach(x=>x.classList.toggle('on',x.textContent===$('amount').value)));
-function newId(){const a='ABCDEFGHJKLMNPQRSTUVWXYZ23456789',b=crypto.getRandomValues(new Uint8Array(6));return 'KS-'+[...b].map(x=>a[x%32]).join('')}
-function fail(t){const e=$('err');e.textContent=t;e.hidden=false}
-$('f').addEventListener('submit',async ev=>{ev.preventDefault();$('err').hidden=true;if(!ready)return fail('Not connected yet.');
-const btn=$('go');btn.disabled=true;
-const row={donor_name:$('name').value.trim()||null,phone:$('phone').value.trim()||null,email:$('email').value.trim()||null,contact:($('phone').value.trim()||$('email').value.trim())||null,amount:Number($('amount').value),method:$('method').value,tx_id:$('tx').value.trim(),note:$('note').value.trim()||null};
-if(!(row.amount>0)||row.tx_id.length<6){btn.disabled=false;return fail('Please enter a valid amount and transaction ID.')}
-for(let i=0;i<5;i++){row.donor_id=newId();const {error}=await db.from('donations').insert(row);
- if(!error){$('did').textContent=row.donor_id;$('formcard').hidden=true;$('payinfo').hidden=true;$('done').hidden=false;window.scrollTo(0,0);return}
- if(error.code==='23505'&&!/donor_id/.test(error.message)){btn.disabled=false;return fail('This transaction ID was already submitted. If this is a mistake, please contact us.')}
- if(error.code!=='23505'){btn.disabled=false;return fail('Could not save your donation ('+(error.code||'error')+': '+error.message+'). Please send a screenshot of this message to the website admin.')}}
-btn.disabled=false;fail('Could not create an ID. Please try again.')});
-</script></body></html>
+const K = window.KS, $ = id => document.getElementById(id);
+const db = supabase.createClient(K.SUPABASE_URL, K.SUPABASE_ANON_KEY);
+let LIVE_PROJECTS = [];
+
+// Load payment numbers (Dynamic from DB if available, fallback to config.js)
+async function loadSettings() {
+  let pay = K.PAY;
+  const { data } = await db.from('site_settings').select('value').eq('key', 'payment_numbers').single();
+  if (data && data.value) pay = data.value;
+
+  const nums = $('paynums');
+  nums.innerHTML = '';
+  Object.entries(pay).forEach(([m, n]) => {
+    if (!n || n.includes('XXX')) return;
+    const d = document.createElement('div');
+    d.className = 'pay ' + (m === 'bKash' || m === 'Nagad' ? m : 'other');
+    d.innerHTML = `<b>${m}</b><div class="n">${n}</div><button type="button" class="copy">Copy number</button>`;
+    d.querySelector('.copy').onclick = (e) => {
+      navigator.clipboard.writeText(n);
+      e.target.textContent = 'Copied ✓';
+      setTimeout(() => e.target.textContent = 'Copy number', 1800);
+    };
+    nums.append(d);
+  });
+}
+
+// Load Live Projects from Supabase
+async function loadProjects() {
+  const { data, error } = await db.from('programs').select('*').eq('status', 'live').order('created_at', { ascending: false });
+  if (data && data.length) {
+    LIVE_PROJECTS = data;
+    const sel = $('project');
+    data.forEach(p => {
+      const opt = document.createElement('option');
+      opt.value = p.id;
+      opt.textContent = p.name + (p.budget ? ` (Goal: ৳${Number(p.budget).toLocaleString()})` : '');
+      sel.append(opt);
+    });
+  }
+}
+
+$('project').addEventListener('change', () => {
+  const id = Number($('project').value);
+  const box = $('projDesc');
+  const p = LIVE_PROJECTS.find(x => x.id === id);
+  if (p && p.note) {
+    box.textContent = '📌 ' + p.note;
+    box.style.display = 'block';
+  } else {
+    box.style.display = 'none';
+  }
+});
+
+document.querySelectorAll('#amts button').forEach(b => b.onclick = () => {
+  $('amount').value = b.textContent;
+  document.querySelectorAll('#amts button').forEach(x => x.classList.toggle('on', x === b));
+});
+
+function newId() {
+  const a = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789', b = crypto.getRandomValues(new Uint8Array(6));
+  return 'KS-' + [...b].map(x => a[x % 32]).join('');
+}
+
+function fail(t) { const e = $('err'); e.textContent = t; e.hidden = false; }
+
+$('f').addEventListener('submit', async ev => {
+  ev.preventDefault();
+  $('err').hidden = true;
+  const btn = $('go'); btn.disabled = true;
+  const projId = $('project').value ? Number($('project').value) : null;
+
+  const row = {
+    donor_name: $('name').value.trim() || null,
+    phone: $('phone').value.trim() || null,
+    email: $('email').value.trim() || null,
+    contact: ($('phone').value.trim() || $('email').value.trim()) || null,
+    amount: Number($('amount').value),
+    method: $('method').value,
+    tx_id: $('tx').value.trim(),
+    note: $('note').value.trim() || null,
+    program_id: projId
+  };
+
+  if (!(row.amount > 0) || row.tx_id.length < 6) {
+    btn.disabled = false;
+    return fail('Please enter a valid amount and transaction ID.');
+  }
+
+  for (let i = 0; i < 5; i++) {
+    row.donor_id = newId();
+    const { error } = await db.from('donations').insert(row);
+    if (!error) {
+      $('did').textContent = row.donor_id;
+      const pName = projId ? LIVE_PROJECTS.find(x => x.id === projId)?.name : 'General Fund';
+      $('donatedTo').textContent = 'Allocated to: ' + pName;
+      $('formcard').hidden = true;
+      $('payinfo').hidden = true;
+      $('done').hidden = false;
+      window.scrollTo(0, 0);
+      return;
+    }
+    if (error.code === '23505' && !/donor_id/.test(error.message)) {
+      btn.disabled = false;
+      return fail('This transaction ID was already submitted.');
+    }
+  }
+  btn.disabled = false;
+  fail('Could not save your donation. Please try again.');
+});
+
+loadSettings();
+loadProjects();
+</script>
+</body>
+</html>
