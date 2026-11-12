@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Website Content &amp; Project CMS | KindleSociety</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--deep:#062f25;--forest:#0a5c45;--mint:#4caf5f;--mist:#eaf4ec;--ink:#0b2a22;--soft:#476358;--line:#d5e3d9;--red:#c0392b}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,system-ui,sans-serif;background:var(--mist);color:var(--ink);line-height:1.5}
+.login-wrap{min-height:100vh;display:grid;place-items:center;padding:20px;background:linear-gradient(145deg,var(--deep),var(--forest))}
+.login-box{background:#fff;padding:34px;border-radius:20px;width:min(420px,100%);box-shadow:0 20px 50px rgba(0,0,0,.3)}
+.login-box h1{font-family:"Noto Serif",serif;font-size:1.6rem;margin-bottom:6px;color:var(--deep)}
+.app{display:grid;grid-template-columns:260px 1fr;min-height:100vh}
+.side{background:var(--deep);color:#fff;padding:24px 16px;display:flex;flex-direction:column;gap:8px}
+.brand{display:flex;align-items:center;gap:12px;padding:0 10px 20px;border-bottom:1px solid rgba(255,255,255,.12);margin-bottom:10px}
+.brand img{width:40px;height:40px;border-radius:50%}
+.brand b{letter-spacing:.12em;font-size:.95rem}
+.nav-btn{background:transparent;border:0;color:#cfe5d6;text-align:left;padding:12px 14px;border-radius:12px;font:600 .95rem Inter,sans-serif;cursor:pointer;display:flex;align-items:center;gap:10px}
+.nav-btn:hover,.nav-btn.active{background:rgba(76,175,95,.22);color:#fff}
+.main{padding:28px clamp(18px,3vw,40px);max-width:1100px}
+.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px}
+.topbar h1{font-family:"Noto Serif",serif;font-size:1.8rem;color:var(--deep)}
+.card{background:#fff;border-radius:18px;padding:24px;margin-bottom:20px;border:1px solid var(--line);box-shadow:0 6px 20px rgba(6,47,37,.04)}
+.card h2{font-family:"Noto Serif",serif;font-size:1.25rem;margin-bottom:6px}
+.sub{color:var(--soft);font-size:.9rem;margin-bottom:16px}
+label{display:block;font-weight:600;font-size:.85rem;margin:14px 0 6px;color:var(--forest)}
+input,select,textarea{width:100%;padding:11px 14px;border:1.5px solid var(--line);border-radius:10px;font:inherit;font-size:.95rem}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--mint)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.row3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.btn{background:var(--mint);color:var(--deep);border:0;padding:11px 22px;border-radius:999px;font:700 .92rem Inter,sans-serif;cursor:pointer;margin-top:16px;display:inline-flex;align-items:center;gap:6px}
+.btn:hover{background:#5cc06e}
+.btn.sm{padding:6px 14px;font-size:.82rem;margin:0}
+.btn.red{background:#fdecea;color:var(--red)}
+.btn.out{background:#fff;border:1.5px solid var(--line);color:var(--ink)}
+.toast{position:fixed;bottom:24px;right:24px;background:var(--deep);color:#fff;padding:14px 22px;border-radius:12px;font-weight:600;box-shadow:0 10px 30px rgba(0,0,0,.25);z-index:99;display:none}
+.proj-card{background:#f9fcf9;border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:14px;display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center}
+.badge{padding:4px 10px;border-radius:999px;font-size:.72rem;font-weight:700;text-transform:uppercase}
+.b-live{background:#d6f0dc;color:#0a5c45}.b-planned{background:#e8eefc;color:#2a4a9a}.b-completed{background:#eee;color:#555}
+[hidden]{display:none!important}
+@media(max-width:800px){.app{grid-template-columns:1fr}.row2,.row3{grid-template-columns:1fr}.proj-card{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginView" class="login-wrap">
+  <div class="login-box">
+    <h1>Website CMS Control</h1>
+    <p class="sub">Sign in with your admin credentials</p>
+    <form id="loginForm">
+      <label>Email</label>
+      <input type="email" id="email" required>
+      <label>Password</label>
+      <input type="password" id="password" required>
+      <button class="btn" type="submit" style="width:100%;justify-content:center">Sign In</button>
+      <p id="loginErr" style="color:var(--red);font-size:.88rem;margin-top:10px" hidden></p>
+    </form>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="appView" class="app" hidden>
+  <aside class="side">
+    <div class="brand">
+      <img src="logo.png" alt="Logo">
+      <b>KINDLE CMS</b>
+    </div>
+    <button class="nav-btn active" data-tab="projects">🎯 Website Projects</button>
+    <button class="nav-btn" data-tab="content">📝 Website Text &amp; Hero</button>
+    <button class="nav-btn" data-tab="payments">💳 Payment Gateways</button>
+    <button class="nav-btn" data-tab="banner">📢 Notice &amp; Impact Stats</button>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <h1 id="pageTitle">Website Projects &amp; Campaigns</h1>
+      <div style="display:flex;gap:10px;align-items:center">
+        <a href="index.html" target="_blank" class="btn out sm">View Live Website ↗</a>
+        <button id="logoutBtn" class="btn red sm">Sign Out</button>
+      </div>
+    </div>
+
+    <!-- TAB 1: PROJECTS -->
+    <section id="tab-projects">
+      <div class="card">
+        <h2>Create New Project</h2>
+        <p class="sub">Creating a project here makes it instantly available on the public donation page (`donate.html`). Financial tracking happens separately and securely inside the Financial Portal.</p>
+        <form id="projForm">
+          <div class="row3">
+            <div><label>Project / Campaign Name *</label><input id="pName" required placeholder="e.g. Winter Warmth Drive"></div>
+            <div><label>Status</label>
+              <select id="pStatus">
+                <option value="live">Live (Show on Donate Page)</option>
+                <option value="planned">Planned (Upcoming)</option>
+                <option value="completed">Completed</option>
+              </select>
+            </div>
+            <div><label>Target Budget (BDT)</label><input id="pBudget" type="number" placeholder="Optional e.g. 50000"></div>
+          </div>
+          <label>Project Details / Note (Shown to donors)</label>
+          <textarea id="pNote" rows="2" placeholder="Briefly describe what funds will be used for..."></textarea>
+          <button class="btn" type="submit">+ Create Project</button>
+        </form>
+      </div>
+
+      <div class="card">
+        <h2>Active &amp; Past Projects List</h2>
+        <div id="projList">Loading projects...</div>
+      </div>
+    </section>
+
+    <!-- TAB 2: WEBSITE CONTENT -->
+    <section id="tab-content" hidden>
+      <div class="card">
+        <h2>Global Website Content</h2>
+        <p class="sub">Update headings, taglines, and contact details across the public pages instantly.</p>
+        <div class="row2">
+          <div><label>Organization Name</label><input id="cSiteName"></div>
+          <div><label>Tagline</label><input id="cTagline"></div>
+        </div>
+        <label>Hero Title</label>
+        <input id="cHeroTitle">
+        <label>Hero Subtitle / Description</label>
+        <textarea id="cHeroSub" rows="3"></textarea>
+        <div class="row3">
+          <div><label>Support Email</label><input id="cEmail"></div>
+          <div><label>Support Phone</label><input id="cPhone"></div>
+          <div><label>Location / Address</label><input id="cAddress"></div>
+        </div>
+        <button class="btn" id="saveContent">Save Content</button>
+      </div>
+    </section>
+
+    <!-- TAB 3: PAYMENT NUMBERS -->
+    <section id="tab-payments" hidden>
+      <div class="card">
+        <h2>Donation Collection Numbers</h2>
+        <p class="sub">Changes here will instantly update the bKash and Nagad numbers shown on the donation page.</p>
+        <div class="row3">
+          <div><label>bKash Number</label><input id="payBkash" placeholder="017XXXXXXXX"></div>
+          <div><label>Nagad Number</label><input id="payNagad" placeholder="017XXXXXXXX"></div>
+          <div><label>Bank Details / Other</label><input id="payBank" placeholder="Optional"></div>
+        </div>
+        <button class="btn" id="savePayments">Save Payment Numbers</button>
+      </div>
+    </section>
+
+    <!-- TAB 4: BANNER & STATS -->
+    <section id="tab-banner" hidden>
+      <div class="card">
+        <h2>Top Announcement Banner</h2>
+        <label style="display:flex;align-items:center;gap:8px;cursor:pointer;margin-bottom:12px">
+          <input type="checkbox" id="bActive" style="width:auto"> Enable Announcement Bar on Website
+        </label>
+        <div class="row2">
+          <div><label>Banner Text</label><input id="bText" placeholder="Emergency campaign active!"></div>
+          <div><label>Link Page / URL</label><input id="bLink" placeholder="donate.html"></div>
+        </div>
+        <button class="btn" id="saveBanner">Save Banner Settings</button>
+      </div>
+
+      <div class="card">
+        <h2>Impact Statistics Counters</h2>
+        <div class="row2">
+          <div><label>Families Helped</label><input id="sFamilies" placeholder="1,200+"></div>
+          <div><label>Active Volunteers</label><input id="sVolunteers" placeholder="85+"></div>
+          <div><label>Districts Reached</label><input id="sDistricts" placeholder="6"></div>
+          <div><label>Projects Completed</label><input id="sProjects" placeholder="18"></div>
+        </div>
+        <button class="btn" id="saveStats">Save Statistics</button>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div id="toast" class="toast">Updated successfully!</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.0/dist/umd/supabase.min.js"></script>
+<script src="config.js"></script>
+<script>
+const K = window.KS, $ = id => document.getElementById(id);
+const db = supabase.createClient(K.SUPABASE_URL, K.SUPABASE_ANON_KEY);
+
+function toast(msg) {
+  const t = $('toast'); t.textContent = msg; t.style.display = 'block';
+  setTimeout(() => t.style.display = 'none', 3000);
+}
+
+// Authentication
+async function checkAuth() {
+  const { data } = await db.auth.getSession();
+  if (data.session) {
+    $('loginView').hidden = true;
+    $('appView').hidden = false;
+    loadAll();
+  }
+}
+
+$('loginForm').onsubmit = async (e) => {
+  e.preventDefault();
+  const { error } = await db.auth.signInWithPassword({
+    email: $('email').value.trim(),
+    password: $('password').value
+  });
+  if (error) {
+    $('loginErr').textContent = 'Invalid email or password.';
+    $('loginErr').hidden = false;
+  } else {
+    checkAuth();
+  }
+};
+
+$('logoutBtn').onclick = async () => { await db.auth.signOut(); location.reload(); };
+
+// Navigation Tabs
+document.querySelectorAll('.nav-btn').forEach(btn => {
+  btn.onclick = () => {
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const tab = btn.dataset.tab;
+    $('pageTitle').textContent = btn.textContent.replace(/^[^\w]+/, '');
+    ['projects','content','payments','banner'].forEach(t => {
+      $('tab-' + t).hidden = (t !== tab);
+    });
+  };
+});
+
+async function loadAll() {
+  loadProjects();
+  const { data } = await db.from('site_settings').select('*');
+  if (!data) return;
+  const s = {}; data.forEach(r => s[r.key] = r.value);
+
+  if (s.general_info) {
+    $('cSiteName').value = s.general_info.site_name || '';
+    $('cTagline').value = s.general_info.tagline || '';
+    $('cHeroTitle').value = s.general_info.hero_title || '';
+    $('cHeroSub').value = s.general_info.hero_subtitle || '';
+    $('cEmail').value = s.general_info.contact_email || '';
+    $('cPhone').value = s.general_info.contact_phone || '';
+    $('cAddress').value = s.general_info.address || '';
+  }
+  if (s.payment_numbers) {
+    $('payBkash').value = s.payment_numbers.bKash || '';
+    $('payNagad').value = s.payment_numbers.Nagad || '';
+    $('payBank').value = s.payment_numbers.Bank || '';
+  }
+  if (s.announcement) {
+    $('bActive').checked = !!s.announcement.active;
+    $('bText').value = s.announcement.text || '';
+    $('bLink').value = s.announcement.link || '';
+  }
+  if (s.impact_stats) {
+    $('sFamilies').value = s.impact_stats.families_helped || '';
+    $('sVolunteers').value = s.impact_stats.volunteers || '';
+    $('sDistricts').value = s.impact_stats.districts || '';
+    $('sProjects').value = s.impact_stats.projects_completed || '';
+  }
+}
+
+// Projects Management
+async function loadProjects() {
+  const { data } = await db.from('programs').select('*').order('created_at', { ascending: false });
+  const list = $('projList');
+  if (!data || !data.length) { list.innerHTML = '<p class="sub">No projects found. Create one above.</p>'; return; }
+  
+  list.innerHTML = '';
+  data.forEach(p => {
+    const div = document.createElement('div');
+    div.className = 'proj-card';
+    div.innerHTML = `
+      <div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px">
+          <strong>${p.name}</strong> <span class="badge b-${p.status}">${p.status}</span>
+        </div>
+        <div style="font-size:.88rem;color:var(--soft)">${p.note || 'No description provided.'}</div>
+        <div style="font-size:.82rem;color:var(--soft);margin-top:6px">Target Budget: <b>${p.budget ? '৳' + Number(p.budget).toLocaleString() : 'Not set'}</b></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
+        <div>
+          ${p.status !== 'live' ? `<button class="btn sm" onclick="updateStatus(${p.id},'live')">Make Live</button>` : ''}
+          ${p.status !== 'completed' ? `<button class="btn out sm" onclick="updateStatus(${p.id},'completed')">Complete</button>` : ''}
+        </div>
+        <button class="btn red sm" onclick="deleteProj(${p.id})">Delete</button>
+      </div>
+    `;
+    list.append(div);
+  });
+}
+
+$('projForm').onsubmit = async (e) => {
+  e.preventDefault();
+  const { error } = await db.from('programs').insert({
+    name: $('pName').value.trim(),
+    status: $('pStatus').value,
+    budget: $('pBudget').value ? Number($('pBudget').value) : null,
+    note: $('pNote').value.trim() || null
+  });
+  if (!error) {
+    $('projForm.reset()')?.catch(()=>{});
+    $('pName').value = ''; $('pBudget').value = ''; $('pNote').value = '';
+    toast('Project created successfully!');
+    loadProjects();
+  } else {
+    alert('Error: ' + error.message);
+  }
+};
+
+window.updateStatus = async (id, status) => {
+  await db.from('programs').update({ status }).eq('id', id);
+  toast('Project status updated!');
+  loadProjects();
+};
+
+window.deleteProj = async (id) => {
+  if (!confirm('Are you sure you want to delete this project?')) return;
+  await db.from('programs').delete().eq('id', id);
+  toast('Project deleted.');
+  loadProjects();
+};
+
+// Global Settings Helper
+async function saveSetting(key, value) {
+  const { error } = await db.from('site_settings').upsert({ key, value, updated_at: new Date().toISOString() });
+  if (!error) toast('Saved successfully and live on site!');
+  else alert('Error: ' + error.message);
+}
+
+$('saveContent').onclick = () => saveSetting('general_info', {
+  site_name: $('cSiteName').value.trim(),
+  tagline: $('cTagline').value.trim(),
+  hero_title: $('cHeroTitle').value.trim(),
+  hero_subtitle: $('cHeroSub').value.trim(),
+  contact_email: $('cEmail').value.trim(),
+  contact_phone: $('cPhone').value.trim(),
+  address: $('cAddress').value.trim()
+});
+
+$('savePayments').onclick = () => saveSetting('payment_numbers', {
+  bKash: $('payBkash').value.trim(),
+  Nagad: $('payNagad').value.trim(),
+  Bank: $('payBank').value.trim()
+});
+
+$('saveBanner').onclick = () => saveSetting('announcement', {
+  active: $('bActive').checked,
+  text: $('bText').value.trim(),
+  link: $('bLink').value.trim()
+});
+
+$('saveStats').onclick = () => saveSetting('impact_stats', {
+  families_helped: $('sFamilies').value.trim(),
+  volunteers: $('sVolunteers').value.trim(),
+  districts: $('sDistricts').value.trim(),
+  projects_completed: $('sProjects').value.trim()
+});
+
+checkAuth();
+</script>
+</body>
+</html>
