@@ -177,7 +177,7 @@ td a{color:var(--forest);font-weight:600}
     <div class="arc a1"></div><div class="arc a2"></div>
     <div class="brand"><img src="logo.png" alt="KindleSociety logo"><span>KINDLE<em>SOCIETY</em></span></div>
     <nav class="tabs" id="tabs" aria-label="Portal sections"><button class="tab on" data-t="donations" type="button"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/></svg><span>Donations</span></button><button class="tab" data-t="spending" type="button"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/></svg><span>Spending</span></button><button class="tab" data-t="programs" type="button"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></svg><span>Programs</span></button><button class="tab" data-t="reports" type="button"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/></svg><span>Reports</span></button><button class="tab" data-t="team" type="button"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.5-4 3-6 6.5-6s6 2 6.5 6"/><path d="M16 4.8a3.5 3.5 0 0 1 0 6.4M18 14.2c2 .7 3.2 2.6 3.5 5.8"/></svg><span>Team</span></button><button class="tab" id="tab-tools" data-t="tools" type="button" hidden><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3.5V12c0 4.5-3.2 7.6-8 9-4.8-1.4-8-4.5-8-9V6.5z"/></svg><span>Admin tools</span></button></nav>
-    <div class="sidefoot"><b>The Bank Of KindleSociety</b><p>(Financial Portal)<br>Every verified donation can be followed by the donor.</p></div>
+    <div class="sidefoot"><b>The Bank Of KindleSociety</b><p>(Financial Portal)<br>Every verified donation can be followed by the donor.</p><p style="font-size:.7rem;opacity:.6;margin-top:6px">Page version 5 \u00B7 12 Nov</p></div>
   </aside>
   <div class="mainc">
     <div class="band">
@@ -228,7 +228,7 @@ $('tabs').addEventListener('click',function(e){var tb=e.target.closest('[data-t]
  ['donations','spending','programs','reports','team','tools'].forEach(function(n){$('t-'+n).hidden=n!==t})});
 async function load(){gerr('');
  var r=await Promise.all([db.from('donations').select('*').order('created_at',{ascending:false}),db.from('allocations').select('*').order('spent_on',{ascending:false}),db.from('programs').select('*').order('created_at',{ascending:false}),db.from('admins').select('*'),db.from('expenses').select('*').is('deleted_at',null).order('spent_on',{ascending:false})]);
- if(r[0].error||r[1].error){gerr('Could not load data. Check your connection.');return}
+ if(r[0].error||r[1].error){gerr('Could not load data: '+(r[0].error||r[1].error).message);return}
  if(r[2].error){gerr('Programs are not set up yet. Run upgrade_programs.sql in Supabase (see SETUP.txt).');r[2].data=[]}
  DON=r[0].data;ALLOC=r[1].data;PROG=r[2].data;ADMINS=r[3].error?[]:r[3].data;EXP=r[4].error?[]:r[4].data;if(r[4].error)gerr('Project spending is not set up yet. Run the Stage 1 SQL in Supabase first.');
  var me=ADMINS.filter(function(a){return a.email.toLowerCase()===EMAIL.toLowerCase()})[0];ROLE=(me&&me.role)||'admin';
@@ -251,10 +251,10 @@ function summary(){var ver=DON.filter(function(d){return d.status==='verified'})
 /* ---- Donations ---- */
 function drawDon(){var box=$('t-donations');box.replaceChildren();var c=el('div','card'),f=sel([['pending','Pending'],['verified','Verified'],['rejected','Rejected'],['all','All']]);f.value=df;
  var q=inp('search','Search Donor ID, name, TrxID, contact');q.value=dq;f.onchange=function(){df=f.value;drawDon()};q.oninput=function(){dq=q.value;drawDonList(list)};
- var lg=sel([['bn','Bangla'],['en','English']]);lg.value=MLANG;lg.onchange=function(){MLANG=lg.value;drawDonList(list)};var row=el('div','row3');row.append(wrap('Show',f),wrap('Search',q),wrap('Message language',lg));c.append(row);box.append(c);if(canW())box.append(manualCard());var list=el('div');box.append(list);drawDonList(list);if(dq){q.focus()}}
+ var lg=sel([['bn','Bangla'],['en','English']]);lg.value=MLANG;lg.onchange=function(){MLANG=lg.value;drawDonList(list)};var row=el('div','row3');row.append(wrap('Show',f),wrap('Search',q),wrap('Message language',lg));c.append(row);var cn=function(x){return DON.filter(function(d){return d.status===x}).length};c.append(el('p','meta','Loaded from the database: '+DON.length+' donations ('+cn('pending')+' pending, '+cn('verified')+' verified, '+cn('rejected')+' rejected).'));box.append(c);if(canW())box.append(manualCard());var list=el('div');box.append(list);drawDonList(list);if(dq){q.focus()}}
 function drawDonList(list){list.replaceChildren();var q=dq.trim().toLowerCase();
  var rows=DON.filter(function(d){return(df==='all'||d.status===df)&&(!q||[d.donor_id,d.donor_name,d.tx_id,d.contact].join(' ').toLowerCase().indexOf(q)>=0)});
- if(!rows.length)list.append(el('div','msg ok','Nothing to show here.'));rows.forEach(function(d){list.append(donCard(d))})}
+ if(!rows.length)list.append(el('div','msg ok',!DON.length?'The database returned no donations.'+(isOwner()?' If you had donations before, open Admin tools and look at Deleted donations.':''):(df==='all'?'Nothing matches your search.':'No '+df+' donations. Try All.')));rows.forEach(function(d){list.append(donCard(d))})}
 function donCard(d){var c=el('section','card dcard'),h=el('div','dh'),t=el('div','dt'),nm=d.donor_name||'Anonymous';
  t.append(el('h2','',nm),el('p','meta',d.donor_id+' \u00B7 '+d.method+' \u00B7 '+fd(d.created_at)));
  h.append(el('span','av',nm.trim().charAt(0).toUpperCase()),t,el('div','amt',money(d.amount)),el('span','badge b-'+d.status,d.status));c.append(h);
@@ -356,8 +356,8 @@ function drawTools(){var box=$('t-tools');box.replaceChildren();if(!isOwner()){b
   rb.onclick=async function(){var q=await db.rpc('restore_donation',{p_id:x.id});if(q.error)gerr('Could not restore.');else{gok('Donation restored.');load()}};
   return[x.donor_id+(x.donor_name?' ('+x.donor_name+')':''),money(x.amount),fd(x.deleted_at)+' by '+whoIs(x.deleted_by),x.deleted_reason||'',rb]})))});
  var k=el('section','card');k.append(el('h2','','Backup'),el('p','meta','Download everything you can see now as a file. Keep it private: it includes donor contact details.'));var bb=el('button','btn','Download backup');bb.onclick=backup;k.append(bb);box.append(k);
- var z=el('section','card danger');z.append(el('h2','','Danger zone: reset data'),el('p','meta','Erases all spending entries and, if ticked, all donations and projects. A full backup is saved in the database and downloaded to this computer first. Use it only to clear test data or start a new year.'));
- var wd=document.createElement('input'),wp=document.createElement('input');wd.type=wp.type='checkbox';wd.checked=true;
+ var z=el('section','card danger');z.append(el('h2','','Danger zone: reset data'),el('p','meta','Erases all spending entries. Tick the boxes below to also erase all donations and projects. A full backup is saved in the database and downloaded to this computer first. Use it only to clear test data or start a new year.'));
+ var wd=document.createElement('input'),wp=document.createElement('input');wd.type=wp.type='checkbox';
  function chk(t,x){var l=el('label','chk');l.append(x,document.createTextNode(' '+t));return l}
  var go=el('button','btn red','Start reset'),pane=el('div');pane.hidden=true;z.append(chk('Also erase all donations',wd),chk('Also erase all projects',wp),go,pane);box.append(z);
  go.onclick=async function(){var r=await db.rpc('request_reset_code');if(r.error){gerr('Could not start. '+r.error.message);return}
