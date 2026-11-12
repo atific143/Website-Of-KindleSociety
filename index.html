@@ -353,14 +353,17 @@ section{padding:60px 0}
   </div>
 </section>
 
-<!-- CMS Live Projects Container -->
+<!-- CMS Live Projects & Blog Posts Container -->
 <section class="work" id="work">
   <div class="wrap">
     <h2>What we have done &amp; Live Campaigns</h2>
     <p>Our activities since 2023 have been simple and direct, and they have always been for people close to home.</p>
     
-    <!-- Dynamic projects from CMS will appear here automatically -->
+    <!-- Dynamic projects from CMS -->
     <div id="liveProjectsContainer" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin:30px 0 40px;"></div>
+
+    <!-- Dynamic Blog / Activity Posts from CMS -->
+    <div id="livePostsContainer" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-bottom:40px;"></div>
 
     <div class="acts">
       <div><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/></svg></span><h3>Helping people in need</h3><p>Direct help for people and families who needed it most.</p></div>
@@ -505,34 +508,49 @@ section{padding:60px 0}
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.0/dist/umd/supabase.min.js"></script>
 <script src="config.js"></script>
 <script>
-async function loadHomeLiveProjects() {
+async function loadHomeCMSData() {
   if (!window.KS || window.KS.SUPABASE_URL.includes('YOUR-')) return;
   const db = supabase.createClient(window.KS.SUPABASE_URL, window.KS.SUPABASE_ANON_KEY);
   
-  const { data, error } = await db.from('programs').select('*').eq('status', 'live').order('created_at', { ascending: false });
-  const container = document.getElementById('liveProjectsContainer');
-  if (!container) return;
-  
-  if (error || !data || !data.length) {
-    container.style.display = 'none';
-    return;
+  // 1. Load Live Projects
+  const projRes = await db.from('programs').select('*').eq('status', 'live').order('created_at', { ascending: false });
+  const projContainer = document.getElementById('liveProjectsContainer');
+  if (projContainer && projRes.data && projRes.data.length > 0) {
+    projContainer.innerHTML = projRes.data.map(p => `
+      <div style="background:#fff;border:1.5px solid #d4e2d8;border-radius:18px;padding:24px;box-shadow:0 10px 30px rgba(6,47,37,0.05);display:flex;flex-direction:column;gap:12px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span style="background:#dcfce7;color:#166534;padding:4px 10px;border-radius:999px;font-size:0.72rem;font-weight:700;text-transform:uppercase;">Live Campaign</span>
+          ${p.budget ? `<span style="font-size:0.85rem;font-weight:600;color:#0a5c45;">Goal: ৳${Number(p.budget).toLocaleString()}</span>` : ''}
+        </div>
+        <h3 style="font-family:'Fraunces',Georgia,serif;font-size:1.25rem;color:#0b2a22;">${p.name}</h3>
+        <p style="font-size:0.9rem;color:#536b60;flex:1;">${p.note || 'Support this ongoing initiative to create positive impact.'}</p>
+        <a href="donate.html" style="display:inline-flex;align-items:center;justify-content:center;gap:6px;background:#0a5c45;color:#fff;text-decoration:none;padding:10px 18px;border-radius:12px;font-weight:600;font-size:0.88rem;margin-top:auto;">
+          Donate to Campaign &rarr;
+        </a>
+      </div>
+    `).join('');
   }
 
-  container.innerHTML = data.map(p => `
-    <div style="background:#fff;border:1.5px solid #d4e2d8;border-radius:18px;padding:24px;box-shadow:0 10px 30px rgba(6,47,37,0.05);display:flex;flex-direction:column;gap:12px;">
-      <div style="display:flex;justify-content:space-between;align-items:center;">
-        <span style="background:#dcfce7;color:#166534;padding:4px 10px;border-radius:999px;font-size:0.72rem;font-weight:700;text-transform:uppercase;">Live Campaign</span>
-        ${p.budget ? `<span style="font-size:0.85rem;font-weight:600;color:#0a5c45;">Goal: ৳${Number(p.budget).toLocaleString()}</span>` : ''}
+  // 2. Load Published Blog / Activity Posts
+  const postRes = await db.from('site_posts').select('*').eq('is_published', true).order('created_at', { ascending: false });
+  const postContainer = document.getElementById('livePostsContainer');
+  if (postContainer && postRes.data && postRes.data.length > 0) {
+    postContainer.innerHTML = postRes.data.map(p => `
+      <div style="background:#fff;border:1.5px solid #d4e2d8;border-radius:18px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 10px 30px rgba(6,47,37,0.05);">
+        ${p.image_url ? `<img src="${p.image_url}" alt="${p.title}" style="width:100%;height:190px;object-fit:cover;">` : ''}
+        <div style="padding:22px;display:flex;flex-direction:column;flex:1;">
+          <span style="background:#e0e7ff;color:#3730a3;padding:3px 10px;border-radius:999px;font-size:0.72rem;font-weight:700;text-transform:uppercase;align-self:flex-start;margin-bottom:10px;">${p.category || 'Update'}</span>
+          <h3 style="font-family:var(--serif);font-size:1.2rem;color:var(--ink);margin-bottom:8px;">${p.title}</h3>
+          <p style="font-size:0.9rem;color:var(--soft);flex:1;margin-bottom:16px;">${p.summary || p.content.substring(0, 100) + '...'}</p>
+          <div style="font-size:0.8rem;color:var(--soft);border-top:1px solid #e2ece6;padding-top:12px;margin-top:auto;">
+            Published on ${new Date(p.created_at).toLocaleDateString()}
+          </div>
+        </div>
       </div>
-      <h3 style="font-family:'Fraunces',Georgia,serif;font-size:1.25rem;color:#0b2a22;">${p.name}</h3>
-      <p style="font-size:0.9rem;color:#536b60;flex:1;">${p.note || 'Support this ongoing initiative to create positive impact.'}</p>
-      <a href="donate.html" style="display:inline-flex;align-items:center;justify-content:center;gap:6px;background:#0a5c45;color:#fff;text-decoration:none;padding:10px 18px;border-radius:12px;font-weight:600;font-size:0.88rem;margin-top:auto;">
-        Donate to Campaign &rarr;
-      </a>
-    </div>
-  `).join('');
+    `).join('');
+  }
 }
-loadHomeLiveProjects();
+loadHomeCMSData();
 
 // Mobile Menu Toggle Script
 const menuBtn = document.querySelector('.menu');
