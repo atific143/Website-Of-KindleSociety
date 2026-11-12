@@ -146,7 +146,7 @@ td a{color:var(--forest);font-weight:600}
 }
 @media(max-width:380px){.sum{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-</style><link rel="stylesheet" href="mobile.css"></head><body>
+.danger{border-top:5px solid #c0392b}.danger h2{color:#c0392b}.cap{display:block;margin:10px 0;border-radius:10px;border:1px solid #cfdcd3;max-width:100%}.chk{display:flex;gap:8px;align-items:center;font-weight:500;margin:10px 0}.chk input{width:auto}details.card summary{list-style:none}details.card[open] summary{margin-bottom:14px}</style><link rel="stylesheet" href="mobile.css"></head><body>
 <div id="setup" class="msg warn setup" hidden>This page is not connected yet. Fill in config.js (see SETUP.txt).</div>
 
 <section id="login" class="lg">
@@ -176,7 +176,7 @@ td a{color:var(--forest);font-weight:600}
   <aside class="side">
     <div class="arc a1"></div><div class="arc a2"></div>
     <div class="brand"><img src="logo.png" alt="KindleSociety logo"><span>KINDLE<em>SOCIETY</em></span></div>
-    <nav class="tabs" id="tabs" aria-label="Portal sections"><button class="tab on" data-t="donations" type="button"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/></svg><span>Donations</span></button><button class="tab" data-t="spending" type="button"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/></svg><span>Spending</span></button><button class="tab" data-t="programs" type="button"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></svg><span>Programs</span></button><button class="tab" data-t="reports" type="button"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/></svg><span>Reports</span></button><button class="tab" data-t="team" type="button"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.5-4 3-6 6.5-6s6 2 6.5 6"/><path d="M16 4.8a3.5 3.5 0 0 1 0 6.4M18 14.2c2 .7 3.2 2.6 3.5 5.8"/></svg><span>Team</span></button></nav>
+    <nav class="tabs" id="tabs" aria-label="Portal sections"><button class="tab on" data-t="donations" type="button"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/></svg><span>Donations</span></button><button class="tab" data-t="spending" type="button"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/></svg><span>Spending</span></button><button class="tab" data-t="programs" type="button"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></svg><span>Programs</span></button><button class="tab" data-t="reports" type="button"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/></svg><span>Reports</span></button><button class="tab" data-t="team" type="button"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.5-4 3-6 6.5-6s6 2 6.5 6"/><path d="M16 4.8a3.5 3.5 0 0 1 0 6.4M18 14.2c2 .7 3.2 2.6 3.5 5.8"/></svg><span>Team</span></button><button class="tab" id="tab-tools" data-t="tools" type="button" hidden><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3.5V12c0 4.5-3.2 7.6-8 9-4.8-1.4-8-4.5-8-9V6.5z"/></svg><span>Admin tools</span></button></nav>
     <div class="sidefoot"><b>Board Portal</b><p>Every verified donation can be followed by the donor.</p></div>
   </aside>
   <div class="mainc">
@@ -190,7 +190,7 @@ td a{color:var(--forest);font-weight:600}
     </div>
     <div class="content">
       <div id="gerr" class="msg err" hidden></div><div id="gok" class="msg ok" hidden></div>
-      <div id="t-donations"></div><div id="t-spending" hidden></div><div id="t-programs" hidden></div><div id="t-reports" hidden></div><div id="t-team" hidden></div>
+      <div id="t-donations"></div><div id="t-spending" hidden></div><div id="t-programs" hidden></div><div id="t-reports" hidden></div><div id="t-team" hidden></div><div id="t-tools" hidden></div>
     </div>
   </div>
 </div>
@@ -206,9 +206,9 @@ function r2(n){return Math.round(n*100)/100}
 function gerr(t){var e=$('gerr');e.textContent=t||'';e.hidden=!t}
 function gok(t){var e=$('gok');e.textContent=t||'';e.hidden=!t}
 function showRes(x){if(x.ok){gerr('');gok(x.msg)}else{gok('');gerr(x.msg)}}
-var DON=[],ALLOC=[],PROG=[],CATS=['Food','Clothing & blankets','Medicine & health','Education','Transport','Printing & materials','Venue & equipment','Admin & other'];
+var DON=[],ALLOC=[],EXP=[],PROG=[],CATS=['Food','Clothing & blankets','Medicine & health','Education','Transport','Printing & materials','Venue & equipment','Admin & other'];
 var dq='',df='pending',sp='',MLANG='bn',ROLE='admin',EMAIL='',ADMINS=[],EDIT=null,ROLES=[['admin','Admin'],['finance','Board member'],['viewer','Guest member'],['auditor','Auditor']];
-var TITLES={donations:'Donations',spending:'Spending',programs:'Programs',reports:'Reports',team:'Team'};
+var TITLES={donations:'Donations',spending:'Spending',programs:'Projects',reports:'Reports',team:'Team',tools:'Admin tools'};
 function roleLabel(r){var x=ROLES.filter(function(a){return a[0]===r})[0];return x?x[1]:r}
 function canW(){return ROLE==='admin'||ROLE==='finance'}
 function isOwner(){return ROLE==='admin'}
@@ -221,14 +221,14 @@ $('lf').addEventListener('submit',async function(e){e.preventDefault();var le=$(
 $('logout').addEventListener('click',async function(e){e.preventDefault();await db.auth.signOut();show(false)});
 $('tabs').addEventListener('click',function(e){var tb=e.target.closest('[data-t]');if(!tb)return;var t=tb.dataset.t;
  document.querySelectorAll('.tab').forEach(function(b){b.classList.toggle('on',b.dataset.t===t)});$('ptitle').textContent=TITLES[t];window.scrollTo(0,0);
- ['donations','spending','programs','reports','team'].forEach(function(n){$('t-'+n).hidden=n!==t})});
+ ['donations','spending','programs','reports','team','tools'].forEach(function(n){$('t-'+n).hidden=n!==t})});
 async function load(){gerr('');
- var r=await Promise.all([db.from('donations').select('*').order('created_at',{ascending:false}),db.from('allocations').select('*').order('spent_on',{ascending:false}),db.from('programs').select('*').order('created_at',{ascending:false}),db.from('admins').select('*')]);
+ var r=await Promise.all([db.from('donations').select('*').order('created_at',{ascending:false}),db.from('allocations').select('*').order('spent_on',{ascending:false}),db.from('programs').select('*').order('created_at',{ascending:false}),db.from('admins').select('*'),db.from('expenses').select('*').is('deleted_at',null).order('spent_on',{ascending:false})]);
  if(r[0].error||r[1].error){gerr('Could not load data. Check your connection.');return}
  if(r[2].error){gerr('Programs are not set up yet. Run upgrade_programs.sql in Supabase (see SETUP.txt).');r[2].data=[]}
- DON=r[0].data;ALLOC=r[1].data;PROG=r[2].data;ADMINS=r[3].error?[]:r[3].data;
+ DON=r[0].data;ALLOC=r[1].data;PROG=r[2].data;ADMINS=r[3].error?[]:r[3].data;EXP=r[4].error?[]:r[4].data;if(r[4].error)gerr('Project spending is not set up yet. Run the Stage 1 SQL in Supabase first.');
  var me=ADMINS.filter(function(a){return a.email.toLowerCase()===EMAIL.toLowerCase()})[0];ROLE=(me&&me.role)||'admin';
- $('who').textContent=EMAIL;$('role').textContent=roleLabel(ROLE);$('uav').textContent=(EMAIL||'?').charAt(0).toUpperCase();drawAll()}
+ $('who').textContent=EMAIL;$('role').textContent=roleLabel(ROLE);$('uav').textContent=(EMAIL||'?').charAt(0).toUpperCase();$('tab-tools').hidden=!isOwner();drawAll()}
 function donById(id){return DON.filter(function(d){return d.id===id})[0]}
 function progName(id){var p=PROG.filter(function(x){return x.id===id})[0];return p?p.name:''}
 function spentOf(id){return ALLOC.filter(function(a){return a.donation_id===id}).reduce(function(s,a){return s+Number(a.amount)},0)}
@@ -240,21 +240,23 @@ function tbl(h,rows){var w=el('div','tw'),t=el('table'),th=el('thead'),tr=el('tr
 function inp(type,ph,max){var i=document.createElement('input');i.type=type;if(ph)i.placeholder=ph;if(max)i.maxLength=max;return i}
 function sel(opts){var s=document.createElement('select');opts.forEach(function(o){var op=document.createElement('option');op.value=o[0];op.textContent=o[1];s.append(op)});return s}
 function wrap(l,c){var w=el('div');w.append(el('label','',l),c);return w}
-function drawAll(){summary();drawDon();drawSpend();drawProg();drawRep();drawTeam()}
-function summary(){var ver=DON.filter(function(d){return d.status==='verified'}),tot=ver.reduce(function(s,d){return s+Number(d.amount)},0),spent=ALLOC.reduce(function(s,a){return s+Number(a.amount)},0),pend=DON.filter(function(d){return d.status==='pending'}).length,pct=tot>0?Math.min(100,Math.round(spent/tot*100)):0;
- var s=$('sum');s.replaceChildren();[['Verified donations',money(tot),ver.length+' verified'],['Spent so far',money(spent),ALLOC.length+' entries'],['Balance left',money(tot-spent),pct+'% of funds used'],['Waiting for review',pend,pend===0?'All caught up':'Needs a check']].forEach(function(p,i){var b=el('div','stat s'+i);b.append(el('span','lbl',p[0]),el('b','',p[1]),el('small','',p[2]));if(i===2){var pr=el('div','pbar'),f=el('i');f.style.width=pct+'%';pr.append(f);b.append(pr)}s.append(b)})}
+function drawAll(){summary();drawDon();drawSpend();drawProg();drawRep();drawTeam();drawTools()}
+function summary(){var ver=DON.filter(function(d){return d.status==='verified'}),tot=ver.reduce(function(s,d){return s+Number(d.amount)},0),spent=allSpend().reduce(function(s,a){return s+Number(a.amount)},0),pend=DON.filter(function(d){return d.status==='pending'}).length,pct=tot>0?Math.min(100,Math.round(spent/tot*100)):0;
+ var s=$('sum');s.replaceChildren();[['Verified donations',money(tot),ver.length+' verified'],['Spent so far',money(spent),allSpend().length+' entries'],['Balance left',money(tot-spent),pct+'% of funds used'],['Waiting for review',pend,pend===0?'All caught up':'Needs a check']].forEach(function(p,i){var b=el('div','stat s'+i);b.append(el('span','lbl',p[0]),el('b','',p[1]),el('small','',p[2]));if(i===2){var pr=el('div','pbar'),f=el('i');f.style.width=pct+'%';pr.append(f);b.append(pr)}s.append(b)})}
 
 /* ---- Donations ---- */
 function drawDon(){var box=$('t-donations');box.replaceChildren();var c=el('div','card'),f=sel([['pending','Pending'],['verified','Verified'],['rejected','Rejected'],['all','All']]);f.value=df;
  var q=inp('search','Search Donor ID, name, TrxID, contact');q.value=dq;f.onchange=function(){df=f.value;drawDon()};q.oninput=function(){dq=q.value;drawDonList(list)};
- var lg=sel([['bn','Bangla'],['en','English']]);lg.value=MLANG;lg.onchange=function(){MLANG=lg.value;drawDonList(list)};var row=el('div','row3');row.append(wrap('Show',f),wrap('Search',q),wrap('Message language',lg));c.append(row);box.append(c);var list=el('div');box.append(list);drawDonList(list);if(dq){q.focus()}}
+ var lg=sel([['bn','Bangla'],['en','English']]);lg.value=MLANG;lg.onchange=function(){MLANG=lg.value;drawDonList(list)};var row=el('div','row3');row.append(wrap('Show',f),wrap('Search',q),wrap('Message language',lg));c.append(row);box.append(c);if(canW())box.append(manualCard());var list=el('div');box.append(list);drawDonList(list);if(dq){q.focus()}}
 function drawDonList(list){list.replaceChildren();var q=dq.trim().toLowerCase();
  var rows=DON.filter(function(d){return(df==='all'||d.status===df)&&(!q||[d.donor_id,d.donor_name,d.tx_id,d.contact].join(' ').toLowerCase().indexOf(q)>=0)});
  if(!rows.length)list.append(el('div','msg ok','Nothing to show here.'));rows.forEach(function(d){list.append(donCard(d))})}
 function donCard(d){var c=el('section','card dcard'),h=el('div','dh'),t=el('div','dt'),nm=d.donor_name||'Anonymous';
  t.append(el('h2','',nm),el('p','meta',d.donor_id+' \u00B7 '+d.method+' \u00B7 '+fd(d.created_at)));
  h.append(el('span','av',nm.trim().charAt(0).toUpperCase()),t,el('div','amt',money(d.amount)),el('span','badge b-'+d.status,d.status));c.append(h);
- c.append(el('p','meta','TrxID: '+d.tx_id));
+ c.append(el('p','meta','TrxID: '+d.tx_id));c.append(el('p','meta','Project: '+(progName(d.program_id)||'General fund')+(d.source==='manual'?' \u00B7 added manually':'')));
+ if(canW()){var ps=sel(projOpts(true));ps.value=d.program_id?String(d.program_id):'';ps.onchange=async function(){var r=await db.from('donations').update({program_id:ps.value?Number(ps.value):null}).eq('id',d.id);if(r.error)gerr('Could not change the project.');else{gok('Project updated.');load()}};c.append(wrap('Assign to project',ps))}
+
  if(d.phone||d.email||d.contact)c.append(el('p','meta',(d.phone?'Phone: '+d.phone:'')+(d.phone&&d.email?' \u00B7 ':'')+(d.email?'Email: '+d.email:'')+(!d.phone&&!d.email&&d.contact?'Contact: '+d.contact:'')));
  if(d.note)c.append(el('p','meta','Message: '+d.note));if(d.admin_note)c.append(el('p','meta','Admin note: '+d.admin_note));
  var acts=el('div','acts');
@@ -265,50 +267,96 @@ function donCard(d){var c=el('section','card dcard'),h=el('div','dh'),t=el('div'
   var x=el('button','btn small red','Reject');x.onclick=async function(){var why=prompt('Reason (the donor will see this):');if(!why)return;
    var r=await db.from('donations').update({status:'rejected',admin_note:why}).eq('id',d.id);if(r.error)gerr('Could not reject.');else load()};
   acts.append(v,x)}
- if(d.status==='verified'){c.append(el('p','meta','Spent: '+money(spentOf(d.id))+' \u00B7 Not spent yet: '+money(left(d))));
+ if(d.status==='verified'){
   ALLOC.filter(function(a){return a.donation_id===d.id}).forEach(function(a){c.append(el('div','alloc',money(a.amount)+' \u2014 '+(a.item||a.purpose)+(progName(a.program_id)||a.event?' ('+(progName(a.program_id)||a.event)+')':'')+' \u00B7 '+fd(a.spent_on)))})}
  if(d.status==='verified'&&canW()){c.append(el('p','meta',(d.receipt_emailed_at?'Receipt emailed '+fd(d.receipt_emailed_at):'Receipt email: not sent')+' \u00B7 '+(d.sms_sent_at?'Message sent '+fd(d.sms_sent_at):'Message: not sent')));notify(d,acts)}
+ if(isOwner()){var dl=el('button','btn small red','Delete');dl.onclick=async function(){var why=prompt('Why are you deleting this donation? (saved in the activity log)');if(why===null)return;if(!confirm('Delete donation '+d.donor_id+' ('+money(d.amount)+')? It is hidden, not erased, and can be restored in Admin tools.'))return;
+  var r=await db.rpc('delete_donation',{p_id:d.id,p_reason:why});if(r.error)gerr('Could not delete. '+r.error.message);else{gok('Donation deleted. You can restore it in Admin tools.');load()}};acts.append(dl)}
  c.append(acts);return c}
 
-/* ---- Spending ---- */
-function drawSpend(){var box=$('t-spending');box.replaceChildren();var c=el('section','card');c.append(el('h2','','Record spending'));
- c.append(el('p','meta','Available from verified donations: '+money(poolTotal())));
- var prog=sel([['','General (no program)']].concat(PROG.filter(function(p){return p.status!=='completed'}).map(function(p){return[String(p.id),p.name+' ('+p.status+')']})));
- var cat=sel(CATS.map(function(x){return[x,x]})),item=inp('text','e.g. Blankets',120),qty=inp('number'),unit=inp('number'),date=inp('date'),vendor=inp('text','Shop / supplier (optional)',120),proof=inp('text','https://... (optional)',300),
-  det=document.createElement('textarea'),fund=sel([['auto','Auto: oldest verified donations first']].concat(pool().map(function(d){return[String(d.id),d.donor_id+' \u00B7 '+money(left(d))+' left']})));
- qty.min='0.01';qty.step='any';qty.value='1';unit.min='0';unit.step='any';date.valueAsDate=new Date();det.rows=2;det.maxLength=400;
- var tot=el('div','tot','Total: '+money(0));function calc(){tot.textContent='Total: '+money(r2((Number(qty.value)||0)*(Number(unit.value)||0)))}qty.oninput=calc;unit.oninput=calc;
- var r1=el('div','row2');r1.append(wrap('Program',prog),wrap('Category',cat));
- var r3=el('div','row3');r3.append(wrap('Quantity',qty),wrap('Price per unit (BDT)',unit),wrap('Date',date));
- var rc=inp('file');rc.accept='image/jpeg,image/png,image/webp,application/pdf';
- var r4=el('div','row2');r4.append(wrap('Supplier',vendor),wrap('Proof link',proof));
- var f=el('form');f.append(r1,wrap('Item *',item),r3,tot,r4,wrap('Or upload a receipt (photo or PDF, up to 5 MB)',rc),wrap('Details for the donor',det),wrap('Pay from',fund));
- var sb=el('button','btn','Save spending');sb.type='submit';var m=el('div','msg err');m.hidden=true;f.append(sb,m);
- f.onsubmit=async function(ev){ev.preventDefault();m.hidden=true;var q=Number(qty.value),u=Number(unit.value),total=r2(q*u),it=item.value.trim(),pf=proof.value.trim();
-  var src=fund.value==='auto'?pool():[donById(Number(fund.value))],avail=fund.value==='auto'?poolTotal():left(src[0]);
-  function bad(t){m.textContent=t;m.hidden=false}
+/* ---- Project funds and spending ---- */
+function allSpend(){return EXP.concat(ALLOC.map(function(a){var o=Object.assign({},a);o.legacy=true;return o}))}
+function projFund(id){id=id||null;var rs=DON.filter(function(d){return d.status==='verified'&&(d.program_id||null)===id}).reduce(function(s,d){return s+Number(d.amount)},0),
+ sp=allSpend().filter(function(x){return(x.program_id||null)===id}).reduce(function(s,x){return s+Number(x.amount)},0);return{raised:r2(rs),spent:r2(sp),left:r2(rs-sp)}}
+function projOpts(all){return[['','General fund (no project)']].concat(PROG.filter(function(p){return all||p.status!=='completed'}).map(function(p){return[String(p.id),p.name+' ('+p.status+')']}))}
+function fundsCard(){var c=el('section','card');c.append(el('h2','','Project funds'),el('p','meta','Each project spends only from the donations given to it. General fund = donations not assigned to a project.'));
+ var rows=[null].concat(PROG.map(function(p){return p.id})).map(function(id){var f=projFund(id);return[id==null?'General fund':progName(id),money(f.raised),money(f.spent),money(f.left),f.raised>0?Math.round(f.spent/f.raised*100)+'%':'-']}).filter(function(r,i){return i>0||r[1]!==money(0)||r[2]!==money(0)});
+ c.append(tbl(['Project','Raised','Spent','Left','Used'],rows));return c}
+function spendForm(e){var c=el('section','card');c.append(el('h2','',e?'Edit spending entry':'Record spending'));
+ var prog=sel(projOpts(true)),cat=sel(CATS.map(function(x){return[x,x]})),item=inp('text','e.g. Rice packets',120),qty=inp('number'),unit=inp('number'),date=inp('date'),vendor=inp('text','Shop / supplier',120),proof=inp('text','https://... (optional)',300),det=document.createElement('textarea'),rc=inp('file'),info=el('p','meta'),tot=el('div','tot');
+ rc.accept='image/jpeg,image/png,image/webp,application/pdf';qty.min='0.01';qty.step='any';unit.min='0';unit.step='any';det.rows=2;det.maxLength=400;
+ if(e){prog.value=e.program_id?String(e.program_id):'';if(CATS.indexOf(e.category)>=0)cat.value=e.category;item.value=e.item||'';qty.value=e.quantity||1;unit.value=e.unit_price||e.amount;date.value=e.spent_on;vendor.value=e.vendor||'';proof.value=e.proof_url||'';det.value=e.details||''}else{qty.value='1';date.valueAsDate=new Date()}
+ function avail(){var f=projFund(prog.value?Number(prog.value):null);return r2(f.left+(e&&String(e.program_id||'')===prog.value?Number(e.amount):0))}
+ function calc(){tot.textContent='Total: '+money(r2((Number(qty.value)||0)*(Number(unit.value)||0)));info.textContent='Raised for this project and not spent yet: '+money(avail())}
+ [qty,unit].forEach(function(x){x.oninput=calc});prog.onchange=calc;calc();
+ var f=el('form'),r1=el('div','row2'),r3=el('div','row3'),r4=el('div','row2');r1.append(wrap('Project',prog),wrap('Category',cat));r3.append(wrap('Quantity',qty),wrap('Price per unit (BDT)',unit),wrap('Date',date));r4.append(wrap('Shop / supplier',vendor),wrap('Proof link',proof));
+ f.append(r1,info,wrap('Item *',item),r3,tot,r4,wrap('Or upload a receipt (photo or PDF, up to 5 MB)',rc),wrap('Details for the public receipt',det));
+ var sb=el('button','btn',e?'Save changes':'Save spending');sb.type='submit';f.append(sb);
+ if(e){var cb=el('button','btn line','Cancel');cb.type='button';cb.onclick=function(){EDIT=null;drawSpend()};f.append(cb)}
+ var m=el('div','msg err');m.hidden=true;f.append(m);
+ f.onsubmit=async function(ev){ev.preventDefault();m.hidden=true;function bad(t){m.textContent=t;m.hidden=false}
+  var q=Number(qty.value),u=Number(unit.value),total=r2(q*u),it=item.value.trim(),pf=proof.value.trim();
   if(!it||!(q>0)||!(u>=0)||!(total>0))return bad('Enter the item, quantity and price.');
   if(pf&&pf.indexOf('https://')!==0)return bad('Proof link must start with https://');
-  if(total>avail+0.001)return bad('Total '+money(total)+' is more than the available '+money(avail)+'.');
-  if(rc.files[0]){var up=await uploadReceipt(rc.files[0]);if(up.err)return bad(up.err);pf=up.url}
-  var rows=[],rem=total,pn=prog.value?progName(Number(prog.value)):'';
-  src.forEach(function(d){if(rem<=0.004)return;var take=r2(Math.min(rem,left(d)));if(take<=0)return;
-   var o={donation_id:d.id,amount:take,purpose:it,event:pn||null,program_id:prog.value?Number(prog.value):null,category:cat.value,item:it,vendor:vendor.value.trim()||null,details:det.value.trim()||null,proof_url:pf||null,spent_on:date.value};
-   if(!rows.length){o.quantity=q;o.unit_price=u}rows.push(o);rem=r2(rem-take)});
-  sb.disabled=true;var r=await db.from('allocations').insert(rows);sb.disabled=false;
-  if(r.error)return bad('Could not save. '+r.error.message);load()};
- if(canW()){c.append(f);box.append(c)}else{box.append(el('div','msg warn','You have view-only access. You can look at everything but not change it.'))}
- if(EDIT!=null){var ea=ALLOC.filter(function(x){return x.id===EDIT})[0];if(ea)box.append(editCard(ea))}
- var l=el('section','card');l.append(el('h2','','Spending history'));var pf=sel([['','All programs']].concat(PROG.map(function(p){return[String(p.id),p.name]})));pf.value=sp;
- pf.onchange=function(){sp=pf.value;drawSpend()};l.append(wrap('Program',pf));
- var rows=ALLOC.filter(function(a){return!sp||String(a.program_id)===sp}).map(function(a){var d=donById(a.donation_id),x=el('button','btn small red','Delete'),ed=el('button','btn small','Edit');ed.onclick=function(){EDIT=a.id;drawSpend();window.scrollTo(0,0)};
-  x.onclick=async function(){if(!confirm('Delete this spending entry? The donor will no longer see it.'))return;var r=await db.from('allocations').delete().eq('id',a.id);if(r.error)gerr('Could not delete.');else load()};
-  return[fd(a.spent_on),progName(a.program_id)||a.event||'General',a.category||'',itemCell(a),a.quantity&&a.unit_price?a.quantity+' \u00D7 '+money(a.unit_price):'',money(a.amount),d?d.donor_id:'',canW()?btns(ed,x):'']});
- l.append(rows.length?tbl(['Date','Program','Category','Item','Qty \u00D7 price','Amount','Donor','' ],rows):el('p','meta','No spending recorded yet.'));box.append(l)}
+  if(total>avail()+0.001)return bad('Total '+money(total)+' is more than the '+money(avail())+' this project has raised and not spent. Add a donation to the project first.');
+  sb.disabled=true;if(rc.files[0]){var up=await uploadReceipt(rc.files[0]);if(up.err){sb.disabled=false;return bad(up.err)}pf=up.url}
+  var row={program_id:prog.value?Number(prog.value):null,amount:total,item:it,category:cat.value,quantity:q,unit_price:u,vendor:vendor.value.trim()||null,details:det.value.trim()||null,proof_url:pf||null,spent_on:date.value};
+  var r=e?await db.from('expenses').update(row).eq('id',e.id):await db.from('expenses').insert(row);sb.disabled=false;
+  if(r.error)return bad('Could not save. '+r.error.message);EDIT=null;load()};
+ c.append(f);return c}
+function drawSpend(){var box=$('t-spending');box.replaceChildren();
+ if(canW()){var ed=EDIT!=null?EXP.filter(function(x){return x.id===EDIT})[0]:null;box.append(spendForm(ed))}else box.append(el('div','msg warn','You have view-only access. You can look at everything but not change it.'));
+ box.append(fundsCard());
+ var l=el('section','card');l.append(el('h2','','Spending history'));var pf=sel([['','All projects']].concat(PROG.map(function(p){return[String(p.id),p.name]})));pf.value=sp;
+ pf.onchange=function(){sp=pf.value;drawSpend()};l.append(wrap('Project',pf));
+ var rows=allSpend().filter(function(a){return!sp||String(a.program_id)===sp}).sort(function(a,b){return new Date(b.spent_on)-new Date(a.spent_on)}).map(function(a){var x=el('button','btn small red','Delete'),ed=el('button','btn small','Edit');
+  ed.onclick=function(){EDIT=a.id;drawSpend();window.scrollTo(0,0)};
+  x.onclick=async function(){if(!confirm('Delete this spending entry? It will disappear from the public receipt.'))return;
+   var r=a.legacy?await db.from('allocations').delete().eq('id',a.id):await db.from('expenses').update({deleted_at:new Date().toISOString(),deleted_by:EMAIL}).eq('id',a.id);if(r.error)gerr('Could not delete.');else load()};
+  return[fd(a.spent_on),progName(a.program_id)||a.event||'General',a.category||'',itemCell(a),a.quantity&&a.unit_price?a.quantity+' \u00D7 '+money(a.unit_price):'',money(a.amount),a.vendor||'',canW()?(a.legacy?x:btns(ed,x)):'']});
+ l.append(rows.length?tbl(['Date','Project','Category','Item','Qty \u00D7 price','Amount','Shop',''],rows):el('p','meta','No spending recorded yet.'));box.append(l)}
+
+/* ---- Manual donation (staff) ---- */
+function manualCard(){var d=el('details','card'),sm=el('summary','','+ Add a donation manually (cash or any payment you received)');sm.style.cssText='cursor:pointer;font-weight:700';d.append(sm);
+ var nm=inp('text','Donor name (optional)',120),ph=inp('tel','Phone (optional)',30),am=inp('number'),me=sel([['Other','Cash / other'],['bKash','bKash'],['Nagad','Nagad']]),tx=inp('text','Optional for cash',60),pr=sel(projOpts(false)),note=inp('text','Note (optional)',200);am.min='1';am.step='any';
+ var a1=el('div','row3'),a2=el('div','row3');a1.append(wrap('Donor name',nm),wrap('Phone',ph),wrap('Amount (BDT) *',am));a2.append(wrap('Received by',me),wrap('Project',pr),wrap('Transaction ID',tx));
+ var f=el('form');f.append(a1,a2,wrap('Note',note));var sb=el('button','btn','Add donation');sb.type='submit';var m=el('div','msg err');m.hidden=true;f.append(sb,m);
+ f.onsubmit=async function(ev){ev.preventDefault();m.hidden=true;var amt=Number(am.value);if(!(amt>0)){m.textContent='Enter the amount.';m.hidden=false;return}
+  var A='ABCDEFGHJKLMNPQRSTUVWXYZ23456789',err=null;sb.disabled=true;
+  for(var t=0;t<5;t++){var id='KS-';for(var i=0;i<6;i++)id+=A[Math.floor(Math.random()*A.length)];
+   var r=await db.from('donations').insert({donor_id:id,donor_name:nm.value.trim()||null,phone:ph.value.trim()||null,contact:ph.value.trim()||null,amount:amt,method:me.value,tx_id:tx.value.trim()||'MANUAL-'+id.slice(3)+Date.now().toString(36).toUpperCase(),note:note.value.trim()||null,status:'verified',verified_at:new Date().toISOString(),source:'manual',program_id:pr.value?Number(pr.value):null});
+   if(!r.error){sb.disabled=false;gok('Donation added. Donor ID: '+id);load();return}err=r.error;if(err.code!=='23505'||/tx_id|method/.test(err.message))break}
+  sb.disabled=false;m.textContent=err.code==='23505'?'This transaction ID is already recorded.':'Could not add. '+err.message;m.hidden=false};
+ d.append(f);return d}
+
+/* ---- Admin tools (admin only) ---- */
+function backup(){var u=URL.createObjectURL(new Blob([JSON.stringify({at:new Date().toISOString(),donations:DON,allocations:ALLOC,expenses:EXP,programs:PROG},null,1)],{type:'application/json'})),l=document.createElement('a');l.href=u;l.download='kindlesociety-backup-'+new Date().toISOString().slice(0,10)+'.json';document.body.append(l);l.click();l.remove();URL.revokeObjectURL(u)}
+function captcha(cv,t){var x=cv.getContext('2d'),R=Math.random;x.fillStyle='#eef5ef';x.fillRect(0,0,220,70);
+ for(var i=0;i<7;i++){x.strokeStyle='rgba(10,92,69,'+(.2+R()*.3)+')';x.lineWidth=1+R()*2;x.beginPath();x.moveTo(R()*220,R()*70);x.bezierCurveTo(R()*220,R()*70,R()*220,R()*70,R()*220,R()*70);x.stroke()}
+ for(var j=0;j<t.length;j++){x.save();x.translate(22+j*31,42+R()*10-5);x.rotate(R()*.7-.35);x.font='bold '+(30+R()*8)+'px Georgia,serif';x.fillStyle=['#0a5c45','#b8620a','#2a4a9a'][j%3];x.fillText(t[j],0,0);x.restore()}}
+function drawTools(){var box=$('t-tools');box.replaceChildren();if(!isOwner()){box.append(el('div','msg warn','Only the admin can open this section.'));return}
+ var a=el('section','card');a.append(el('h2','','Activity log'),el('p','meta','Who changed what. Donor contact details are never stored in the log.'));var al=el('div');a.append(al);box.append(a);
+ db.from('audit_log').select('*').order('at',{ascending:false}).limit(40).then(function(r){al.append(r.error||!r.data.length?el('p','meta','Nothing recorded yet.'):tbl(['When','Who','Action','Where','Record'],r.data.map(function(x){return[new Date(x.at).toLocaleString('en-GB'),x.actor||'',x.action,x.table_name||'',x.record_id||'']})))});
+ var b=el('section','card');b.append(el('h2','','Deleted donations'),el('p','meta','Deleting a donation only hides it. You can bring it back here.'));var bl=el('div');b.append(bl);box.append(b);
+ db.rpc('deleted_donations').then(function(r){var rows=r.data||[];bl.append(r.error||!rows.length?el('p','meta','No deleted donations.'):tbl(['Donor','Amount','Deleted','Reason',''],rows.map(function(x){var rb=el('button','btn small','Restore');
+  rb.onclick=async function(){var q=await db.rpc('restore_donation',{p_id:x.id});if(q.error)gerr('Could not restore.');else{gok('Donation restored.');load()}};
+  return[x.donor_id+(x.donor_name?' ('+x.donor_name+')':''),money(x.amount),fd(x.deleted_at)+' by '+(x.deleted_by||''),x.deleted_reason||'',rb]})))});
+ var k=el('section','card');k.append(el('h2','','Backup'),el('p','meta','Download everything you can see now as a file. Keep it private: it includes donor contact details.'));var bb=el('button','btn','Download backup');bb.onclick=backup;k.append(bb);box.append(k);
+ var z=el('section','card danger');z.append(el('h2','','Danger zone: reset data'),el('p','meta','Erases all spending entries and, if ticked, all donations and projects. A full backup is saved in the database and downloaded to this computer first. Use it only to clear test data or start a new year.'));
+ var wd=document.createElement('input'),wp=document.createElement('input');wd.type=wp.type='checkbox';wd.checked=true;
+ function chk(t,x){var l=el('label','chk');l.append(x,document.createTextNode(' '+t));return l}
+ var go=el('button','btn red','Start reset'),pane=el('div');pane.hidden=true;z.append(chk('Also erase all donations',wd),chk('Also erase all projects',wp),go,pane);box.append(z);
+ go.onclick=async function(){var r=await db.rpc('request_reset_code');if(r.error){gerr('Could not start. '+r.error.message);return}
+  go.hidden=true;pane.hidden=false;pane.replaceChildren();var cv=document.createElement('canvas');cv.width=220;cv.height=70;cv.className='cap';captcha(cv,r.data);
+  var ph=inp('text','RESET KINDLESOCIETY'),cc=inp('text','6 letters',6),ok=el('button','btn red','Erase data now'),cn=el('button','btn line','Cancel');ok.disabled=true;cn.type='button';
+  function chk2(){ok.disabled=!(ph.value.trim()==='RESET KINDLESOCIETY'&&cc.value.trim().length===6)}ph.oninput=chk2;cc.oninput=chk2;cn.onclick=drawTools;
+  ok.onclick=async function(){if(!confirm('Last check. This erases data for real. Continue?'))return;ok.disabled=true;backup();
+   var q=await db.rpc('danger_reset',{p_code:cc.value.trim(),p_phrase:ph.value.trim(),p_wipe_donations:wd.checked,p_wipe_programs:wp.checked});
+   if(q.error){gerr(q.error.message);ok.disabled=false;return}gok('Reset done. A backup file was downloaded.');load()};
+  pane.append(el('p','meta','Step 1: type the phrase exactly as shown.'),wrap('Type RESET KINDLESOCIETY',ph),el('p','meta','Step 2: type the 6 letters in the picture. They expire in 3 minutes.'),cv,wrap('Letters in the picture',cc),ok,cn)}}
 
 /* ---- Programs ---- */
-function progSpent(id){return ALLOC.filter(function(a){return a.program_id===id}).reduce(function(s,a){return s+Number(a.amount)},0)}
-function drawProg(){var box=$('t-programs');box.replaceChildren();var c=el('section','card');c.append(el('h2','','New program'));if(!canW())c.append(el('p','meta','View-only access: you cannot create or change programs.'));
+function drawProg(){var box=$('t-programs');box.replaceChildren();var c=el('section','card');c.append(el('h2','','New project'));if(!canW())c.append(el('p','meta','View-only access: you cannot create or change programs.'));
  var name=inp('text','e.g. Winter Warmth Drive 2027',120),st=sel([['live','Live now'],['planned','Planned'],['completed','Completed']]),bud=inp('number'),dt=inp('date'),note=document.createElement('textarea');bud.min='0';bud.step='any';note.rows=2;note.maxLength=300;
  var r1=el('div','row3');r1.append(wrap('Name *',name),wrap('Status',st),wrap('Budget (BDT, optional)',bud));
  var f=el('form');f.append(r1,wrap('Start date (optional)',dt),wrap('Note',note));var sb=el('button','btn','Create program');sb.type='submit';var m=el('div','msg err');m.hidden=true;f.append(sb,m);
@@ -318,23 +366,23 @@ function drawProg(){var box=$('t-programs');box.replaceChildren();var c=el('sect
  if(canW()){c.append(f);box.append(c)}
  if(!PROG.length)box.append(el('div','msg ok','No programs yet. Create your first one above.'));
  PROG.forEach(function(p){var k=el('section','card');k.append(el('h2','',p.name),el('span','badge b-'+p.status,p.status));var s=progSpent(p.id);
-  k.append(el('p','meta','Spent: '+money(s)+(p.budget!=null?' \u00B7 Budget: '+money(p.budget)+' \u00B7 Remaining: '+money(Number(p.budget)-s):'')+(p.starts_on?' \u00B7 Starts: '+fd(p.starts_on):'')));if(p.note)k.append(el('p','meta',p.note));if(p.budget!=null&&Number(p.budget)>0){var pb=el('div','pbar'),pi=el('i');pi.style.width=Math.min(100,s/Number(p.budget)*100)+'%';pb.append(pi);k.append(pb)}
+  k.append(el('p','meta','Raised: '+money(projFund(p.id).raised)+' \u00B7 Spent: '+money(s)+(p.budget!=null?' \u00B7 Budget: '+money(p.budget)+' \u00B7 Remaining: '+money(Number(p.budget)-s):'')+(p.starts_on?' \u00B7 Starts: '+fd(p.starts_on):'')));if(p.note)k.append(el('p','meta',p.note));if(p.budget!=null&&Number(p.budget)>0){var pb=el('div','pbar'),pi=el('i');pi.style.width=Math.min(100,s/Number(p.budget)*100)+'%';pb.append(pi);k.append(pb)}
   var a=el('div','acts');if(canW())[['live','Set live'],['planned','Set planned'],['completed','Mark completed']].forEach(function(o){if(p.status===o[0])return;var b=el('button','btn small',o[1]);
    b.onclick=async function(){var r=await db.from('programs').update({status:o[0]}).eq('id',p.id);if(r.error)gerr('Could not update.');else load()};a.append(b)});
   var d=el('button','btn small red','Delete');if(!canW())d.hidden=true;d.onclick=async function(){if(!confirm('Delete this program? Its spending entries stay, but lose the program name.'))return;var r=await db.from('programs').delete().eq('id',p.id);if(r.error)gerr('Could not delete.');else load()};a.append(d);k.append(a);box.append(k)})}
 
 /* ---- Reports ---- */
-function group(keyf){var m={};ALLOC.forEach(function(a){var k=keyf(a);m[k]=(m[k]||0)+Number(a.amount)});return Object.keys(m).map(function(k){return[k,m[k]]}).sort(function(a,b){return b[1]-a[1]})}
+function group(keyf){var m={};allSpend().forEach(function(a){var k=keyf(a);m[k]=(m[k]||0)+Number(a.amount)});return Object.keys(m).map(function(k){return[k,m[k]]}).sort(function(a,b){return b[1]-a[1]})}
 function drawRep(){var box=$('t-reports');box.replaceChildren();
  var a=el('section','card');a.append(el('h2','','By program'));var rows=PROG.map(function(p){var s=progSpent(p.id);return[p.name,p.status,money(s),p.budget!=null?money(p.budget):'-',p.budget!=null?money(Number(p.budget)-s):'-']});
- var gen=ALLOC.filter(function(x){return!x.program_id}).reduce(function(s,x){return s+Number(x.amount)},0);if(gen>0)rows.push(['General (no program)','-',money(gen),'-','-']);
+ var gen=allSpend().filter(function(x){return!x.program_id}).reduce(function(s,x){return s+Number(x.amount)},0);if(gen>0)rows.push(['General (no program)','-',money(gen),'-','-']);
  a.append(rows.length?tbl(['Program','Status','Spent','Budget','Remaining'],rows):el('p','meta','No data yet.'));box.append(a);
  var b=el('section','card');b.append(el('h2','','By category'));var g=group(function(x){return x.category||'Uncategorized'});b.append(g.length?tbl(['Category','Spent'],g.map(function(r){return[r[0],money(r[1])]})):el('p','meta','No data yet.'));box.append(b);
  var c=el('section','card');c.append(el('h2','','By item'));var gi=group(function(x){return(x.item||x.purpose||'').trim()});c.append(gi.length?tbl(['Item','Spent'],gi.map(function(r){return[r[0],money(r[1])]})):el('p','meta','No data yet.'));
  var ex=el('button','btn','Download spending as CSV');ex.onclick=exportCsv;c.append(ex);box.append(c)}
 function cell(v){v=v==null?'':String(v);if(/^[=+\-@\t\r]/.test(v))v="'"+v;return '"'+v.replace(/"/g,'""')+'"'}
 function exportCsv(){var h=['Date','Program','Category','Item','Quantity','Unit price','Amount','Supplier','Donor ID','Details','Proof'],L=[h.map(cell).join(',')];
- ALLOC.forEach(function(a){var d=donById(a.donation_id);L.push([a.spent_on,progName(a.program_id)||a.event,a.category,a.item||a.purpose,a.quantity,a.unit_price,a.amount,a.vendor,d?d.donor_id:'',a.details,a.proof_url].map(cell).join(','))});
+ allSpend().forEach(function(a){var d=donById(a.donation_id);L.push([a.spent_on,progName(a.program_id)||a.event,a.category,a.item||a.purpose,a.quantity,a.unit_price,a.amount,a.vendor,d?d.donor_id:'',a.details,a.proof_url].map(cell).join(','))});
  var u=URL.createObjectURL(new Blob([L.join('\r\n')],{type:'text/csv'})),l=document.createElement('a');l.href=u;l.download='kindlesociety-spending.csv';document.body.append(l);l.click();l.remove();URL.revokeObjectURL(u)}
 function itemCell(a){var t=a.item||a.purpose||'';if(a.proof_url&&/^https:\/\//.test(a.proof_url)){var l=el('a','',t+' (receipt)');l.href=a.proof_url;l.target='_blank';l.rel='noopener';return l}return t}
 async function uploadReceipt(f){var ext={'image/jpeg':'jpg','image/png':'png','image/webp':'webp','application/pdf':'pdf'}[f.type];
@@ -343,21 +391,6 @@ async function uploadReceipt(f){var ext={'image/jpeg':'jpg','image/png':'png','i
  var r=await db.storage.from('receipts').upload(path,f,{contentType:f.type,upsert:false});
  if(r.error)return{err:'Could not upload the receipt. Run upgrade_team_receipts_public.sql first. '+r.error.message};
  return{url:db.storage.from('receipts').getPublicUrl(path).data.publicUrl}}
-function editCard(a){var c=el('section','card');c.append(el('h2','','Edit spending entry'));var d=donById(a.donation_id),mx=r2((d?left(d):0)+Number(a.amount));
- var prog=sel([['','General (no program)']].concat(PROG.map(function(p){return[String(p.id),p.name]}))),cat=sel(CATS.map(function(x){return[x,x]})),item=inp('text','',120),amt=inp('number'),qty=inp('number'),unit=inp('number'),date=inp('date'),vendor=inp('text','',120),proof=inp('text','https://...',300),det=document.createElement('textarea'),rc=inp('file');
- rc.accept='image/jpeg,image/png,image/webp,application/pdf';det.rows=2;det.maxLength=400;prog.value=a.program_id?String(a.program_id):'';if(a.category&&CATS.indexOf(a.category)>=0)cat.value=a.category;
- item.value=a.item||a.purpose||'';amt.value=a.amount;amt.step='any';amt.min='0.01';qty.value=a.quantity||'';qty.step='any';unit.value=a.unit_price||'';unit.step='any';date.value=a.spent_on;vendor.value=a.vendor||'';proof.value=a.proof_url||'';det.value=a.details||'';
- var r1=el('div','row2');r1.append(wrap('Program',prog),wrap('Category',cat));var r3=el('div','row3');r3.append(wrap('Amount of this entry (BDT) *',amt),wrap('Quantity',qty),wrap('Price per unit',unit));
- var r4=el('div','row2');r4.append(wrap('Supplier',vendor),wrap('Date',date));
- var f=el('form');f.append(r1,wrap('Item *',item),r3,r4,wrap('Proof link',proof),wrap('Or upload a new receipt',rc),wrap('Details for the donor',det));
- var sb=el('button','btn','Save changes');sb.type='submit';var cb=el('button','btn line','Cancel');cb.type='button';cb.onclick=function(){EDIT=null;drawSpend()};var m=el('div','msg err');m.hidden=true;f.append(sb,cb,m);
- f.onsubmit=async function(e){e.preventDefault();m.hidden=true;function bad(t){m.textContent=t;m.hidden=false}
-  var am=Number(amt.value),it=item.value.trim(),pf=proof.value.trim();if(!it||!(am>0))return bad('Enter the item and a valid amount.');
-  if(am>mx+0.001)return bad('This entry can be at most '+money(mx)+' (what its donation still has).');if(pf&&pf.indexOf('https://')!==0)return bad('Proof link must start with https://');
-  sb.disabled=true;if(rc.files[0]){var up=await uploadReceipt(rc.files[0]);if(up.err){sb.disabled=false;return bad(up.err)}pf=up.url}
-  var r=await db.from('allocations').update({amount:am,purpose:it,item:it,event:prog.value?progName(Number(prog.value)):null,program_id:prog.value?Number(prog.value):null,category:cat.value,quantity:qty.value?Number(qty.value):null,unit_price:unit.value?Number(unit.value):null,vendor:vendor.value.trim()||null,details:det.value.trim()||null,proof_url:pf||null,spent_on:date.value}).eq('id',a.id);
-  sb.disabled=false;if(r.error)return bad('Could not save. '+r.error.message);EDIT=null;load()};
- c.append(f);return c}
 function drawTeam(){var box=$('t-team');box.replaceChildren();var c=el('section','card');c.append(el('h2','','Team and permissions'));
  c.append(el('p','meta','Admin: everything, including managing the team. Board member: verify donations, record and edit spending, manage programs. Guest member: can only look. Auditor: can only look, for reviewing records and reports.'));
  var rows=ADMINS.map(function(a){var me=a.email.toLowerCase()===EMAIL.toLowerCase(),role=a.role||'admin';if(!isOwner()||me)return[a.email+(me?' (you)':''),roleLabel(role),''];
