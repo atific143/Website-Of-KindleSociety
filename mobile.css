@@ -1,0 +1,46 @@
+/* KindleSociety phone polish. Loaded LAST on every page (after all other CSS). */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+img,svg,video,iframe{max-width:100%}
+body{overflow-wrap:break-word}
+
+/* Footer on the home page lost its side padding, so text touched the screen edge */
+footer .wrap.main{padding-left:clamp(20px,5vw,120px);padding-right:clamp(20px,5vw,120px)}
+
+@media(max-width:860px){
+  /* 16px inputs stop iPhones from zooming the page when you tap a field */
+  input,select,textarea{font-size:16px!important}
+
+  /* easy-to-tap buttons and links (44px is the phone standard) */
+  .btn,a.btn{min-height:46px;display:inline-flex;align-items:center;justify-content:center}
+  .btn.small{min-height:42px;padding:9px 18px}
+  .amts button{min-height:42px;padding:9px 18px;font-size:14px}
+  .menu{min-width:46px}
+  footer li a,.fb,.back,.signout,a.out{display:inline-flex;align-items:center;min-height:44px}
+  .out{width:44px;height:44px}
+  .fb{margin-top:2px}
+  .tb a{min-height:40px;display:inline-flex;align-items:center}
+  .brand{min-height:44px}
+
+  /* small print that was under 12px */
+  .term,.chip,.strip,.badge,.tag,.lbls small,.tab,.tab span{font-size:max(12px,.75rem)}
+  small{font-size:max(12px,.8rem)}
+  .tab{font-size:.75rem}
+}
+
+@media(max-width:700px){
+  /* admin: the decorative circles sat on top of the tile labels */
+  .stat::before,.stat::after{display:none}
+  .stat .lbl{padding-right:0}
+}
+
+@media(max-width:560px){
+  /* donate: the flame graphic covered the heading, so move it to the corner and soften it */
+  .flame{top:14px;right:4%;width:76px;opacity:.5}
+  /* keep long words and emails from pushing the layout wide */
+  .meta,.card p,.card h3,td,li{overflow-wrap:anywhere}
+  .hero h1{overflow-wrap:break-word;hyphens:manual}
+}
+
+/* iPhones with a notch or home bar */
+.strip,footer{padding-bottom:max(0px,env(safe-area-inset-bottom))}
+@supports(height:100dvh){.lg{min-height:100dvh}}
