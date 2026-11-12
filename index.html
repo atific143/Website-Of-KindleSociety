@@ -284,10 +284,10 @@ section{padding:60px 0}
       <nav id="nav" aria-label="Main"><ul>
         <li><a href="#top">Home</a></li>
         <li><a href="#about">About</a></li>
-        <li><a href="#work">Our work</a></li>
-        <li><a href="#events">Events</a></li>
+        <li><a href="#campaigns">Campaigns</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#blogs">Blog &amp; Activity</a></li>
         <li><a href="#board">Board</a></li>
-        <li><a href="#how">How we run</a></li>
         <li><a href="#contact">Contact</a></li>
         <li><a class="navbtn" href="https://join-kindlesociety.vercel.app/" target="_blank" rel="noopener">Join us</a></li>
       </ul></nav>
@@ -297,7 +297,7 @@ section{padding:60px 0}
       <span class="term cap">Registered non-profit youth organization</span>
       <h1>Building Leaders. <b>Inspiring Change.</b></h1>
       <p>KindleSociety brings young people together to grow as leaders and to serve their communities through youth leadership, social development and humanitarian work.</p>
-      <div class="cta"><a class="btn" href="#board">Meet the Board</a><a class="btn ghost" href="#work">See our work</a><a class="btn ghost" href="donate.html">Donate</a></div>
+      <div class="cta"><a class="btn" href="#board">Meet the Board</a><a class="btn ghost" href="#campaigns">See Campaigns</a><a class="btn ghost" href="donate.html">Donate</a></div>
       </div>
       <div class="art" aria-hidden="true">
         <svg viewBox="0 0 480 480">
@@ -330,12 +330,17 @@ section{padding:60px 0}
 </div>
 
 <main>
-<div class="statsec"><div class="wrap"><div class="stats">
-  <div><b>2023</b><span>Year we started</span></div>
-  <div><b>115</b><span>People at our third iftar</span></div>
-  <div><b>4</b><span>Founders on the board</span></div>
-  <div><b>6</b><span>Departments</span></div>
-</div></div></div>
+<!-- Total Taka / Fund Statistics Section -->
+<div class="statsec">
+  <div class="wrap">
+    <div class="stats">
+      <div><b>2023</b><span>Year we started</span></div>
+      <div><b id="totalDonationDisplay">৳0</b><span>Total Verified Donations</span></div>
+      <div><b>115</b><span>People at our third iftar</span></div>
+      <div><b>6</b><span>Departments</span></div>
+    </div>
+  </div>
+</div>
 
 <section class="who" id="about">
   <div class="wrap two">
@@ -353,14 +358,22 @@ section{padding:60px 0}
   </div>
 </section>
 
-<section class="work" id="work">
+<!-- 1. Dedicated Campaigns Section -->
+<section class="work" id="campaigns">
   <div class="wrap">
-    <h2>What we have done</h2>
-    <p>Our activities since 2023 have been simple and direct, and they have always been for people close to home.</p>
+    <h2>Live &amp; Ongoing Campaigns</h2>
+    <p>Support our active fundraising drives and humanitarian campaigns.</p>
+    <div id="liveCampaignsContainer" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:30px;"></div>
+  </div>
+</section>
+
+<!-- 2. Dedicated Projects Section -->
+<section class="work" id="projects" style="background:var(--mist);">
+  <div class="wrap">
+    <h2>Our Core Projects</h2>
+    <p>Our activities and ongoing community projects since 2023.</p>
     
-    <!-- CMS Live Projects & Blog Posts Container -->
-    <div id="liveProjectsContainer" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin:30px 0;"></div>
-    <div id="livePostsContainer" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-bottom:30px;"></div>
+    <div id="liveProjectsContainer" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:30px;margin-bottom:40px;"></div>
 
     <div class="acts">
       <div><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/></svg></span><h3>Helping people in need</h3><p>Direct help for people and families who needed it most.</p></div>
@@ -368,6 +381,15 @@ section{padding:60px 0}
       <div><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="5.5"/><path d="M12 14.5V21M9 21h6"/></svg></span><h3>Tree plantation</h3><p>Trees planted to make our neighborhoods greener.</p></div>
       <div><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 3v18M4.2 7.5l15.6 9M4.2 16.5l15.6-9"/></svg></span><h3>Winter warmth drive</h3><p>Warm clothes and essentials for the cold season.</p></div>
     </div>
+  </div>
+</section>
+
+<!-- 3. Dedicated Blog & Activity Posts Section -->
+<section class="work" id="blogs">
+  <div class="wrap">
+    <h2>Blog &amp; Activity Updates</h2>
+    <p>Latest stories, blogs, and field activities published from our management studio.</p>
+    <div id="livePostsContainer" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-top:30px;"></div>
   </div>
 </section>
 
@@ -492,8 +514,9 @@ section{padding:60px 0}
       <h4>Quick Links</h4>
       <ul>
         <li><a href="#about">About Us</a></li>
-        <li><a href="#work">Our Work</a></li>
-        <li><a href="#board">Founders Board</a></li>
+        <li><a href="#campaigns">Campaigns</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#blogs">Blog &amp; Activity</a></li>
         <li><a href="donate.html">Donate</a></li>
       </ul>
     </div>
@@ -501,7 +524,6 @@ section{padding:60px 0}
   <div class="strip">KINDLESOCIETY • ESTABLISHED 2023</div>
 </footer>
 
-<!-- Supabase & CMS Live Sync Script -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.0/dist/umd/supabase.min.js"></script>
 <script src="config.js"></script>
 <script>
@@ -509,40 +531,72 @@ async function loadHomeCMSData() {
   if (!window.KS || window.KS.SUPABASE_URL.includes('YOUR-')) return;
   const db = supabase.createClient(window.KS.SUPABASE_URL, window.KS.SUPABASE_ANON_KEY);
   
-  // 1. Projects
-  const projRes = await db.from('programs').select('*').eq('status', 'live').order('created_at', { ascending: false });
-  const projContainer = document.getElementById('liveProjectsContainer');
-  if (projContainer && projRes.data && projRes.data.length > 0) {
-    projContainer.innerHTML = projRes.data.map(p => `
-      <div style="background:#fff;border:1.5px solid #d4e2d8;border-radius:18px;padding:22px;box-shadow:0 4px 15px rgba(0,0,0,0.04);">
-        <span style="background:#dcfce7;color:#166534;padding:3px 10px;border-radius:999px;font-size:0.72rem;font-weight:700;text-transform:uppercase;">Live Campaign</span>
-        <h3 style="font-size:1.15rem;margin:10px 0 6px;color:#0b2a22;">${p.name}</h3>
-        <p style="font-size:0.88rem;color:#536b60;margin-bottom:14px;">${p.note || 'Support this ongoing initiative.'}</p>
-        <a href="donate.html" style="background:#0a5c45;color:#fff;text-decoration:none;padding:8px 16px;border-radius:10px;font-size:0.85rem;font-weight:600;display:inline-block;">Donate Now &rarr;</a>
-      </div>
-    `).join('');
+  // 1. Load Campaigns & Programs (Separate Section)
+  const projRes = await db.from('programs').select('*').order('created_at', { ascending: false });
+  const campaignContainer = document.getElementById('liveCampaignsContainer');
+  const projectContainer = document.getElementById('liveProjectsContainer');
+  
+  if (projRes.data && projRes.data.length > 0) {
+    if (campaignContainer) {
+      const activeCamps = projRes.data.filter(p => p.status === 'live');
+      if(activeCamps.length > 0) {
+        campaignContainer.innerHTML = activeCamps.map(p => `
+          <div style="background:#fff;border:1px solid #cfdcd3;border-radius:12px;padding:20px;box-shadow:0 1px 0 rgba(6,47,37,.08);">
+            <span style="background:#eaf4ec;color:#0a5c45;padding:2px 8px;border-radius:999px;font-size:0.75rem;font-weight:700;text-transform:uppercase;">Live Campaign</span>
+            <h3 style="font-family:var(--serif);font-size:1.15rem;margin:8px 0 4px;color:var(--ink);">${p.name}</h3>
+            <p style="font-size:0.9rem;color:var(--soft);margin-bottom:12px;">${p.note || 'Support this ongoing campaign.'}</p>
+            ${p.budget ? `<div style="font-size:0.85rem;font-weight:600;color:var(--forest);margin-bottom:10px;">Goal: ৳${Number(p.budget).toLocaleString()}</div>` : ''}
+            <a href="donate.html" style="color:var(--forest);font-weight:700;font-size:0.9rem;text-decoration:underline;text-underline-offset:3px;">Support Campaign &rarr;</a>
+          </div>
+        `).join('');
+      } else {
+        campaignContainer.innerHTML = '<p style="color:var(--soft);">No active campaigns at the moment.</p>';
+      }
+    }
+
+    if (projectContainer) {
+      projectContainer.innerHTML = projRes.data.map(p => `
+        <div style="background:#fff;border:1px solid #cfdcd3;border-radius:12px;padding:20px;box-shadow:0 1px 0 rgba(6,47,37,.08);">
+          <span style="background:#eaf4ec;color:#0a5c45;padding:2px 8px;border-radius:999px;font-size:0.75rem;font-weight:700;text-transform:uppercase;">Project (${p.status})</span>
+          <h3 style="font-family:var(--serif);font-size:1.15rem;margin:8px 0 4px;color:var(--ink);">${p.name}</h3>
+          <p style="font-size:0.9rem;color:var(--soft);margin-bottom:12px;">${p.note || 'Project details and updates.'}</p>
+          <a href="donate.html" style="color:var(--forest);font-weight:700;font-size:0.9rem;text-decoration:underline;text-underline-offset:3px;">View Details &rarr;</a>
+        </div>
+      `).join('');
+    }
   }
 
-  // 2. Posts
+  // 2. Load Blog & Activity Posts (Separate Section)
   const postRes = await db.from('site_posts').select('*').eq('is_published', true).order('created_at', { ascending: false });
   const postContainer = document.getElementById('livePostsContainer');
   if (postContainer && postRes.data && postRes.data.length > 0) {
     postContainer.innerHTML = postRes.data.map(p => `
-      <div style="background:#fff;border:1.5px solid #d4e2d8;border-radius:18px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,0.04);">
-        ${p.image_url ? `<img src="${p.image_url}" style="width:100%;height:160px;object-fit:cover;">` : ''}
+      <div style="background:#fff;border:1px solid #cfdcd3;border-radius:12px;overflow:hidden;box-shadow:0 1px 0 rgba(6,47,37,.08);">
+        ${p.image_url ? `<img src="${p.image_url}" style="width:100%;height:160px;object-fit:cover;display:block;">` : ''}
         <div style="padding:20px;">
-          <span style="background:#e0e7ff;color:#3730a3;padding:3px 10px;border-radius:999px;font-size:0.7rem;font-weight:700;text-transform:uppercase;">${p.category || 'Update'}</span>
-          <h3 style="font-size:1.1rem;margin:8px 0 6px;">${p.title}</h3>
-          <p style="font-size:0.85rem;color:#536b60;margin-bottom:12px;">${p.summary || p.content.substring(0, 80) + '...'}</p>
-          <div style="font-size:0.78rem;color:#888;">Published on ${new Date(p.created_at).toLocaleDateString()}</div>
+          <span style="background:#eaf4ec;color:#0a5c45;padding:2px 8px;border-radius:999px;font-size:0.75rem;font-weight:700;text-transform:uppercase;">${p.category || 'Blog & Activity'}</span>
+          <h3 style="font-family:var(--serif);font-size:1.15rem;margin:8px 0 4px;color:var(--ink);">${p.title}</h3>
+          <p style="font-size:0.9rem;color:var(--soft);margin-bottom:12px;">${p.summary || p.content.substring(0, 80) + '...'}</p>
+          <div style="font-size:0.8rem;color:var(--soft);">Published on ${new Date(p.created_at).toLocaleDateString()}</div>
         </div>
       </div>
     `).join('');
+  } else if (postContainer) {
+    postContainer.innerHTML = '<p style="color:var(--soft);">No blog posts or activities published yet.</p>';
+  }
+
+  // 3. Load Total Taka (Verified Donations Sum)
+  const donRes = await db.from('donations').select('amount').eq('status', 'verified');
+  if (donRes.data) {
+    const totalTaka = donRes.data.reduce((sum, item) => sum + Number(item.amount || 0), 0);
+    const totalDisplay = document.getElementById('totalDonationDisplay');
+    if (totalDisplay) {
+      totalDisplay.innerText = '৳' + totalTaka.toLocaleString();
+    }
   }
 }
 loadHomeCMSData();
 
-// Mobile Menu Toggle
 const menuBtn = document.querySelector('.menu');
 const nav = document.querySelector('nav');
 if (menuBtn && nav) {
