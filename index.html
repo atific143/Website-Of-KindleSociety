@@ -257,7 +257,6 @@ section{padding:60px 0}
 .media.live.reel iframe{height:480px}
 .strip{letter-spacing:.14em}
 }
-  /* ===== full-width desktop ===== */
 .wrap{max-width:none;padding:0 clamp(20px,5vw,120px)}
 @media(min-width:1200px){
   .rows,.appr{max-width:none}
@@ -354,10 +353,15 @@ section{padding:60px 0}
   </div>
 </section>
 
+<!-- CMS Live Projects Container -->
 <section class="work" id="work">
   <div class="wrap">
-    <h2>What we have done</h2>
+    <h2>What we have done &amp; Live Campaigns</h2>
     <p>Our activities since 2023 have been simple and direct, and they have always been for people close to home.</p>
+    
+    <!-- Dynamic projects from CMS will appear here automatically -->
+    <div id="liveProjectsContainer" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin:30px 0 40px;"></div>
+
     <div class="acts">
       <div><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/></svg></span><h3>Helping people in need</h3><p>Direct help for people and families who needed it most.</p></div>
       <div><span class="ic"><svg viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg></span><h3>Iftar distribution</h3><p>Iftar meals shared with people during Ramadan.</p></div>
@@ -391,7 +395,6 @@ section{padding:60px 0}
       <p>The leaders guiding KindleSociety toward youth leadership, social development and humanitarian impact.</p>
       <span class="term cap">Board term: 2026 – 2028</span>
     </div>
-    <!-- Add a photo to a row by placing <img> inside it, or ask Claude for a photo version -->
     <div class="rows">
       <article class="row"><span class="av">SN</span><h3>Shahir Nuren</h3><p class="role">Co-Founder &amp; Board Chairman</p><p class="dept">Operations &amp; Fieldwork</p></article>
       <article class="row"><span class="av">AA</span><h3>Atifur Rahman Ayman</h3><p class="role">Founder &amp; Board Vice Chairman</p><p class="dept">Executive &amp; Strategy</p></article>
@@ -479,27 +482,68 @@ section{padding:60px 0}
 </main>
 
 <footer>
-  <div class="dark">
-    <div class="wrap main">
-      <div><a class="brand" href="#top"><img src="logo.png" alt=""><span>KINDLE<em>SOCIETY</em></span></a><p>A registered non-profit youth organization.</p><p class="regno">Reg No: DSS/CTG/2026/04821 | BNPC-ID: 2026-BNPC-9104</p></div>
-      <div><h4 class="cap">Explore</h4><ul><li><a href="#about">About</a></li><li><a href="#work">Our work</a></li><li><a href="#events">Events</a></li><li><a href="#board">Board of Founders</a></li><li><a href="#how">How we run</a></li><li><a href="#governance">Governance</a></li><li><a href="donate.html">Donate</a></li><li><a href="track.html">Track a donation</a></li><li><a href="transparency.html">Transparency</a></li><li><a href="https://join-kindlesociety.vercel.app/" target="_blank" rel="noopener">Join us</a></li></ul></div>
-      <div><h4 class="cap">Contact</h4><ul><li><a href="https://www.facebook.com/kindlesociety.org" target="_blank" rel="noopener">Facebook</a></li><li><a href="https://www.instagram.com/kindlesociety__org" target="_blank" rel="noopener">Instagram</a></li><li>&copy; 2026 KindleSociety</li></ul></div>
+  <div class="wrap main">
+    <div>
+      <a class="brand" href="#top"><img src="logo.png" alt="Logo"><span>KINDLE<em>SOCIETY</em></span></a>
+      <p>Building Leaders. Inspiring Change.</p>
+      <p class="regno">Registered non-profit youth organization</p>
+    </div>
+    <div>
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#work">Our Work</a></li>
+        <li><a href="#board">Founders Board</a></li>
+        <li><a href="donate.html">Donate</a></li>
+      </ul>
     </div>
   </div>
-  <div class="strip cap">Building Leaders. Inspiring Change.</div>
+  <div class="strip">KINDLESOCIETY • ESTABLISHED 2023</div>
 </footer>
-<script>
-document.querySelectorAll('.play').forEach(function(b){b.addEventListener('click',function(){
-var u=encodeURIComponent(b.dataset.url),k=b.dataset.kind,f=document.createElement('iframe');
-f.src=k==='post'?'https://www.facebook.com/plugins/post.php?href='+u+'&show_text=true&width=500':'https://www.facebook.com/plugins/video.php?href='+u+'&show_text=false&width=560';
-f.title=b.dataset.title;f.allowFullscreen=true;f.loading='lazy';
-f.allow='autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share';
-var m=b.parentNode;m.classList.add('live',k);m.replaceChildren(f);});});
-var mb=document.querySelector('.menu'),nv=document.getElementById('nav');
-mb.addEventListener('click',function(){var o=nv.classList.toggle('open');mb.setAttribute('aria-expanded',o)});
-nv.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){nv.classList.remove('open');mb.setAttribute('aria-expanded','false')})});
-</script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.0/dist/umd/supabase.min.js"></script>
+
+<!-- Supabase & CMS Live Sync Script -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.0/dist/umd/supabase.min.js"></script>
 <script src="config.js"></script>
+<script>
+async function loadHomeLiveProjects() {
+  if (!window.KS || window.KS.SUPABASE_URL.includes('YOUR-')) return;
+  const db = supabase.createClient(window.KS.SUPABASE_URL, window.KS.SUPABASE_ANON_KEY);
+  
+  const { data, error } = await db.from('programs').select('*').eq('status', 'live').order('created_at', { ascending: false });
+  const container = document.getElementById('liveProjectsContainer');
+  if (!container) return;
+  
+  if (error || !data || !data.length) {
+    container.style.display = 'none';
+    return;
+  }
+
+  container.innerHTML = data.map(p => `
+    <div style="background:#fff;border:1.5px solid #d4e2d8;border-radius:18px;padding:24px;box-shadow:0 10px 30px rgba(6,47,37,0.05);display:flex;flex-direction:column;gap:12px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <span style="background:#dcfce7;color:#166534;padding:4px 10px;border-radius:999px;font-size:0.72rem;font-weight:700;text-transform:uppercase;">Live Campaign</span>
+        ${p.budget ? `<span style="font-size:0.85rem;font-weight:600;color:#0a5c45;">Goal: ৳${Number(p.budget).toLocaleString()}</span>` : ''}
+      </div>
+      <h3 style="font-family:'Fraunces',Georgia,serif;font-size:1.25rem;color:#0b2a22;">${p.name}</h3>
+      <p style="font-size:0.9rem;color:#536b60;flex:1;">${p.note || 'Support this ongoing initiative to create positive impact.'}</p>
+      <a href="donate.html" style="display:inline-flex;align-items:center;justify-content:center;gap:6px;background:#0a5c45;color:#fff;text-decoration:none;padding:10px 18px;border-radius:12px;font-weight:600;font-size:0.88rem;margin-top:auto;">
+        Donate to Campaign &rarr;
+      </a>
+    </div>
+  `).join('');
+}
+loadHomeLiveProjects();
+
+// Mobile Menu Toggle Script
+const menuBtn = document.querySelector('.menu');
+const nav = document.querySelector('nav');
+if (menuBtn && nav) {
+  menuBtn.onclick = () => {
+    const expanded = menuBtn.getAttribute('aria-expanded') === 'true';
+    menuBtn.setAttribute('aria-expanded', !expanded);
+    nav.classList.toggle('open');
+  };
+}
+</script>
 </body>
 </html>
