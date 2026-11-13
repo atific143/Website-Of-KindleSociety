@@ -146,11 +146,24 @@ td a{color:var(--forest);font-weight:600}
 }
 @media(max-width:380px){.sum{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-.danger{border-top:5px solid #c0392b}.danger h2{color:#c0392b}.cap{display:block;margin:10px 0;border-radius:10px;border:1px solid #cfdcd3;max-width:100%}.chk{display:flex;gap:8px;align-items:center;font-weight:500;margin:10px 0}.chk input{width:auto}details.card summary{list-style:none}details.card[open] summary{margin-bottom:14px}.rcbox{border:2px dashed #9fcaa8;border-radius:14px;padding:14px 16px;margin:16px 0;background:#f4faf5}.rcbox b{display:block}.rcbox input{margin-top:8px}</style><link rel="stylesheet" href="mobile.css"><link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png"><link rel="apple-touch-icon" href="apple-touch-icon.png"></head><body>
+.danger{border-top:5px solid #c0392b}.danger h2{color:#c0392b}.cap{display:block;margin:10px 0;border-radius:10px;border:1px solid #cfdcd3;max-width:100%}.chk{display:flex;gap:8px;align-items:center;font-weight:500;margin:10px 0}.chk input{width:auto}details.card summary{list-style:none}details.card[open] summary{margin-bottom:14px}.rcbox{border:2px dashed #9fcaa8;border-radius:14px;padding:14px 16px;margin:16px 0;background:#f4faf5}.rcbox b{display:block}.rcbox input{margin-top:8px}
+/* floating graphics */
+.fl{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.fl i{position:absolute;display:grid;place-items:center;font-style:normal;border-radius:50%;background:rgba(255,255,255,.09);border:1.5px solid rgba(76,175,95,.35);backdrop-filter:blur(3px);animation:flt 9s ease-in-out infinite}
+.fl i:nth-child(1){width:74px;height:74px;font-size:30px;left:6%;top:62%}
+.fl i:nth-child(2){width:52px;height:52px;font-size:22px;right:12%;top:18%;animation-delay:-3s;background:rgba(242,106,27,.18);border-color:rgba(242,106,27,.4)}
+.fl i:nth-child(3){width:40px;height:40px;font-size:17px;right:28%;bottom:12%;animation-delay:-6s}
+.fl i:nth-child(4){width:60px;height:60px;font-size:26px;left:42%;top:8%;animation-delay:-2s}
+@keyframes flt{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-22px) rotate(8deg)}}
+.lg-art>*:not(.fl):not(.arc),.band>*:not(.fl):not(.arc){position:relative;z-index:1}
+.live-dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--mint);margin-right:6px;box-shadow:0 0 0 0 rgba(76,175,95,.7);animation:pls 2s infinite}
+@keyframes pls{70%{box-shadow:0 0 0 9px rgba(76,175,95,0)}100%{box-shadow:0 0 0 0 rgba(76,175,95,0)}}
+@media(prefers-reduced-motion:reduce){.fl i,.live-dot{animation:none}}
+</style><link rel="stylesheet" href="mobile.css"><link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="stylesheet" href="mobile.css"><link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"><link rel="apple-touch-icon" href="apple-touch-icon.png"></head><body>
 <div id="setup" class="msg warn setup" hidden>This page is not connected yet. Fill in config.js (see SETUP.txt).</div>
 
 <section id="login" class="lg">
-  <div class="lg-art">
+  <div class="lg-art"><div class="fl" aria-hidden="true"><i>🪙</i><i>🌱</i><i>💚</i><i>📈</i></div>
     <div class="arc" style="width:640px;height:640px;right:-260px;top:-200px"></div>
     <div class="arc" style="width:420px;height:420px;right:-120px;top:-80px"></div>
     <div class="brand"><img src="logo.png" alt="KindleSociety logo"><span>KINDLE<em>SOCIETY</em></span></div>
@@ -180,10 +193,10 @@ td a{color:var(--forest);font-weight:600}
     <div class="sidefoot"><b>The Bank Of KindleSociety</b><p>(Financial Portal)<br>Every verified donation can be followed by the donor.</p></div>
   </aside>
   <div class="mainc">
-    <div class="band">
+    <div class="band"><div class="fl" aria-hidden="true"><i>🪙</i><i>🌱</i><i>💚</i><i>📈</i></div>
       <div class="arc a1"></div><div class="arc a2"></div>
       <header class="topb">
-        <div class="tl"><img class="mlogo" src="logo.png" alt=""><div><h1 id="ptitle">Donations</h1><div class="date" id="pdate"></div></div></div>
+        <div class="tl"><img class="mlogo" src="logo.png" alt=""><div><h1 id="ptitle">Donations</h1><div class="date" id="pdate"></div><div class="date"><span class="live-dot"></span>Live: updates automatically</div></div></div>
         <div class="user"><span class="av2" id="uav">K</span><div class="ut"><span id="who"></span><span id="role"></span></div><a class="out" id="logout" href="#" title="Sign out" aria-label="Sign out" hidden><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4H5v16h4M16 8l4 4-4 4M20 12H9"/></svg></a></div>
       </header>
       <div class="sum" id="sum"></div>
@@ -217,7 +230,11 @@ var POS=['Founder','Chairman','Secretary','Treasurer','Board member','Department
 function canW(){return ROLE==='admin'||ROLE==='finance'}
 function isOwner(){return ROLE==='admin'}
 function btns(a,b){var w=el('div');w.append(a,b);return w}
-function show(on){$('login').hidden=on;$('panel').hidden=!on;$('logout').hidden=!on}
+var RT=null,RTT=null;
+function live(){if(RT||!ready)return;var go=function(){clearTimeout(RTT);RTT=setTimeout(function(){var a=document.activeElement;if(a&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)&&$('panel').contains(a)){go();return}load()},1500)};
+ RT=db.channel('bank-live');['programs','donations','expenses','allocations'].forEach(function(t){RT.on('postgres_changes',{event:'*',schema:'public',table:t},go)});RT.subscribe()}
+function unlive(){if(RT){db.removeChannel(RT);RT=null}}
+function show(on){$('login').hidden=on;$('panel').hidden=!on;$('logout').hidden=!on;if(on)live();else unlive()}
 async function boot(){if(!ready)return;var s=await db.auth.getSession();if(s.data.session){EMAIL=(s.data.session.user||{}).email||'';show(true);load()}}
 $('lf').addEventListener('submit',async function(e){e.preventDefault();var le=$('lerr');le.hidden=true;if(!ready){le.textContent='Not connected yet.';le.hidden=false;return}
  var r=await db.auth.signInWithPassword({email:$('em').value.trim(),password:$('pw').value});
