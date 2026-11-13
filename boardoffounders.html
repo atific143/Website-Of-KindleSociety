@@ -1,0 +1,131 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="robots" content="noindex"><meta name="theme-color" content="#062f25">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif:wght@600;700&family=Noto+Sans+Bengali:wght@500;700&display=swap" rel="stylesheet">
+<title>KindleSociety Board Portal</title>
+<style>
+:root{--deep:#062f25;--forest:#0a5c45;--mint:#4caf5f;--mist:#eaf4ec;--ink:#0b2a22;--soft:#3f5a50;--ember:#f26a1b;--amber:#f5a524;--serif:"Noto Serif","Noto Sans Bengali",Georgia,serif;--sans:Inter,"Noto Sans Bengali",system-ui,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}[hidden]{display:none!important}
+body{font-family:var(--sans);background:var(--mist);color:var(--ink);line-height:1.6;overflow-x:hidden}
+.dark{background:radial-gradient(ellipse at 70% 30%,#0c6b52,var(--deep) 85%);color:#fff;position:relative;overflow:hidden}
+.fl{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.fl i{position:absolute;display:grid;place-items:center;font-style:normal;border-radius:50%;background:rgba(255,255,255,.09);border:1.5px solid rgba(76,175,95,.4);animation:f 9s ease-in-out infinite}
+.fl i:nth-child(1){width:76px;height:76px;font-size:30px;left:7%;top:20%}.fl i:nth-child(2){width:50px;height:50px;font-size:20px;right:12%;top:16%;animation-delay:-3s;background:rgba(242,106,27,.18);border-color:rgba(242,106,27,.4)}
+.fl i:nth-child(3){width:62px;height:62px;font-size:26px;right:26%;bottom:10%;animation-delay:-6s}.fl i:nth-child(4){width:40px;height:40px;font-size:17px;left:30%;bottom:14%;animation-delay:-2s}
+@keyframes f{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-20px) rotate(8deg)}}
+@media(prefers-reduced-motion:reduce){.fl i{animation:none}}
+.brand{display:flex;align-items:center;gap:14px;font-weight:700;letter-spacing:.24em;font-size:.95rem;position:relative}.brand img{width:48px;height:48px;border-radius:50%}.brand em{font-style:normal;color:var(--mint)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;border:2px solid var(--mint);background:var(--mint);color:var(--deep);font:700 .92rem var(--sans);padding:10px 22px;border-radius:999px;cursor:pointer}
+.btn:hover{background:#5cc06e}.btn.line{background:transparent;color:var(--forest);border-color:var(--forest)}.btn.sm{min-height:36px;padding:6px 14px;font-size:.82rem}.btn.red{background:#fff;border-color:#c0392b;color:#c0392b}.btn.ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.5)}
+label{display:block;font-weight:600;font-size:.86rem;margin:14px 0 6px}
+input,select,textarea{width:100%;padding:12px 14px;border:1.5px solid #cfdcd3;border-radius:10px;font:inherit;font-size:16px;background:#fff;color:var(--ink)}
+input:focus,select:focus,textarea:focus{outline:3px solid rgba(76,175,95,.4);border-color:var(--mint)}
+.msg{padding:12px 14px;border-radius:10px;margin-top:14px;font-size:.9rem}.err{background:#fdecea;color:#8a1f12}.ok{background:#d6f0dc;color:var(--forest)}
+/* login */
+#login{min-height:100vh;display:grid;place-items:center;padding:24px}
+.lc{position:relative;background:#fff;color:var(--ink);border-radius:20px;border-top:6px solid var(--mint);padding:34px 30px;width:min(440px,100%);box-shadow:0 20px 50px rgba(0,0,0,.3)}
+.lc h1{font-family:var(--serif);font-size:1.6rem;margin:6px 0 4px}.lc p.s{color:var(--soft);font-size:.92rem}
+/* app */
+.top{padding:18px clamp(18px,4vw,56px) 70px}.bar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;position:relative}
+.user{display:flex;align-items:center;gap:12px}.user b{display:block;font-size:.92rem;line-height:1.2}.user small{color:#b9d6c3;font-size:.78rem}
+.av{width:42px;height:42px;border-radius:50%;background:var(--mint);color:var(--deep);display:grid;place-items:center;font-weight:700}
+.hello{position:relative;margin-top:26px}.hello h1{font-family:var(--serif);font-size:clamp(1.7rem,4.5vw,2.6rem);line-height:1.15}.hello p{color:#cfe5d6;margin-top:6px}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:0 clamp(18px,4vw,56px);margin-top:-30px;position:relative;z-index:2;scrollbar-width:none}
+.tab{flex:none;min-height:46px;border:0;background:#fff;color:var(--soft);font:600 .92rem var(--sans);padding:10px 20px;border-radius:14px;cursor:pointer;box-shadow:0 6px 18px rgba(6,47,37,.12)}
+.tab.on{background:var(--forest);color:#fff}
+main{padding:22px clamp(18px,4vw,56px) 80px;max-width:1280px;margin:0 auto}
+.card{background:#fff;border-radius:16px;border-top:5px solid var(--mint);padding:22px;box-shadow:0 6px 24px rgba(6,47,37,.08);margin-bottom:18px}
+.card h2{font-family:var(--serif);font-size:1.2rem;margin-bottom:10px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:18px}
+.stat{border-radius:16px;padding:16px;color:#fff;background:linear-gradient(135deg,#1f7a57,#3fb67f)}
+.stat:nth-child(2){background:linear-gradient(135deg,#e08a0b,#f5a524)}.stat:nth-child(3){background:linear-gradient(135deg,#3a77cf,#4a8fe7)}.stat:nth-child(4){background:linear-gradient(135deg,#0a5c45,#4caf5f)}.stat:nth-child(5){background:linear-gradient(135deg,#c0392b,#ef6f5e)}
+.stat b{display:block;font:700 2rem var(--serif);line-height:1.1}.stat span{font-size:.82rem;opacity:.92}
+.kan{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;align-items:start}
+.col{background:#dfeee3;border-radius:16px;padding:12px}.col h3{font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:var(--forest);margin:4px 6px 10px}
+.t{background:#fff;border-radius:12px;padding:14px;margin-bottom:10px;border-left:5px solid var(--mint);box-shadow:0 2px 8px rgba(6,47,37,.06)}
+.t.late{border-left-color:#c0392b}.t b{display:block;overflow-wrap:anywhere}.t p{font-size:.88rem;color:var(--soft);margin:4px 0;overflow-wrap:anywhere}
+.m{font-size:.78rem;color:var(--soft);display:flex;gap:8px;flex-wrap:wrap;margin:6px 0}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;background:#d6f0dc;color:var(--forest)}.pill.late{background:#fdecea;color:#8a1f12}.pill.r{background:#e8eefc;color:#2a4a9a}
+.acts{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.people{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.empty{text-align:center;color:var(--soft);padding:26px 10px}
+.bar2{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}.bar2 select{width:auto;min-width:160px}
+.live{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--mint);margin-right:6px;animation:p 2s infinite}@keyframes p{70%{box-shadow:0 0 0 9px rgba(76,175,95,0)}0%{box-shadow:0 0 0 0 rgba(76,175,95,.7)}}
+@media(max-width:860px){.kan{grid-template-columns:1fr}.row2{grid-template-columns:1fr}}
+.sec{font:700 .8rem var(--sans);text-transform:uppercase;letter-spacing:.1em;color:var(--forest);margin:20px 0 10px}</style><link rel="stylesheet" href="mobile.css"><link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"><link rel="apple-touch-icon" href="apple-touch-icon.png"></head><body>
+<section id="login" class="dark"><div class="fl" aria-hidden="true"><i>🏛️</i><i>📊</i><i>🌱</i><i>🗂️</i></div>
+ <form class="lc" id="lf"><div class="brand" style="color:var(--deep)"><img src="logo.png" alt="KindleSociety logo"><span>KINDLE<em>SOCIETY</em></span></div>
+ <h1>Board Portal</h1><p class="s">One place to see and manage everything. Board members only.</p>
+ <label for="em">Email</label><input id="em" type="email" required autocomplete="username"><label for="pw">Password</label><input id="pw" type="password" required autocomplete="current-password">
+ <button class="btn" style="margin-top:20px;width:100%">Sign in</button><div class="msg err" id="le" hidden></div></form></section>
+<div id="app" hidden>
+ <header class="dark top"><div class="fl" aria-hidden="true"><i>🏛️</i><i>📊</i><i>🌱</i><i>🗂️</i></div>
+  <div class="bar"><div class="brand"><img src="logo.png" alt="KindleSociety logo"><span>KINDLE<em>SOCIETY</em></span></div>
+  <div class="user"><span class="av" id="av">K</span><div><b id="un"></b><small>Board member</small></div><button class="btn sm ghost" id="out">Sign out</button></div></div>
+  <div class="hello"><h1 id="hi"></h1><p><span class="live"></span>Live: updates automatically</p></div></header>
+ <nav class="tabs" id="tabs"></nav><main id="main"></main></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.0/dist/umd/supabase.min.js"></script><script src="config.js"></script>
+<script>
+var K=window.KS,$=function(i){return document.getElementById(i)};
+function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+var ready=K&&K.SUPABASE_URL&&K.SUPABASE_URL.indexOf('YOUR-')<0,db=ready?supabase.createClient(K.SUPABASE_URL,K.SUPABASE_ANON_KEY):null;
+var ME=null,TAB='over',RT=null,RTT=null,FD='pending',D={don:[],prog:[],exp:[],posts:[],pages:[],tasks:[],ppl:[],dept:[],ann:{}};
+var TABS=[['over','Overview'],['fin','Finance'],['prog','Programs'],['web','Website'],['task','Tasks'],['ppl','People']];
+var ST=[['todo','To do'],['doing','In progress'],['done','Done']];
+function money(n){return '\u09F3'+Number(n||0).toLocaleString('en-US',{maximumFractionDigits:2})}
+function today(){var d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function fdt(d){return new Date(d).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}
+function dn(id){var d=D.dept.find(function(x){return x.id===id});return d?d.name:'No department'}
+function pn(id){var p=D.ppl.find(function(x){return x.user_id===id});return p?p.full_name:'Unassigned'}
+function prn(id){var p=D.prog.find(function(x){return x.id===id});return p?p.name:'General fund'}
+function toast(t,ok){var m=$('toast');if(!m){m=el('div','msg');m.id='toast';m.style.cssText='position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:50;max-width:90vw;box-shadow:0 8px 24px rgba(0,0,0,.2)';document.body.append(m)}
+ m.className='msg '+(ok?'ok':'err');m.textContent=t;m.hidden=false;clearTimeout(m._t);m._t=setTimeout(function(){m.hidden=true},3800)}
+$('lf').addEventListener('submit',async function(e){e.preventDefault();var le=$('le');le.hidden=true;if(!ready){le.textContent='Not connected yet.';le.hidden=false;return}
+ var r=await db.auth.signInWithPassword({email:$('em').value.trim(),password:$('pw').value});if(r.error){le.textContent='Wrong email or password.';le.hidden=false;return}enter()});
+$('out').onclick=async function(){await db.auth.signOut();if(RT){db.removeChannel(RT);RT=null}ME=null;$('app').hidden=true;$('login').hidden=false;$('pw').value=''};
+async function enter(){var s=await db.auth.getSession();if(!s.data.session)return;var r=await db.from('profiles').select('*').eq('user_id',s.data.session.user.id).maybeSingle(),le=$('le');
+ if(r.error||!r.data||!r.data.active||r.data.role!=='board'){await db.auth.signOut();le.textContent='This portal is for Board members only.';le.hidden=false;return}
+ ME=r.data;$('login').hidden=true;$('app').hidden=false;$('un').textContent=ME.full_name;$('av').textContent=ME.full_name.trim().charAt(0).toUpperCase();$('hi').textContent='Welcome, '+ME.full_name;
+ var n=$('tabs');n.replaceChildren();TABS.forEach(function(x){var b=el('button','tab'+(x[0]===TAB?' on':''),x[1]);b.onclick=function(){TAB=x[0];n.querySelectorAll('.tab').forEach(function(y){y.classList.toggle('on',y===b)});render()};n.append(b)});await load();live()}
+async function load(){var r=await Promise.all([db.from('donations').select('*').order('created_at',{ascending:false}),db.from('programs').select('*').order('created_at',{ascending:false}),db.from('expenses').select('amount,deleted_at'),db.from('site_posts').select('*').order('created_at',{ascending:false}),db.from('site_pages').select('*').order('created_at',{ascending:false}),db.from('tasks').select('*').order('created_at',{ascending:false}),db.from('profiles').select('*').order('created_at'),db.from('departments').select('*').order('id'),db.from('site_settings').select('*').eq('key','announcement')]);
+ D.don=r[0].data||[];D.prog=r[1].data||[];D.exp=(r[2].data||[]).filter(function(e){return !e.deleted_at});D.posts=r[3].data||[];D.pages=r[4].data||[];D.tasks=r[5].data||[];D.ppl=r[6].data||[];D.dept=r[7].data||[];D.ann=((r[8].data||[])[0]||{}).value||{};render()}
+function live(){if(RT)return;var go=function(){clearTimeout(RTT);RTT=setTimeout(function(){var a=document.activeElement;if(a&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)){go();return}load()},1500)};
+ RT=db.channel('board-live');['donations','programs','expenses','tasks','profiles','site_posts','site_pages','site_settings'].forEach(function(t){RT.on('postgres_changes',{event:'*',schema:'public',table:t},go)});RT.subscribe()}
+function render(){var m=$('main');m.replaceChildren();({over:over,fin:fin,prog:prog,web:web,task:task,ppl:ppl})[TAB](m)}
+function item(t,sub,pills,acts){var d=el('div','t');d.append(el('b','',t));if(sub)d.append(el('p','',sub));if(pills&&pills.length){var m=el('div','m');pills.forEach(function(p){m.append(el('span','pill '+(p[1]||''),p[0]))});d.append(m)}
+ if(acts&&acts.length){var a=el('div','acts');acts.forEach(function(x){var b=el('button','btn sm '+(x[2]||'line'),x[0]);b.onclick=x[1];a.append(b)});d.append(a)}return d}
+async function upd(tb,id,patch,msg){var r=await db.from(tb).update(patch).eq(tb==='profiles'?'user_id':'id',id);if(r.error)toast('Could not save: '+r.error.message);else{toast(msg||'Saved',true);load()}}
+function mk(m,title,fields,btn,fn){var c=el('div','card'),f=el('form'),I={};c.append(el('h2','',title));
+ fields.forEach(function(x){var i;if(x[1]==='select'){i=el('select');x[3].forEach(function(o){var p=el('option','',o[1]);p.value=o[0];i.append(p)})}else if(x[1]==='textarea'){i=el('textarea');i.rows=3}else{i=el('input');i.type=x[1]}if(x[4])i.required=true;f.append(el('label','',x[0]),i);I[x[2]]=i});
+ var b=el('button','btn',btn);b.style.marginTop='16px';f.append(b);f.onsubmit=async function(e){e.preventDefault();b.disabled=true;var v={};Object.keys(I).forEach(function(k){v[k]=I[k].value.trim()});var ok=await fn(v);b.disabled=false;if(ok)f.reset()};c.append(f);m.append(c);return I}
+function over(m){var ver=D.don.filter(function(d){return d.status==='verified'}),pen=D.don.filter(function(d){return d.status==='pending'}),open=D.tasks.filter(function(t){return t.status!=='done'}),late=open.filter(function(t){return t.due_date&&t.due_date<today()}),s=el('div','stats');
+ [['Verified donations',money(ver.reduce(function(a,d){return a+Number(d.amount||0)},0))],['Waiting for check',pen.length],['Recorded expenses',money(D.exp.reduce(function(a,e){return a+Number(e.amount||0)},0))],['Open tasks',open.length],['Overdue tasks',late.length]].forEach(function(x){var d=el('div','stat');d.append(el('b','',x[1]),el('span','',x[0]));s.append(d)});m.append(s);
+ var c=el('div','card');c.append(el('h2','','Donations waiting for your check'));if(!pen.length)c.append(el('div','empty','Nothing waiting.'));pen.slice(0,5).forEach(function(d){c.append(donCard(d))});m.append(c);
+ var c2=el('div','card');c2.append(el('h2','','Live programs'));var lv=D.prog.filter(function(p){return p.status==='live'});if(!lv.length)c2.append(el('div','empty','No live programs.'));lv.forEach(function(p){c2.append(item(p.name,p.note,[[money(p.budget||0)+' goal','r']]))});m.append(c2);
+ var c3=el('div','card');c3.append(el('h2','','People'));c3.append(el('p','',D.ppl.filter(function(p){return p.active}).length+' active accounts across '+D.dept.length+' departments.'));m.append(c3)}
+function donCard(d){var pl=[[d.status,d.status==='rejected'?'late':'']];if(d.fund_type&&d.fund_type!=='general')pl.push([d.fund_type,'r']);
+ var ac=[];if(d.status==='pending'){ac.push(['Verify',function(){if(confirm('Verify '+money(d.amount)+' (TrxID '+d.tx_id+')? Check it against your bKash/Nagad records first.'))upd('donations',d.id,{status:'verified',verified_at:new Date().toISOString()},'Donation verified')},'']);
+  ac.push(['Reject',function(){var w=prompt('Reason for rejecting?');if(w)upd('donations',d.id,{status:'rejected',admin_note:w},'Donation rejected')},'red'])}
+ return item(money(d.amount)+' · '+(d.donor_name||'Anonymous'),d.method+' · TrxID '+d.tx_id+' · '+d.donor_id+' · '+prn(d.program_id)+' · '+fdt(d.created_at),pl,ac)}
+function fin(m){var b=el('div','bar2'),sf=el('select');[['pending','Waiting'],['verified','Verified'],['rejected','Rejected'],['','All']].forEach(function(x){var o=el('option','',x[1]);o.value=x[0];sf.append(o)});sf.value=FD;sf.onchange=function(){FD=sf.value;render()};b.append(sf);m.append(b);
+ var l=D.don.filter(function(d){return !FD||d.status===FD});var c=el('div','card');c.append(el('h2','','Donations ('+l.length+')'));
+ if(!l.length)c.append(el('div','empty',D.don.length?'Nothing here.':'No donations to show. If you expect some, this account may not be on the Finance admins list yet.'));l.slice(0,60).forEach(function(d){c.append(donCard(d))});if(l.length>60)c.append(el('p','','Showing the newest 60.'));m.append(c)}
+function prog(m){mk(m,'Add a program or campaign',[['Name','text','name',0,1],['Status','select','st',[['planned','Planned'],['live','Live'],['completed','Completed']]],['Budget (BDT)','number','bud'],['Short note (shown on the website)','textarea','note']],'Add program',async function(v){var r=await db.from('programs').insert({name:v.name,status:v.st,budget:v.bud?Number(v.bud):null,note:v.note||null});if(r.error){toast('Could not add: '+r.error.message);return false}toast('Program added',true);load();return true});
+ var c=el('div','card');c.append(el('h2','','All programs ('+D.prog.length+')'));if(!D.prog.length)c.append(el('div','empty','No programs yet.'));
+ D.prog.forEach(function(p){var ac=[];[['planned','Planned'],['live','Live'],['completed','Completed']].forEach(function(x){if(x[0]!==p.status)ac.push(['Set '+x[1],function(){upd('programs',p.id,{status:x[0]},'Program updated')}])});c.append(item(p.name,p.note,[[p.status],[money(p.budget||0)+' goal','r']],ac))});m.append(c)}
+function web(m){var I=mk(m,'Notice bar on the website',[['Show it?','select','on',[['1','Yes'],['0','No']]],['Text','text','text'],['Link (optional, https://...)','url','link']],'Save notice',async function(v){var r=await db.from('site_settings').upsert({key:'announcement',value:{active:v.on==='1',text:v.text,link:v.link},updated_at:new Date().toISOString()});if(r.error){toast('Could not save: '+r.error.message);return false}toast('Notice saved. It is live.',true);return false});
+ I.on.value=D.ann.active?'1':'0';I.text.value=D.ann.text||'';I.link.value=D.ann.link||'';
+ var c=el('div','card');c.append(el('h2','','Blog & activity posts ('+D.posts.length+')'));if(!D.posts.length)c.append(el('div','empty','No posts.'));
+ D.posts.forEach(function(p){c.append(item(p.title,p.category||'',[[p.is_published?'Published':'Hidden',p.is_published?'':'late']],[[p.is_published?'Hide':'Publish',function(){upd('site_posts',p.id,{is_published:!p.is_published},'Post updated')}]]))});m.append(c);
+ var c2=el('div','card');c2.append(el('h2','','Custom pages ('+D.pages.length+')'));if(!D.pages.length)c2.append(el('div','empty','No custom pages.'));
+ D.pages.forEach(function(p){c2.append(item(p.title,'page.html?p='+p.slug,[[p.show_in_nav?'In menu':'Not in menu',p.show_in_nav?'':'late']],[[p.show_in_nav?'Remove from menu':'Show in menu',function(){upd('site_pages',p.id,{show_in_nav:!p.show_in_nav},'Page updated')}],['Delete',function(){if(confirm('Delete this page?')){db.from('site_pages').delete().eq('id',p.id).then(function(r){if(r.error)toast(r.error.message);else load()})}},'red']]))});m.append(c2)}
+function task(m){var who=[['','Anyone in the department']];D.ppl.filter(function(p){return p.active&&p.role!=='board'}).forEach(function(p){who.push([p.user_id,p.full_name+' ('+p.role+')'])});
+ mk(m,'Assign a task',[['Task title','text','title',0,1],['Details','textarea','det'],['Department','select','dep',D.dept.map(function(d){return [String(d.id),d.name]})],['Assign to','select','to',who],['Due date','date','due']],'Assign task',async function(v){var p=D.ppl.find(function(x){return x.user_id===v.to});var r=await db.from('tasks').insert({title:v.title,details:v.det||null,dept_id:p&&p.dept_id?p.dept_id:Number(v.dep),assigned_to:v.to||null,assigned_by:ME.user_id,due_date:v.due||null});if(r.error){toast('Could not assign: '+r.error.message);return false}toast('Task assigned',true);load();return true});
+ var c=el('div','card');c.append(el('h2','','All tasks ('+D.tasks.length+')'));if(!D.tasks.length)c.append(el('div','empty','No tasks yet.'));
+ D.tasks.forEach(function(t){var late=t.due_date&&t.status!=='done'&&t.due_date<today(),pl=[[t.status],[dn(t.dept_id),'r'],['For: '+pn(t.assigned_to)]];if(t.due_date)pl.push(['Due '+fdt(t.due_date),late?'late':'']);
+  var ac=[];ST.forEach(function(x){if(x[0]!==t.status)ac.push([x[1],function(){upd('tasks',t.id,{status:x[0]},'Task updated')}])});ac.push(['Delete',function(){if(confirm('Delete this task?'))db.from('tasks').delete().eq('id',t.id).then(function(r){if(r.error)toast(r.error.message);else load()})},'red']);c.append(item(t.title,t.details,pl,ac))});m.append(c)}
+function ppl(m){mk(m,'Give someone a role',[['Their login email (create the login in Supabase first)','email','em',0,1],['Full name','text','nm',0,1],['Role','select','rl',[['head','Head of department'],['member','Team member'],['volunteer','Volunteer'],['board','Board member']]],['Department','select','dp',[['','None']].concat(D.dept.map(function(d){return [String(d.id),d.name]}))]],'Save role',async function(v){var r=await db.rpc('board_set_profile',{p_email:v.em,p_name:v.nm,p_role:v.rl,p_dept:v.dp?Number(v.dp):null});if(r.error){toast(r.error.message);return false}toast('Role saved',true);load();return true});
+ var c=el('div','card');c.append(el('h2','','Everyone ('+D.ppl.length+')'));D.ppl.forEach(function(p){var ac=[];if(p.user_id!==ME.user_id)ac.push([p.active?'Turn off access':'Turn on access',function(){upd('profiles',p.user_id,{active:!p.active},'Access updated')},p.active?'red':'']);
+  c.append(item(p.full_name,dn(p.dept_id),[[p.role,'r'],[p.active?'Active':'Off',p.active?'':'late']],ac))});m.append(c)}
+(async function(){if(ready){var s=await db.auth.getSession();if(s.data.session)enter()}})();
+</script></body></html>
