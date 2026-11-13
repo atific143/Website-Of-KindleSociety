@@ -618,8 +618,24 @@ if (menuBtn && nav) {
 }
 </script>
 <script>
-(function(){try{if(!window.KS||KS.SUPABASE_URL.includes('YOUR-'))return;var r=supabase.createClient(KS.SUPABASE_URL,KS.SUPABASE_ANON_KEY),t;var go=function(){clearTimeout(t);t=setTimeout(loadHomeCMSData,1500)};
-r.channel('home-live').on('postgres_changes',{event:'*',schema:'public',table:'programs'},go).on('postgres_changes',{event:'*',schema:'public',table:'site_posts'},go).on('postgres_changes',{event:'*',schema:'public',table:'donations'},go).subscribe()}catch(e){}})();
+async function loadSite(){try{if(!window.KS||KS.SUPABASE_URL.includes('YOUR-'))return;var d=supabase.createClient(KS.SUPABASE_URL,KS.SUPABASE_ANON_KEY),q=function(s){return document.querySelector(s)};
+ var pg=await d.from('site_pages').select('title,slug').eq('show_in_nav',true).order('created_at');
+ document.querySelectorAll('[data-dyn]').forEach(function(n){n.remove()});
+ var ul=q('nav ul'),jb=ul&&ul.querySelector('.navbtn');
+ if(ul&&pg.data)pg.data.forEach(function(p){var li=document.createElement('li'),a=document.createElement('a');a.href='page.html?p='+encodeURIComponent(p.slug);a.textContent=p.title;li.dataset.dyn='1';li.append(a);ul.insertBefore(li,jb?jb.parentNode:null)});
+ var ql=q('footer ul');if(ql&&pg.data)pg.data.forEach(function(p){var li=document.createElement('li'),a=document.createElement('a');a.href='page.html?p='+encodeURIComponent(p.slug);a.textContent=p.title;li.dataset.dyn='1';li.append(a);ql.append(li)});
+ var st=await d.from('site_settings').select('key,value'),s={};(st.data||[]).forEach(function(r){s[r.key]=r.value||{}});
+ var g=s.general_info||{};if(g.hero_title&&q('.hero h1'))q('.hero h1').textContent=g.hero_title;if(g.hero_subtitle&&q('.hero-text p'))q('.hero-text p').textContent=g.hero_subtitle;
+ var an=s.announcement,nb=document.getElementById('noticebar');if(nb)nb.remove();
+ if(an&&an.active&&an.text){nb=document.createElement('div');nb.id='noticebar';nb.style.cssText='background:#f5a524;color:#3a2600;text-align:center;padding:10px 16px;font-weight:600;font-size:.92rem';
+  var t=document.createElement(/^https?:\/\//.test(an.link||'')?'a':'span');t.textContent=an.text;if(t.tagName==='A'){t.href=an.link;t.style.color='inherit';t.target='_blank';t.rel='noopener'}nb.append(t);document.body.prepend(nb)}
+ var im=s.impact_stats||{},sc=document.querySelectorAll('.stats div');
+ [[2,im.families_helped,'Families helped'],[3,im.volunteers,'Volunteers']].forEach(function(x){if(x[1]&&sc[x[0]]){sc[x[0]].querySelector('b').textContent=x[1];sc[x[0]].querySelector('span').textContent=x[2]}});
+ var fc=q('footer .wrap.main>div');if(fc&&(g.contact_email||g.contact_phone||g.address)&&!document.getElementById('fcon')){var p=document.createElement('p');p.id='fcon';p.textContent=[g.contact_email,g.contact_phone,g.address].filter(Boolean).join(' · ');fc.append(p)}
+}catch(e){}}
+loadSite();
+(function(){try{if(!window.KS||KS.SUPABASE_URL.includes('YOUR-'))return;var r=supabase.createClient(KS.SUPABASE_URL,KS.SUPABASE_ANON_KEY),t;var go=function(){clearTimeout(t);t=setTimeout(function(){loadHomeCMSData();loadSite()},1500)};
+r.channel('home-live').on('postgres_changes',{event:'*',schema:'public',table:'programs'},go).on('postgres_changes',{event:'*',schema:'public',table:'site_posts'},go).on('postgres_changes',{event:'*',schema:'public',table:'donations'},go).on('postgres_changes',{event:'*',schema:'public',table:'site_pages'},go).on('postgres_changes',{event:'*',schema:'public',table:'site_settings'},go).subscribe()}catch(e){}})();
 </script>
 </body>
 </html>
